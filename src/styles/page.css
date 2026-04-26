@@ -1,0 +1,14 @@
+.page {
+  width: var(--page-width);
+  min-height: 1056px; /* US Letter at 96dpi */
+  padding: var(--page-padding);
+  background: var(--color-paper);
+  box-shadow: var(--page-shadow);
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative;
+}
+
+.page + .page {
+  margin-top: 32px;
+}

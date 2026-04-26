@@ -1,0 +1,46 @@
+/* Eternum default palette. Values are hot-swappable per branding profile. */
+:root {
+  --color-ink-deepest: #0f2854;
+  --color-ink-deep: #1c4d8d;
+  --color-accent: #4988c4;
+  --color-accent-soft: #bde8f5;
+  --color-paper: #ffffff;
+  --color-paper-soft: #f7f9fc;
+  --color-rule: #e2e8f0;
+  --color-mute: #6b7b8c;
+  --color-ink-on-dark: #e8f0fa;
+
+  /* UI chrome (DM family). Document body uses the doc-* family below. */
+  --font-ui-sans: 'DM Sans', system-ui, sans-serif;
+  --font-ui-serif: 'DM Serif Display', Georgia, serif;
+  --font-ui-mono: 'DM Mono', ui-monospace, monospace;
+
+  /* Document fonts (Eternum default). Branding can override at runtime. */
+  --font-doc-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-doc-sans: 'Inter', 'IBM Plex Sans', system-ui, sans-serif;
+  --font-doc-mono: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace;
+
+  --page-width: 816px;
+  --page-padding: 96px;
+  --page-shadow: 0 1px 3px rgba(15, 40, 84, 0.06);
+
+  --radius-block: 8px;
+  --radius-pill: 4px;
+  --rule: 1px solid var(--color-rule);
+
+  /* UI chrome surface tokens (separate from branding palette so dark mode
+     does not affect the document canvas). */
+  --ui-surface: var(--color-paper);
+  --ui-surface-soft: var(--color-paper-soft);
+  --ui-rule: var(--color-rule);
+  --ui-ink: var(--color-ink-deepest);
+  --ui-ink-mute: var(--color-mute);
+}
+
+[data-theme='dark'] {
+  --ui-surface: #1b2236;
+  --ui-surface-soft: #141828;
+  --ui-rule: #2a3550;
+  --ui-ink: #d6e4f7;
+  --ui-ink-mute: #7a8ba0;
+}

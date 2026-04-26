@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+@import './tokens.css';
+@import './typography.css';
+@import './page.css';
+@import './print.css';
+
+@theme {
+  --font-sans: var(--font-ui-sans);
+  --font-serif: var(--font-ui-serif);
+  --font-mono: var(--font-ui-mono);
+
+  --color-ink-deepest: var(--color-ink-deepest);
+  --color-ink-deep: var(--color-ink-deep);
+  --color-accent: var(--color-accent);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-paper: var(--color-paper);
+  --color-paper-soft: var(--color-paper-soft);
+  --color-rule: var(--color-rule);
+  --color-mute: var(--color-mute);
+  --color-ink-on-dark: var(--color-ink-on-dark);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-ui-sans);
+  color: var(--color-ink-deepest);
+  background: var(--color-paper-soft);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+button {
+  font-family: inherit;
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "deny",
+    "suspicious": "deny",
+    "perf": "warn",
+    "style": "off"
+  },
+  "rules": {
+    "no-console": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
+    "react/no-array-index-key": "off",
+    "react/jsx-key": "warn",
+    "unicorn/no-null": "off",
+    "unicorn/filename-case": "off",
+    "unicorn/prefer-spread": "off",
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/no-array-callback-reference": "off",
+    "unicorn/no-array-reduce": "off",
+    "unicorn/no-useless-undefined": "off",
+    "no-alert": "warn",
+    "import/no-default-export": "off",
+    "typescript/no-explicit-any": "warn",
+    "typescript/no-non-null-assertion": "off"
+  },
+  "env": {
+    "browser": true,
+    "es2024": true
+  },
+  "ignorePatterns": ["dist", "node_modules", "samples"]
+}

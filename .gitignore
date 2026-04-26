@@ -1,0 +1,30 @@
+# deps
+node_modules
+
+# build
+dist
+dist-ssr
+*.local
+
+# logs
+logs
+*.log
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# env
+.env
+.env.*
+!.env.example
+
+# bun
+bun.lockb
