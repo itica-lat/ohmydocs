@@ -1,51 +1,37 @@
-import { useCallback } from "react"
-import {
-  Minus,
-  Plus,
-  ZoomIn,
-  ZoomOut,
-  FileText,
-  Code2,
-  Maximize2,
-  Minimize2,
-} from "lucide-react"
-import { useDocumentsStore } from "./store"
-import { useSettingsStore } from "@/features/settings/store"
-import { InsertMenu } from "./InsertMenu"
-import type { BlockType } from "@/blocks/types"
-import { insertBlock, withBlocks } from "./helpers"
-import { useT } from "@/lib/i18n"
+import { useCallback } from "react";
+import { Minus, Plus, ZoomIn, ZoomOut, FileText, Code2, Maximize2, Minimize2 } from "lucide-react";
+import { useDocumentsStore } from "./store";
+import { useSettingsStore } from "@/features/settings/store";
+import { InsertMenu } from "./InsertMenu";
+import type { BlockType } from "@/blocks/types";
+import { insertBlock, withBlocks } from "./helpers";
+import { useT } from "@/lib/i18n";
 
 export function Toolbar() {
-  const activeId = useDocumentsStore((s) => s.activeId)
-  const documents = useDocumentsStore((s) => s.documents)
-  const upsert = useDocumentsStore((s) => s.upsertDocument)
-  const zoom = useSettingsStore((s) => s.zoom)
-  const setZoom = useSettingsStore((s) => s.setZoom)
-  const viewMode = useSettingsStore((s) => s.viewMode)
-  const setViewMode = useSettingsStore((s) => s.setViewMode)
-  const zenMode = useSettingsStore((s) => s.zenMode)
-  const toggleZenMode = useSettingsStore((s) => s.toggleZenMode)
-  const t = useT()
+  const activeId = useDocumentsStore((s) => s.activeId);
+  const documents = useDocumentsStore((s) => s.documents);
+  const upsert = useDocumentsStore((s) => s.upsertDocument);
+  const zoom = useSettingsStore((s) => s.zoom);
+  const setZoom = useSettingsStore((s) => s.setZoom);
+  const viewMode = useSettingsStore((s) => s.viewMode);
+  const setViewMode = useSettingsStore((s) => s.setViewMode);
+  const zenMode = useSettingsStore((s) => s.zenMode);
+  const toggleZenMode = useSettingsStore((s) => s.toggleZenMode);
+  const t = useT();
 
-  const doc = activeId ? documents[activeId] : null
+  const doc = activeId ? documents[activeId] : null;
 
   const onInsert = useCallback(
     (type: BlockType) => {
-      if (!doc) return
-      upsert(
-        withBlocks(
-          doc,
-          insertBlock(doc.blocks as never, type, doc.blocks.length),
-        ),
-      )
+      if (!doc) return;
+      upsert(withBlocks(doc, insertBlock(doc.blocks as never, type, doc.blocks.length)));
     },
     [doc, upsert],
-  )
+  );
 
-  if (!doc) return null
+  if (!doc) return null;
 
-  const isHtml = viewMode === "html"
+  const isHtml = viewMode === "html";
 
   return (
     <div
@@ -122,7 +108,7 @@ export function Toolbar() {
         label={zenMode ? t("toolbar.exitZen") : t("toolbar.zen")}
       />
     </div>
-  )
+  );
 }
 
 function Button({
@@ -131,10 +117,10 @@ function Button({
   label,
   title,
 }: {
-  onClick: () => void
-  icon: React.ReactNode
-  label?: string
-  title?: string
+  onClick: () => void;
+  icon: React.ReactNode;
+  label?: string;
+  title?: string;
 }) {
   return (
     <button
@@ -158,7 +144,7 @@ function Button({
       {icon}
       {label}
     </button>
-  )
+  );
 }
 
 function Divider() {
@@ -166,5 +152,5 @@ function Divider() {
     <span style={{ width: 1, height: 18, background: "var(--ui-rule)" }}>
       <Minus size={0} />
     </span>
-  )
+  );
 }

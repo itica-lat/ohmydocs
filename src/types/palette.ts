@@ -8,10 +8,10 @@ export const PALETTE_TOKENS = [
   "rule",
   "mute",
   "ink-on-dark",
-] as const
+] as const;
 
-export type PaletteToken = typeof PALETTE_TOKENS[number]
-export type Palette = Record<PaletteToken, string>
+export type PaletteToken = (typeof PALETTE_TOKENS)[number];
+export type Palette = Record<PaletteToken, string>;
 
 export const ETERNUM_PALETTE: Palette = {
   "ink-deepest": "#0F2854",
@@ -23,4 +23,4 @@ export const ETERNUM_PALETTE: Palette = {
   rule: "#E2E8F0",
   mute: "#6B7B8C",
   "ink-on-dark": "#E8F0FA",
-}
+};

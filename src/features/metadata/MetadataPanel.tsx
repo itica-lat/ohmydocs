@@ -1,18 +1,18 @@
-import { Plus, Trash2 } from "lucide-react"
-import { useDocumentsStore } from "@/features/editor/store"
-import type { OhmyDocument } from "@/types/schemas"
+import { Plus, Trash2 } from "lucide-react";
+import { useDocumentsStore } from "@/features/editor/store";
+import type { OhmyDocument } from "@/types/schemas";
 
 export function MetadataPanel() {
-  const activeId = useDocumentsStore((s) => s.activeId)
-  const documents = useDocumentsStore((s) => s.documents)
-  const upsert = useDocumentsStore((s) => s.upsertDocument)
-  const doc = activeId ? documents[activeId] : null
-  if (!doc) return null
+  const activeId = useDocumentsStore((s) => s.activeId);
+  const documents = useDocumentsStore((s) => s.documents);
+  const upsert = useDocumentsStore((s) => s.upsertDocument);
+  const doc = activeId ? documents[activeId] : null;
+  if (!doc) return null;
 
   const update = (patch: Partial<OhmyDocument>) =>
-    upsert({ ...doc, ...patch, updatedAt: new Date().toISOString() })
+    upsert({ ...doc, ...patch, updatedAt: new Date().toISOString() });
   const updateMeta = (patch: Partial<OhmyDocument["metadata"]>) =>
-    update({ metadata: { ...doc.metadata, ...patch } })
+    update({ metadata: { ...doc.metadata, ...patch } });
 
   return (
     <div
@@ -24,11 +24,7 @@ export function MetadataPanel() {
       }}
     >
       <Field label="Title">
-        <input
-          value={doc.title}
-          onChange={(e) => update({ title: e.target.value })}
-          style={inp}
-        />
+        <input value={doc.title} onChange={(e) => update({ title: e.target.value })} style={inp} />
       </Field>
       <Field label="Author">
         <input
@@ -65,32 +61,31 @@ export function MetadataPanel() {
         onChange={(customFields) => updateMeta({ customFields })}
       />
     </div>
-  )
+  );
 }
 
 function CustomFields({
   fields,
   onChange,
 }: {
-  fields: Record<string, string>
-  onChange: (next: Record<string, string>) => void
+  fields: Record<string, string>;
+  onChange: (next: Record<string, string>) => void;
 }) {
-  const entries = Object.entries(fields)
+  const entries = Object.entries(fields);
   const setKey = (oldKey: string, newKey: string) => {
-    if (!newKey || oldKey === newKey) return
-    const next = { ...fields }
-    next[newKey] = next[oldKey] ?? ""
-    delete next[oldKey]
-    onChange(next)
-  }
-  const setVal = (key: string, val: string) =>
-    onChange({ ...fields, [key]: val })
+    if (!newKey || oldKey === newKey) return;
+    const next = { ...fields };
+    next[newKey] = next[oldKey] ?? "";
+    delete next[oldKey];
+    onChange(next);
+  };
+  const setVal = (key: string, val: string) => onChange({ ...fields, [key]: val });
   const remove = (key: string) => {
-    const next = { ...fields }
-    delete next[key]
-    onChange(next)
-  }
-  const add = () => onChange({ ...fields, [`field${entries.length + 1}`]: "" })
+    const next = { ...fields };
+    delete next[key];
+    onChange(next);
+  };
+  const add = () => onChange({ ...fields, [`field${entries.length + 1}`]: "" });
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
@@ -127,16 +122,10 @@ function CustomFields({
         <Plus size={12} /> Field
       </button>
     </div>
-  )
+  );
 }
 
-function Field({
-  label,
-  children,
-}: {
-  label: string
-  children: React.ReactNode
-}) {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
       <span
@@ -152,7 +141,7 @@ function Field({
       </span>
       {children}
     </label>
-  )
+  );
 }
 
 const inp: React.CSSProperties = {
@@ -164,7 +153,7 @@ const inp: React.CSSProperties = {
   color: "var(--color-ink-deepest)",
   background: "var(--color-paper)",
   outline: "none",
-}
+};
 const addBtn: React.CSSProperties = {
   alignSelf: "flex-start",
   display: "inline-flex",
@@ -179,7 +168,7 @@ const addBtn: React.CSSProperties = {
   border: "none",
   cursor: "pointer",
   padding: "0.25rem 0",
-}
+};
 const delBtn: React.CSSProperties = {
   border: "var(--rule)",
   background: "transparent",
@@ -187,4 +176,4 @@ const delBtn: React.CSSProperties = {
   borderRadius: "4px",
   padding: "0.25rem 0.4rem",
   cursor: "pointer",
-}
+};

@@ -33,4 +33,7 @@
   .footer-bar {
     position: running(footer);
   }
+  .page-break-block {
+    page-break-after: always;
+  }
 }

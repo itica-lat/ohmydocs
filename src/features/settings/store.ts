@@ -1,26 +1,26 @@
-import { create } from "zustand"
-import { persist, createJSONStorage } from "zustand/middleware"
-import { safeLocalStorage, STORAGE_KEYS } from "@/lib/storage/persist"
-import type { Locale } from "@/lib/i18n"
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+import { safeLocalStorage, STORAGE_KEYS } from "@/lib/storage/persist";
+import type { Locale } from "@/lib/i18n";
 
-export type ViewMode = "edit" | "read" | "html"
-export type ColorScheme = "light" | "dark"
+export type ViewMode = "edit" | "read" | "html";
+export type ColorScheme = "light" | "dark";
 
 interface SettingsState {
-  viewMode: ViewMode
-  zoom: number
-  defaultAuthor: string
-  zenMode: boolean
-  sidebarCollapsed: boolean
-  colorScheme: ColorScheme
-  locale: Locale
-  setViewMode: (mode: ViewMode) => void
-  setZoom: (zoom: number) => void
-  setDefaultAuthor: (name: string) => void
-  toggleZenMode: () => void
-  toggleSidebarCollapsed: () => void
-  toggleColorScheme: () => void
-  setLocale: (locale: Locale) => void
+  viewMode: ViewMode;
+  zoom: number;
+  defaultAuthor: string;
+  zenMode: boolean;
+  sidebarCollapsed: boolean;
+  colorScheme: ColorScheme;
+  locale: Locale;
+  setViewMode: (mode: ViewMode) => void;
+  setZoom: (zoom: number) => void;
+  setDefaultAuthor: (name: string) => void;
+  toggleZenMode: () => void;
+  toggleSidebarCollapsed: () => void;
+  toggleColorScheme: () => void;
+  setLocale: (locale: Locale) => void;
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -49,4 +49,4 @@ export const useSettingsStore = create<SettingsState>()(
       storage: createJSONStorage(() => safeLocalStorage),
     },
   ),
-)
+);

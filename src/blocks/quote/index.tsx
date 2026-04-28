@@ -1,9 +1,9 @@
-import { z } from "zod"
-import type { RootContent } from "mdast"
-import type { ContainerDirective } from "mdast-util-directive"
-import type { BlockDefinition } from "../registry"
-import type { QuoteBlock } from "../types"
-import { baseFields } from "../factory"
+import { z } from "zod";
+import type { RootContent } from "mdast";
+import type { ContainerDirective } from "mdast-util-directive";
+import type { BlockDefinition } from "../registry";
+import type { QuoteBlock } from "../types";
+import { baseFields } from "../factory";
 
 export const QuoteSchema: z.ZodType<QuoteBlock> = z.object({
   id: z.string(),
@@ -12,7 +12,7 @@ export const QuoteSchema: z.ZodType<QuoteBlock> = z.object({
   updatedAt: z.string(),
   text: z.string(),
   attribution: z.string(),
-})
+});
 
 export const quote: BlockDefinition<"quote"> = {
   type: "quote",
@@ -47,10 +47,7 @@ export const quote: BlockDefinition<"quote"> = {
         {block.text}
       </p>
       {block.attribution && (
-        <div
-          className="mono-label"
-          style={{ color: "var(--color-mute)", marginTop: "0.5rem" }}
-        >
+        <div className="mono-label" style={{ color: "var(--color-mute)", marginTop: "0.5rem" }}>
           — {block.attribution}
         </div>
       )}
@@ -102,29 +99,25 @@ export const quote: BlockDefinition<"quote"> = {
       type: "containerDirective",
       name: "quote",
       attributes: block.attribution ? { by: block.attribution } : {},
-      children: [
-        { type: "paragraph", children: [{ type: "text", value: block.text }] },
-      ],
-    }
-    return [dir as RootContent]
+      children: [{ type: "paragraph", children: [{ type: "text", value: block.text }] }],
+    };
+    return [dir as RootContent];
   },
   deserialize: (node, ctx) => {
-    if (node.type !== "containerDirective") return null
-    const d = node as ContainerDirective
-    if (d.name !== "quote") return null
+    if (node.type !== "containerDirective") return null;
+    const d = node as ContainerDirective;
+    if (d.name !== "quote") return null;
     const text = d.children
       .filter((c) => c.type === "paragraph")
-      .map((p) =>
-        (p.children as { value?: string }[]).map((n) => n.value ?? "").join(""),
-      )
-      .join("\n")
+      .map((p) => (p.children as { value?: string }[]).map((n) => n.value ?? "").join(""))
+      .join("\n");
     return {
       ...ctx.newBlockBase("quote"),
       text,
       attribution: d.attributes?.by ?? "",
-    }
+    };
   },
-}
+};
 
 const inp: React.CSSProperties = {
   border: "var(--rule)",
@@ -133,4 +126,4 @@ const inp: React.CSSProperties = {
   color: "var(--color-ink-deepest)",
   background: "var(--color-paper)",
   outline: "none",
-}
+};

@@ -1,4 +1,4 @@
-import { useDocumentsStore } from "./store"
+import { useDocumentsStore } from "./store";
 
 const STARTER = `<!DOCTYPE html>
 <html lang="en">
@@ -15,24 +15,30 @@ const STARTER = `<!DOCTYPE html>
   <h1>Hello, world!</h1>
   <p>Start writing your HTML document here.</p>
 </body>
-</html>`
+</html>`;
 
 export function HtmlEditor() {
-  const activeId = useDocumentsStore((s) => s.activeId)
-  const documents = useDocumentsStore((s) => s.documents)
-  const upsert = useDocumentsStore((s) => s.upsertDocument)
-  const doc = activeId ? documents[activeId] : null
+  const activeId = useDocumentsStore((s) => s.activeId);
+  const documents = useDocumentsStore((s) => s.documents);
+  const upsert = useDocumentsStore((s) => s.upsertDocument);
+  const doc = activeId ? documents[activeId] : null;
 
-  if (!doc) return null
+  if (!doc) return null;
 
-  const html = doc.htmlContent ?? STARTER
+  const html = doc.htmlContent ?? STARTER;
 
   const handleChange = (value: string) => {
-    upsert({ ...doc, htmlContent: value, updatedAt: new Date().toISOString() })
-  }
+    upsert({ ...doc, htmlContent: value, updatedAt: new Date().toISOString() });
+  };
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", height: "100%" }}>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        height: "100%",
+      }}
+    >
       <textarea
         value={html}
         onChange={(e) => handleChange(e.target.value)}
@@ -60,5 +66,5 @@ export function HtmlEditor() {
         sandbox="allow-same-origin"
       />
     </div>
-  )
+  );
 }

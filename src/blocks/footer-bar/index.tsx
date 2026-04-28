@@ -1,9 +1,9 @@
-import { z } from "zod"
-import type { RootContent } from "mdast"
-import type { LeafDirective } from "mdast-util-directive"
-import type { BlockDefinition } from "../registry"
-import type { FooterBarBlock } from "../types"
-import { baseFields } from "../factory"
+import { z } from "zod";
+import type { RootContent } from "mdast";
+import type { LeafDirective } from "mdast-util-directive";
+import type { BlockDefinition } from "../registry";
+import type { FooterBarBlock } from "../types";
+import { baseFields } from "../factory";
 
 export const FooterBarSchema: z.ZodType<FooterBarBlock> = z.object({
   id: z.string(),
@@ -12,7 +12,7 @@ export const FooterBarSchema: z.ZodType<FooterBarBlock> = z.object({
   updatedAt: z.string(),
   left: z.string(),
   right: z.string(),
-})
+});
 
 export const footerBar: BlockDefinition<"footer-bar"> = {
   type: "footer-bar",
@@ -82,16 +82,16 @@ export const footerBar: BlockDefinition<"footer-bar"> = {
     } satisfies LeafDirective as RootContent,
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "leafDirective") return null
-    const d = node as LeafDirective
-    if (d.name !== "footer") return null
+    if (node.type !== "leafDirective") return null;
+    const d = node as LeafDirective;
+    if (d.name !== "footer") return null;
     return {
       ...ctx.newBlockBase("footer-bar"),
       left: d.attributes?.left ?? "",
       right: d.attributes?.right ?? "",
-    }
+    };
   },
-}
+};
 
 const inp: React.CSSProperties = {
   flex: 1,
@@ -105,4 +105,4 @@ const inp: React.CSSProperties = {
   color: "var(--color-mute)",
   background: "var(--color-paper)",
   outline: "none",
-}
+};

@@ -35,16 +35,16 @@ Open http://localhost:5173.
 
 ## Scripts
 
-| Script                 | Purpose                                |
-| ---------------------- | -------------------------------------- |
-| `bun run dev`          | Vite dev server                         |
-| `bun run build`        | Type-check + production build           |
-| `bun run preview`      | Preview the production build            |
-| `bun run lint`         | OxLint                                  |
-| `bun run lint:fix`     | OxLint with autofix                     |
-| `bun run format`       | OxFMT (write)                           |
-| `bun run format:check` | OxFMT (check, used in pre-commit)       |
-| `bun run typecheck`    | `tsc -b --noEmit`                      |
+| Script                 | Purpose                           |
+| ---------------------- | --------------------------------- |
+| `bun run dev`          | Vite dev server                   |
+| `bun run build`        | Type-check + production build     |
+| `bun run preview`      | Preview the production build      |
+| `bun run lint`         | OxLint                            |
+| `bun run lint:fix`     | OxLint with autofix               |
+| `bun run format`       | OxFMT (write)                     |
+| `bun run format:check` | OxFMT (check, used in pre-commit) |
+| `bun run typecheck`    | `tsc -b --noEmit`                 |
 
 ## Project layout
 
@@ -82,25 +82,25 @@ samples/
 The block model is a discriminated union exported from `src/blocks/types.ts`. All
 17 block types are registered in `src/blocks/registry.ts`:
 
-| Type             | Category   | Folder                        |
-| ---------------- | ---------- | ----------------------------- |
-| `cover`          | structural | `blocks/cover/`               |
-| `section`        | structural | `blocks/section/`             |
-| `subsection`     | structural | `blocks/subsection/`          |
-| `mono-label`     | structural | `blocks/mono-label/`          |
-| `header-bar`     | structural | `blocks/header-bar/`          |
-| `footer-bar`     | structural | `blocks/footer-bar/`          |
-| `divider`        | structural | `blocks/divider/`             |
-| `paragraph`      | content    | `blocks/paragraph/`           |
-| `callout`        | content    | `blocks/callout/`             |
-| `code-block`     | content    | `blocks/code-block/`          |
-| `list`           | content    | `blocks/list/`                |
-| `quote`          | content    | `blocks/quote/`               |
-| `table`          | data       | `blocks/table/`               |
-| `metadata-grid`  | data       | `blocks/metadata-grid/`       |
-| `glossary-entry` | data       | `blocks/glossary-entry/`      |
-| `signature-block`| data       | `blocks/signature-block/`     |
-| `image`          | media      | `blocks/image/`               |
+| Type              | Category   | Folder                    |
+| ----------------- | ---------- | ------------------------- |
+| `cover`           | structural | `blocks/cover/`           |
+| `section`         | structural | `blocks/section/`         |
+| `subsection`      | structural | `blocks/subsection/`      |
+| `mono-label`      | structural | `blocks/mono-label/`      |
+| `header-bar`      | structural | `blocks/header-bar/`      |
+| `footer-bar`      | structural | `blocks/footer-bar/`      |
+| `divider`         | structural | `blocks/divider/`         |
+| `paragraph`       | content    | `blocks/paragraph/`       |
+| `callout`         | content    | `blocks/callout/`         |
+| `code-block`      | content    | `blocks/code-block/`      |
+| `list`            | content    | `blocks/list/`            |
+| `quote`           | content    | `blocks/quote/`           |
+| `table`           | data       | `blocks/table/`           |
+| `metadata-grid`   | data       | `blocks/metadata-grid/`   |
+| `glossary-entry`  | data       | `blocks/glossary-entry/`  |
+| `signature-block` | data       | `blocks/signature-block/` |
+| `image`           | media      | `blocks/image/`           |
 
 Each block module exports a `BlockDefinition<T>` containing schema, factory,
 Renderer, Editor, serialize, deserialize. The spec calls for one file per
@@ -161,13 +161,13 @@ Google Font families. WCAG AA contrast warnings appear inline.
 
 ## Keyboard shortcuts
 
-| Key           | Action                                  |
-| ------------- | --------------------------------------- |
-| `/`           | Open the add-block menu                 |
-| `cmd/ctrl+s`  | Export current document as JSON         |
-| `cmd/ctrl+d`  | Duplicate the selected block            |
-| `cmd/ctrl+⌫`  | Delete the selected block               |
-| `Esc`         | Close the add-block menu                |
+| Key          | Action                          |
+| ------------ | ------------------------------- |
+| `/`          | Open the add-block menu         |
+| `cmd/ctrl+s` | Export current document as JSON |
+| `cmd/ctrl+d` | Duplicate the selected block    |
+| `cmd/ctrl+⌫` | Delete the selected block       |
+| `Esc`        | Close the add-block menu        |
 
 ## Phase status
 

@@ -1,18 +1,18 @@
-import { z } from "zod"
-import { PALETTE_TOKENS } from "./palette"
+import { z } from "zod";
+import { PALETTE_TOKENS } from "./palette";
 
 export const PaletteSchema = z.object(
   Object.fromEntries(
     PALETTE_TOKENS.map((k) => [k, z.string().regex(/^#[0-9a-fA-F]{6}$/)]),
-  ) as Record<typeof PALETTE_TOKENS[number], z.ZodString>,
-)
+  ) as Record<(typeof PALETTE_TOKENS)[number], z.ZodString>,
+);
 
 export const GoogleFontRefSchema = z.object({
   family: z.string().min(1),
   weights: z.array(z.number().int().min(100).max(900)),
   italics: z.boolean(),
   category: z.enum(["serif", "sans", "mono"]),
-})
+});
 
 export const BrandingProfileSchema = z.object({
   id: z.string().min(1),
@@ -38,16 +38,16 @@ export const BrandingProfileSchema = z.object({
     })
     .nullable(),
   readOnly: z.boolean().optional(),
-})
+});
 
 export const HeaderConfigSchema = z.object({
   left: z.string(),
   right: z.string(),
   showOnFirstPage: z.boolean(),
   showPageNumber: z.boolean(),
-})
+});
 
-export const FooterConfigSchema = HeaderConfigSchema
+export const FooterConfigSchema = HeaderConfigSchema;
 
 export const DocumentMetadataSchema = z.object({
   author: z.string(),
@@ -57,7 +57,7 @@ export const DocumentMetadataSchema = z.object({
   customFields: z.record(z.string(), z.string()),
   header: HeaderConfigSchema,
   footer: FooterConfigSchema,
-})
+});
 
 /**
  * Block schema is intentionally permissive in Phase 1: each block type's
@@ -68,9 +68,9 @@ export const BaseBlockSchema = z.object({
   type: z.string().min(1),
   createdAt: z.string(),
   updatedAt: z.string(),
-})
+});
 
-export const BlockSchema = BaseBlockSchema.passthrough()
+export const BlockSchema = BaseBlockSchema.passthrough();
 
 export const DocumentSchema = z.object({
   id: z.string().min(1),
@@ -82,7 +82,7 @@ export const DocumentSchema = z.object({
   htmlContent: z.string().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
-})
+});
 
 export const TemplateSchema = z.object({
   id: z.string().min(1),
@@ -94,13 +94,13 @@ export const TemplateSchema = z.object({
   readOnly: z.boolean().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
-})
+});
 
-export type BrandingProfile = z.infer<typeof BrandingProfileSchema>
-export type DocumentMetadata = z.infer<typeof DocumentMetadataSchema>
-export type HeaderConfig = z.infer<typeof HeaderConfigSchema>
-export type FooterConfig = z.infer<typeof FooterConfigSchema>
-export type BaseBlock = z.infer<typeof BaseBlockSchema>
-export type Block = z.infer<typeof BlockSchema>
-export type OhmyDocument = z.infer<typeof DocumentSchema>
-export type Template = z.infer<typeof TemplateSchema>
+export type BrandingProfile = z.infer<typeof BrandingProfileSchema>;
+export type DocumentMetadata = z.infer<typeof DocumentMetadataSchema>;
+export type HeaderConfig = z.infer<typeof HeaderConfigSchema>;
+export type FooterConfig = z.infer<typeof FooterConfigSchema>;
+export type BaseBlock = z.infer<typeof BaseBlockSchema>;
+export type Block = z.infer<typeof BlockSchema>;
+export type OhmyDocument = z.infer<typeof DocumentSchema>;
+export type Template = z.infer<typeof TemplateSchema>;

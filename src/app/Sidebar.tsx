@@ -1,23 +1,26 @@
-import { useState, useRef, useEffect } from "react"
-import { FileText, Plus, Trash2, Pencil, ChevronLeft, ChevronRight } from "lucide-react"
-import { useDocumentsStore } from "@/features/editor/store"
-import { useSettingsStore } from "@/features/settings/store"
-import { useT } from "@/lib/i18n"
+import { useState, useRef, useEffect } from "react";
+import { FileText, Plus, Trash2, Pencil, ChevronLeft, ChevronRight } from "lucide-react";
+import { useDocumentsStore } from "@/features/editor/store";
+import { useSettingsStore } from "@/features/settings/store";
+import { useT } from "@/lib/i18n";
 
 export function Sidebar() {
-  const documents = useDocumentsStore((s) => s.documents)
-  const activeId = useDocumentsStore((s) => s.activeId)
-  const setActive = useDocumentsStore((s) => s.setActive)
-  const create = useDocumentsStore((s) => s.createDocument)
-  const sidebarCollapsed = useSettingsStore((s) => s.sidebarCollapsed)
-  const toggleSidebarCollapsed = useSettingsStore((s) => s.toggleSidebarCollapsed)
-  const t = useT()
+  const documents = useDocumentsStore((s) => s.documents);
+  const activeId = useDocumentsStore((s) => s.activeId);
+  const setActive = useDocumentsStore((s) => s.setActive);
+  const create = useDocumentsStore((s) => s.createDocument);
+  const sidebarCollapsed = useSettingsStore((s) => s.sidebarCollapsed);
+  const toggleSidebarCollapsed = useSettingsStore((s) => s.toggleSidebarCollapsed);
+  const t = useT();
 
   if (sidebarCollapsed) {
     return (
       <aside
         className="sidebar flex flex-col items-center border-r py-4 gap-3"
-        style={{ background: "var(--ui-surface)", borderColor: "var(--ui-rule)" }}
+        style={{
+          background: "var(--ui-surface)",
+          borderColor: "var(--ui-rule)",
+        }}
       >
         <button
           type="button"
@@ -39,22 +42,17 @@ export function Sidebar() {
           <ChevronRight size={14} />
         </button>
       </aside>
-    )
+    );
   }
 
-  const docs = Object.values(documents).sort((a, b) =>
-    b.updatedAt.localeCompare(a.updatedAt),
-  )
+  const docs = Object.values(documents).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 
   return (
     <aside
       className="sidebar flex flex-col border-r"
       style={{ background: "var(--ui-surface)", borderColor: "var(--ui-rule)" }}
     >
-      <header
-        className="px-5 pt-5 pb-3 border-b"
-        style={{ borderColor: "var(--ui-rule)" }}
-      >
+      <header className="px-5 pt-5 pb-3 border-b" style={{ borderColor: "var(--ui-rule)" }}>
         <div className="flex items-start justify-between">
           <div>
             <div
@@ -68,7 +66,10 @@ export function Sidebar() {
             </div>
             <div
               className="text-[1.5rem] italic leading-tight"
-              style={{ color: "var(--ui-ink)", fontFamily: "var(--font-ui-serif)" }}
+              style={{
+                color: "var(--ui-ink)",
+                fontFamily: "var(--font-ui-serif)",
+              }}
             >
               OhMyDocs!
             </div>
@@ -128,7 +129,7 @@ export function Sidebar() {
         ) : (
           <ul className="flex flex-col gap-0.5">
             {docs.map((d) => {
-              const isActive = d.id === activeId
+              const isActive = d.id === activeId;
               return (
                 <DocRow
                   key={d.id}
@@ -137,13 +138,13 @@ export function Sidebar() {
                   isActive={isActive}
                   onSelect={() => setActive(d.id)}
                 />
-              )
+              );
             })}
           </ul>
         )}
       </nav>
     </aside>
-  )
+  );
 }
 
 function DocRow({
@@ -152,29 +153,29 @@ function DocRow({
   isActive,
   onSelect,
 }: {
-  id: string
-  title: string
-  isActive: boolean
-  onSelect: () => void
+  id: string;
+  title: string;
+  isActive: boolean;
+  onSelect: () => void;
 }) {
-  const rename = useDocumentsStore((s) => s.renameDocument)
-  const remove = useDocumentsStore((s) => s.remove)
-  const [editing, setEditing] = useState(false)
-  const [draft, setDraft] = useState(title)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const rename = useDocumentsStore((s) => s.renameDocument);
+  const remove = useDocumentsStore((s) => s.remove);
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(title);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (editing) {
-      setDraft(title)
-      inputRef.current?.select()
+      setDraft(title);
+      inputRef.current?.select();
     }
-  }, [editing, title])
+  }, [editing, title]);
 
   const commitRename = () => {
-    const trimmed = draft.trim()
-    if (trimmed && trimmed !== title) rename(id, trimmed)
-    setEditing(false)
-  }
+    const trimmed = draft.trim();
+    if (trimmed && trimmed !== title) rename(id, trimmed);
+    setEditing(false);
+  };
 
   return (
     <li>
@@ -186,10 +187,7 @@ function DocRow({
           fontFamily: "var(--font-ui-sans)",
         }}
       >
-        <FileText
-          size={14}
-          style={{ color: "var(--color-accent)", flexShrink: 0 }}
-        />
+        <FileText size={14} style={{ color: "var(--color-accent)", flexShrink: 0 }} />
 
         {editing ? (
           <input
@@ -198,8 +196,8 @@ function DocRow({
             onChange={(e) => setDraft(e.target.value)}
             onBlur={commitRename}
             onKeyDown={(e) => {
-              if (e.key === "Enter") commitRename()
-              if (e.key === "Escape") setEditing(false)
+              if (e.key === "Enter") commitRename();
+              if (e.key === "Escape") setEditing(false);
             }}
             className="flex-1 min-w-0 text-[0.875rem] bg-transparent outline-none border-b"
             style={{
@@ -243,7 +241,7 @@ function DocRow({
         )}
       </div>
     </li>
-  )
+  );
 }
 
 function IconBtn({
@@ -251,16 +249,16 @@ function IconBtn({
   title,
   children,
 }: {
-  onClick: () => void
-  title: string
-  children: React.ReactNode
+  onClick: () => void;
+  title: string;
+  children: React.ReactNode;
 }) {
   return (
     <button
       type="button"
       onClick={(e) => {
-        e.stopPropagation()
-        onClick()
+        e.stopPropagation();
+        onClick();
       }}
       title={title}
       style={{
@@ -277,11 +275,11 @@ function IconBtn({
     >
       {children}
     </button>
-  )
+  );
 }
 
 function EmptyDocsState() {
-  const t = useT()
+  const t = useT();
   return (
     <div className="flex flex-col items-center text-center px-6 py-10 gap-2">
       <FileText size={28} style={{ color: "var(--ui-rule)" }} />
@@ -304,5 +302,5 @@ function EmptyDocsState() {
         {t("sidebar.emptyHint")}
       </p>
     </div>
-  )
+  );
 }

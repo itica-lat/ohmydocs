@@ -7,7 +7,8 @@ date: 2026-04-26
 ---
 
 :::cover{label="ADMINISTRATION OF OPERATING SYSTEMS · FIRST DELIVERY" highlight="of operating system packages"}
-# Management and administration *of operating system packages*
+
+# Management and administration _of operating system packages_
 
 SYSTEM: SGRSI — Resource Management System
 
@@ -21,10 +22,11 @@ DELIVERY: First
 ::header{left="ETERNUM · ADMIN OS · DELIVERY 1" right="CONTEXT"}
 
 :::section{number="01"}
-## Context and architecture *decisions*
+
+## Context and architecture _decisions_
 
 > Package management in this project operates in two layers: distribution packages and runtime containers, each with separate update cadences.
-:::
+> :::
 
 This document captures the rationale behind every package selected, including security-sensitive choices and rollback paths.
 
@@ -38,19 +40,23 @@ apt install -y podman buildah skopeo
 ```
 
 :::section{number="02"}
-## Inventory of *installed packages*
+
+## Inventory of _installed packages_
+
 :::
 
-| PACKAGE | VERSION | JUSTIFICATION                          |
-| ------- | ------- | -------------------------------------- |
+| PACKAGE | VERSION | JUSTIFICATION                           |
+| ------- | ------- | --------------------------------------- |
 | podman  | 5.4.x   | Container runtime, rootless by default. |
 | buildah | 1.40.x  | OCI image builder.                      |
 | skopeo  | 1.18.x  | Image transport and inspection.         |
 
-***
+---
 
 :::section{number="03"}
+
 ## Glossary
+
 :::
 
 :::glossary
@@ -60,9 +66,9 @@ APT | Advanced Package Tool | Debian package manager front-end.
 :::
 
 :::signatures
- | TEAM LEAD | Operations & delivery
+| TEAM LEAD | Operations & delivery
 
- | EDITOR | Editorial sign-off
+| EDITOR | Editorial sign-off
 :::
 
 ::footer{left="ETERNUM TEAM" right="INTERNAL · DRAFT"}

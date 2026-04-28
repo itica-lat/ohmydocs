@@ -1,10 +1,10 @@
-export type FontCategory = "serif" | "sans" | "mono"
+export type FontCategory = "serif" | "sans" | "mono";
 
 export interface GoogleFontRef {
-  family: string
-  weights: number[]
-  italics: boolean
-  category: FontCategory
+  family: string;
+  weights: number[];
+  italics: boolean;
+  category: FontCategory;
 }
 
 export const ETERNUM_DOC_FONTS = {
@@ -26,7 +26,7 @@ export const ETERNUM_DOC_FONTS = {
     italics: false,
     category: "mono",
   },
-} as const satisfies Record<FontCategory, GoogleFontRef>
+} as const satisfies Record<FontCategory, GoogleFontRef>;
 
 export const UI_FONTS = {
   serif: {
@@ -47,26 +47,26 @@ export const UI_FONTS = {
     italics: true,
     category: "mono",
   },
-} as const satisfies Record<FontCategory, GoogleFontRef>
+} as const satisfies Record<FontCategory, GoogleFontRef>;
 
 export function buildGoogleFontsHref(refs: GoogleFontRef[]): string {
   const families = refs
     .map((ref) => {
-      const axes: string[] = []
-      if (ref.italics) axes.push("ital")
-      axes.push("wght")
-      const tuples: string[] = []
+      const axes: string[] = [];
+      if (ref.italics) axes.push("ital");
+      axes.push("wght");
+      const tuples: string[] = [];
       for (const w of ref.weights) {
         if (ref.italics) {
-          tuples.push(`0,${w}`)
-          tuples.push(`1,${w}`)
+          tuples.push(`0,${w}`);
+          tuples.push(`1,${w}`);
         } else {
-          tuples.push(`${w}`)
+          tuples.push(`${w}`);
         }
       }
-      const family = ref.family.replace(/\s+/g, "+")
-      return `family=${family}:${axes.join(",")}@${tuples.join(";")}`
+      const family = ref.family.replace(/\s+/g, "+");
+      return `family=${family}:${axes.join(",")}@${tuples.join(";")}`;
     })
-    .join("&")
-  return `https://fonts.googleapis.com/css2?${families}&display=swap`
+    .join("&");
+  return `https://fonts.googleapis.com/css2?${families}&display=swap`;
 }

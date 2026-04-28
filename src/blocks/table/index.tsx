@@ -1,9 +1,9 @@
-import { z } from "zod"
-import type { RootContent, Table as MdastTable } from "mdast"
-import type { BlockDefinition } from "../registry"
-import type { TableBlock } from "../types"
-import { baseFields } from "../factory"
-import { nodeToText } from "../_shared"
+import { z } from "zod";
+import type { RootContent, Table as MdastTable } from "mdast";
+import type { BlockDefinition } from "../registry";
+import type { TableBlock } from "../types";
+import { baseFields } from "../factory";
+import { nodeToText } from "../_shared";
 
 export const TableSchema: z.ZodType<TableBlock> = z.object({
   id: z.string(),
@@ -12,7 +12,7 @@ export const TableSchema: z.ZodType<TableBlock> = z.object({
   updatedAt: z.string(),
   headers: z.array(z.string()),
   rows: z.array(z.array(z.string())),
-})
+});
 
 export const table: BlockDefinition<"table"> = {
   type: "table",
@@ -61,8 +61,7 @@ export const table: BlockDefinition<"table"> = {
           <tr
             key={ri}
             style={{
-              background:
-                ri % 2 === 0 ? "transparent" : "var(--color-paper-soft)",
+              background: ri % 2 === 0 ? "transparent" : "var(--color-paper-soft)",
             }}
           >
             {row.map((cell, ci) => (
@@ -71,12 +70,10 @@ export const table: BlockDefinition<"table"> = {
                 key={ci}
                 style={{
                   padding: "0.875rem 1rem",
-                  fontFamily:
-                    ci === 0 ? "var(--font-doc-mono)" : "var(--font-doc-sans)",
+                  fontFamily: ci === 0 ? "var(--font-doc-mono)" : "var(--font-doc-sans)",
                   fontSize: ci === 0 ? "0.8125rem" : "0.875rem",
                   color: "var(--color-ink-deepest)",
-                  borderBottom:
-                    ri === block.rows.length - 1 ? "var(--rule)" : "none",
+                  borderBottom: ri === block.rows.length - 1 ? "var(--rule)" : "none",
                 }}
               >
                 {cell}
@@ -89,12 +86,12 @@ export const table: BlockDefinition<"table"> = {
   ),
   Editor: ({ block, onChange }) => {
     const setCell = (ri: number, ci: number, v: string) => {
-      const rows = block.rows.map((r) => [...r])
-      const row = rows[ri]
-      if (!row) return
-      row[ci] = v
-      onChange({ ...block, rows, updatedAt: new Date().toISOString() })
-    }
+      const rows = block.rows.map((r) => [...r]);
+      const row = rows[ri];
+      if (!row) return;
+      row[ci] = v;
+      onChange({ ...block, rows, updatedAt: new Date().toISOString() });
+    };
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
         <div style={{ display: "flex", gap: "0.25rem" }}>
@@ -104,13 +101,13 @@ export const table: BlockDefinition<"table"> = {
               key={i}
               value={h}
               onChange={(e) => {
-                const headers = [...block.headers]
-                headers[i] = e.target.value
+                const headers = [...block.headers];
+                headers[i] = e.target.value;
                 onChange({
                   ...block,
                   headers,
                   updatedAt: new Date().toISOString(),
-                })
+                });
               }}
               style={{
                 ...cellInput,
@@ -156,10 +153,7 @@ export const table: BlockDefinition<"table"> = {
             onClick={() =>
               onChange({
                 ...block,
-                headers: [
-                  ...block.headers,
-                  `Column ${block.headers.length + 1}`,
-                ],
+                headers: [...block.headers, `Column ${block.headers.length + 1}`],
                 rows: block.rows.map((r) => [...r, ""]),
                 updatedAt: new Date().toISOString(),
               })
@@ -169,7 +163,7 @@ export const table: BlockDefinition<"table"> = {
           </button>
         </div>
       </div>
-    )
+    );
   },
   serialize: (block): RootContent[] => [
     {
@@ -194,15 +188,15 @@ export const table: BlockDefinition<"table"> = {
     },
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "table") return null
-    const t = node as MdastTable
-    const [headerRow, ...bodyRows] = t.children
-    if (!headerRow) return null
-    const headers = headerRow.children.map((c) => nodeToText(c))
-    const rows = bodyRows.map((r) => r.children.map((c) => nodeToText(c)))
-    return { ...ctx.newBlockBase("table"), headers, rows }
+    if (node.type !== "table") return null;
+    const t = node as MdastTable;
+    const [headerRow, ...bodyRows] = t.children;
+    if (!headerRow) return null;
+    const headers = headerRow.children.map((c) => nodeToText(c));
+    const rows = bodyRows.map((r) => r.children.map((c) => nodeToText(c)));
+    return { ...ctx.newBlockBase("table"), headers, rows };
   },
-}
+};
 
 const cellInput: React.CSSProperties = {
   flex: 1,
@@ -214,7 +208,7 @@ const cellInput: React.CSSProperties = {
   color: "var(--color-ink-deepest)",
   background: "var(--color-paper)",
   outline: "none",
-}
+};
 const smallBtn: React.CSSProperties = {
   fontFamily: "var(--font-ui-mono)",
   fontSize: "0.6875rem",
@@ -226,4 +220,4 @@ const smallBtn: React.CSSProperties = {
   padding: "0.25rem 0.5rem",
   borderRadius: "4px",
   cursor: "pointer",
-}
+};

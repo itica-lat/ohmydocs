@@ -1,84 +1,84 @@
-import { useMemo, useState } from "react"
-import { AlertTriangle, Plus, Trash2 } from "lucide-react"
-import { useBrandingStore } from "./store"
-import type { BrandingProfile } from "@/types/schemas"
-import { PALETTE_TOKENS, type PaletteToken } from "@/types/palette"
-import { meetsAA } from "@/lib/palette/contrast"
-import { newId } from "@/lib/id"
+import { useMemo, useState } from "react";
+import { AlertTriangle, Plus, Trash2 } from "lucide-react";
+import { useBrandingStore } from "./store";
+import type { BrandingProfile } from "@/types/schemas";
+import { PALETTE_TOKENS, type PaletteToken } from "@/types/palette";
+import { meetsAA } from "@/lib/palette/contrast";
+import { newId } from "@/lib/id";
 
 export function BrandingPanel() {
-  const profiles = useBrandingStore((s) => s.profiles)
-  const activeId = useBrandingStore((s) => s.activeId)
-  const setActive = useBrandingStore((s) => s.setActive)
-  const upsert = useBrandingStore((s) => s.upsert)
-  const remove = useBrandingStore((s) => s.remove)
+  const profiles = useBrandingStore((s) => s.profiles);
+  const activeId = useBrandingStore((s) => s.activeId);
+  const setActive = useBrandingStore((s) => s.setActive);
+  const upsert = useBrandingStore((s) => s.upsert);
+  const remove = useBrandingStore((s) => s.remove);
 
-  const active = profiles[activeId]
-  const [editing, setEditing] = useState<BrandingProfile | null>(null)
-  const draft = editing ?? active
+  const active = profiles[activeId];
+  const [editing, setEditing] = useState<BrandingProfile | null>(null);
+  const draft = editing ?? active;
 
   const warnings = useMemo(() => {
-    if (!draft) return []
-    const out: string[] = []
+    if (!draft) return [];
+    const out: string[] = [];
     const checks: [PaletteToken, PaletteToken][] = [
       ["ink-deepest", "paper"],
       ["ink-deep", "paper"],
       ["accent", "paper"],
       ["ink-on-dark", "ink-deepest"],
       ["mute", "paper"],
-    ]
+    ];
     for (const [fg, bg] of checks) {
       if (!meetsAA(draft.palette[fg], draft.palette[bg])) {
-        out.push(`Low contrast: ${fg} on ${bg}`)
+        out.push(`Low contrast: ${fg} on ${bg}`);
       }
     }
-    return out
-  }, [draft])
+    return out;
+  }, [draft]);
 
-  if (!draft) return null
+  if (!draft) return null;
 
-  const isReadOnly = Boolean(draft.readOnly)
-  const startEditing = () => setEditing({ ...draft })
+  const isReadOnly = Boolean(draft.readOnly);
+  const startEditing = () => setEditing({ ...draft });
   const save = () => {
-    if (!editing) return
-    upsert(editing)
-    setEditing(null)
-  }
-  const cancel = () => setEditing(null)
+    if (!editing) return;
+    upsert(editing);
+    setEditing(null);
+  };
+  const cancel = () => setEditing(null);
 
   const updatePalette = (token: PaletteToken, value: string) => {
-    if (!editing) return
-    setEditing({ ...editing, palette: { ...editing.palette, [token]: value } })
-  }
+    if (!editing) return;
+    setEditing({ ...editing, palette: { ...editing.palette, [token]: value } });
+  };
 
   const cloneAsNew = () => {
-    const id = newId("branding")
+    const id = newId("branding");
     const clone: BrandingProfile = {
       ...draft,
       id,
       name: `${draft.name} (copy)`,
       readOnly: false,
-    }
-    upsert(clone)
-    setActive(id)
-    setEditing(clone)
-  }
+    };
+    upsert(clone);
+    setActive(id);
+    setEditing(clone);
+  };
 
   return (
     <div
       style={{
-        padding: "1rem 1.25rem",
+        padding: "0.75rem 1rem",
         display: "flex",
         flexDirection: "column",
-        gap: "1rem",
+        gap: "0.75rem",
       }}
     >
-      <div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
         <select
           value={activeId}
           onChange={(e) => {
-            setActive(e.target.value)
-            setEditing(null)
+            setActive(e.target.value);
+            setEditing(null);
           }}
           style={selectStyle}
         >
@@ -89,6 +89,15 @@ export function BrandingPanel() {
             </option>
           ))}
         </select>
+        {editing && (
+          <input
+            type="text"
+            value={editing.name}
+            onChange={(e) => setEditing({ ...editing, name: e.target.value })}
+            placeholder="Palette name"
+            style={selectStyle}
+          />
+        )}
       </div>
 
       {warnings.length > 0 && (
@@ -114,67 +123,59 @@ export function BrandingPanel() {
         </div>
       )}
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "0.5rem",
-        }}
-      >
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
         {PALETTE_TOKENS.map((token) => (
-          <label
-            key={token}
-            style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}
-          >
+          <label key={token} style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
+            <input
+              type="color"
+              value={draft.palette[token]}
+              disabled={isReadOnly && !editing}
+              onChange={(e) => updatePalette(token, e.target.value.toUpperCase())}
+              title={token}
+              style={{
+                flexShrink: 0,
+                width: 20,
+                height: 20,
+                border: "var(--rule)",
+                background: "transparent",
+                borderRadius: "3px",
+                padding: 0,
+                cursor: isReadOnly && !editing ? "default" : "pointer",
+              }}
+            />
             <span
               style={{
                 fontFamily: "var(--font-ui-mono)",
-                fontSize: "0.625rem",
+                fontSize: "0.5625rem",
                 textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                letterSpacing: "0.04em",
                 color: "var(--color-mute)",
+                flex: "0 0 7rem",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
               }}
             >
               {token}
             </span>
-            <div
-              style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}
-            >
-              <input
-                type="color"
-                value={draft.palette[token]}
-                disabled={isReadOnly && !editing}
-                onChange={(e) =>
-                  updatePalette(token, e.target.value.toUpperCase())
-                }
-                style={{
-                  width: 32,
-                  height: 28,
-                  border: "var(--rule)",
-                  background: "transparent",
-                  borderRadius: "4px",
-                }}
-              />
-              <input
-                type="text"
-                value={draft.palette[token]}
-                disabled={isReadOnly && !editing}
-                onChange={(e) =>
-                  updatePalette(token, e.target.value.toUpperCase())
-                }
-                style={{
-                  flex: 1,
-                  fontFamily: "var(--font-ui-mono)",
-                  fontSize: "0.6875rem",
-                  border: "var(--rule)",
-                  padding: "0.25rem 0.4rem",
-                  borderRadius: "4px",
-                  color: "var(--color-ink-deepest)",
-                  background: "var(--color-paper)",
-                  outline: "none",
-                }}
-              />
-            </div>
+            <input
+              type="text"
+              value={draft.palette[token]}
+              disabled={isReadOnly && !editing}
+              onChange={(e) => updatePalette(token, e.target.value.toUpperCase())}
+              style={{
+                flex: 1,
+                minWidth: 0,
+                fontFamily: "var(--font-ui-mono)",
+                fontSize: "0.5625rem",
+                border: "var(--rule)",
+                padding: "0.15rem 0.3rem",
+                borderRadius: "3px",
+                color: "var(--color-ink-deepest)",
+                background: "var(--color-paper)",
+                outline: "none",
+              }}
+            />
           </label>
         ))}
       </div>
@@ -208,8 +209,8 @@ export function BrandingPanel() {
               <button
                 type="button"
                 onClick={() => {
-                  remove(draft.id)
-                  setEditing(null)
+                  remove(draft.id);
+                  setEditing(null);
                 }}
                 style={{ ...secondaryBtn, color: "#C0556B" }}
               >
@@ -220,7 +221,7 @@ export function BrandingPanel() {
         )}
       </div>
     </div>
-  )
+  );
 }
 
 function FontEditor({
@@ -228,9 +229,9 @@ function FontEditor({
   readOnly,
   onChange,
 }: {
-  profile: BrandingProfile
-  readOnly: boolean
-  onChange: (p: Partial<BrandingProfile>) => void
+  profile: BrandingProfile;
+  readOnly: boolean;
+  onChange: (p: Partial<BrandingProfile>) => void;
 }) {
   const set = (cat: "serif" | "sans" | "mono", family: string) =>
     onChange({
@@ -238,9 +239,9 @@ function FontEditor({
         ...profile.fonts,
         [cat]: { ...profile.fonts[cat], family },
       },
-    })
+    });
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
       <span
         style={{
           fontFamily: "var(--font-ui-mono)",
@@ -253,10 +254,7 @@ function FontEditor({
         Document fonts (Google Fonts family name)
       </span>
       {(["serif", "sans", "mono"] as const).map((cat) => (
-        <label
-          key={cat}
-          style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
-        >
+        <label key={cat} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
           <span
             style={{
               width: 60,
@@ -286,7 +284,7 @@ function FontEditor({
         </label>
       ))}
     </div>
-  )
+  );
 }
 
 const selectStyle: React.CSSProperties = {
@@ -298,7 +296,7 @@ const selectStyle: React.CSSProperties = {
   fontFamily: "var(--font-ui-sans)",
   fontSize: "0.8125rem",
   color: "var(--color-ink-deepest)",
-}
+};
 
 const primaryBtn: React.CSSProperties = {
   display: "inline-flex",
@@ -312,11 +310,11 @@ const primaryBtn: React.CSSProperties = {
   fontFamily: "var(--font-ui-sans)",
   fontSize: "0.8125rem",
   cursor: "pointer",
-}
+};
 
 const secondaryBtn: React.CSSProperties = {
   ...primaryBtn,
   background: "transparent",
   color: "var(--color-ink-deepest)",
   border: "var(--rule)",
-}
+};

@@ -1,49 +1,48 @@
-import { useEffect, useMemo, useRef, useState } from "react"
-import * as Icons from "lucide-react"
-import { listBlockDefs } from "@/blocks/registry"
-import type { BlockType } from "@/blocks/types"
+import { useEffect, useMemo, useRef, useState } from "react";
+import * as Icons from "lucide-react";
+import { listBlockDefs } from "@/blocks/registry";
+import type { BlockType } from "@/blocks/types";
 
 interface Props {
-  onInsert: (type: BlockType) => void
+  onInsert: (type: BlockType) => void;
 }
 
 export function InsertMenu({ onInsert }: Props) {
-  const [open, setOpen] = useState(false)
-  const [query, setQuery] = useState("")
-  const inputRef = useRef<HTMLInputElement>(null)
-  const defs = useMemo(() => listBlockDefs(), [])
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const defs = useMemo(() => listBlockDefs(), []);
   const filtered = useMemo(
-    () =>
-      defs.filter((d) => d.label.toLowerCase().includes(query.toLowerCase())),
+    () => defs.filter((d) => d.label.toLowerCase().includes(query.toLowerCase())),
     [defs, query],
-  )
+  );
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "/" && !isTyping(e.target)) {
-        e.preventDefault()
-        setOpen(true)
-        setQuery("")
+        e.preventDefault();
+        setOpen(true);
+        setQuery("");
       } else if (e.key === "Escape") {
-        setOpen(false)
+        setOpen(false);
       }
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [])
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
-    if (open) inputRef.current?.focus()
-  }, [open])
+    if (open) inputRef.current?.focus();
+  }, [open]);
 
   const grouped = useMemo(() => {
-    const out: Record<string, typeof defs> = {}
+    const out: Record<string, typeof defs> = {};
     for (const d of filtered) {
-      out[d.category] ??= []
-      out[d.category]!.push(d)
+      out[d.category] ??= [];
+      out[d.category]!.push(d);
     }
-    return out
-  }, [filtered])
+    return out;
+  }, [filtered]);
 
   return (
     <>
@@ -132,14 +131,14 @@ export function InsertMenu({ onInsert }: Props) {
                   {items.map((d) => {
                     const Icon =
                       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      (Icons as any)[d.iconName] ?? Icons.Square
+                      (Icons as any)[d.iconName] ?? Icons.Square;
                     return (
                       <button
                         key={d.type}
                         type="button"
                         onClick={() => {
-                          onInsert(d.type)
-                          setOpen(false)
+                          onInsert(d.type);
+                          setOpen(false);
                         }}
                         style={{
                           display: "flex",
@@ -156,13 +155,10 @@ export function InsertMenu({ onInsert }: Props) {
                           textAlign: "left",
                         }}
                       >
-                        <Icon
-                          size={14}
-                          style={{ color: "var(--color-accent)" }}
-                        />
+                        <Icon size={14} style={{ color: "var(--color-accent)" }} />
                         {d.label}
                       </button>
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -171,11 +167,11 @@ export function InsertMenu({ onInsert }: Props) {
         </div>
       )}
     </>
-  )
+  );
 }
 
 function isTyping(target: EventTarget | null): boolean {
-  if (!(target instanceof HTMLElement)) return false
-  const tag = target.tagName
-  return tag === "INPUT" || tag === "TEXTAREA" || target.isContentEditable
+  if (!(target instanceof HTMLElement)) return false;
+  const tag = target.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || target.isContentEditable;
 }

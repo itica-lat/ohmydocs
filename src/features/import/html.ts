@@ -1,4 +1,4 @@
-import { DocumentSchema, type OhmyDocument } from "@/types/schemas"
+import { DocumentSchema, type OhmyDocument } from "@/types/schemas";
 
 /**
  * Read an OhMyDocs-generated HTML file by extracting the embedded JSON sidecar.
@@ -6,20 +6,18 @@ import { DocumentSchema, type OhmyDocument } from "@/types/schemas"
  * surface a "best-effort heuristic" warning to the user.
  */
 export function importHtml(html: string): OhmyDocument | null {
-  const match = html.match(
-    /<script[^>]*id=["']ohmydocs-source["'][^>]*>([\s\S]*?)<\/script>/i,
-  )
-  if (!match) return null
-  const json = (match[1] ?? "").replace(/\\u003c/g, "<")
+  const match = html.match(/<script[^>]*id=["']ohmydocs-source["'][^>]*>([\s\S]*?)<\/script>/i);
+  if (!match) return null;
+  const json = (match[1] ?? "").replace(/\\u003c/g, "<");
   try {
-    const parsed = JSON.parse(json)
-    const result = DocumentSchema.safeParse(parsed)
-    return result.success ? result.data : null
+    const parsed = JSON.parse(json);
+    const result = DocumentSchema.safeParse(parsed);
+    return result.success ? result.data : null;
   } catch {
-    return null
+    return null;
   }
 }
 
 export function isOhmyDocsGenerated(html: string): boolean {
-  return /name=["']generator["']\s+content=["']OhMyDocs/i.test(html)
+  return /name=["']generator["']\s+content=["']OhMyDocs/i.test(html);
 }

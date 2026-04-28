@@ -1,13 +1,9 @@
-import { z } from "zod"
-import type {
-  List as MdastList,
-  ListItem as MdastListItem,
-  RootContent,
-} from "mdast"
-import type { BlockDefinition } from "../registry"
-import type { ListBlock } from "../types"
-import { baseFields } from "../factory"
-import { nodeToText } from "../_shared"
+import { z } from "zod";
+import type { List as MdastList, ListItem as MdastListItem, RootContent } from "mdast";
+import type { BlockDefinition } from "../registry";
+import type { ListBlock } from "../types";
+import { baseFields } from "../factory";
+import { nodeToText } from "../_shared";
 
 export const ListSchema: z.ZodType<ListBlock> = z.object({
   id: z.string(),
@@ -16,7 +12,7 @@ export const ListSchema: z.ZodType<ListBlock> = z.object({
   updatedAt: z.string(),
   ordered: z.boolean(),
   items: z.array(z.string()),
-})
+});
 
 export const list: BlockDefinition<"list"> = {
   type: "list",
@@ -31,7 +27,7 @@ export const list: BlockDefinition<"list"> = {
     ...over,
   }),
   Renderer: ({ block }) => {
-    const Tag = block.ordered ? "ol" : "ul"
+    const Tag = block.ordered ? "ol" : "ul";
     return (
       <Tag
         style={{
@@ -39,6 +35,8 @@ export const list: BlockDefinition<"list"> = {
           padding: 0,
           listStyle: "none",
           color: "var(--color-ink-deepest)",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         {block.items.map((item, i) => (
@@ -59,9 +57,7 @@ export const list: BlockDefinition<"list"> = {
                 marginTop: block.ordered ? 0 : "0.5em",
                 width: block.ordered ? "auto" : "0.5em",
                 height: block.ordered ? "auto" : "0.5em",
-                background: block.ordered
-                  ? "transparent"
-                  : "var(--color-accent)",
+                background: block.ordered ? "transparent" : "var(--color-accent)",
                 color: "var(--color-ink-deep)",
                 fontFamily: block.ordered ? "var(--font-doc-mono)" : "inherit",
                 fontSize: block.ordered ? "0.8125rem" : "inherit",
@@ -74,7 +70,7 @@ export const list: BlockDefinition<"list"> = {
           </li>
         ))}
       </Tag>
-    )
+    );
   },
   Editor: ({ block, onChange }) => (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
@@ -105,16 +101,13 @@ export const list: BlockDefinition<"list"> = {
       </label>
       {block.items.map((it, i) => (
         // eslint-disable-next-line react/no-array-index-key
-        <div
-          key={i}
-          style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
-        >
+        <div key={i} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
           <input
             value={it}
             onChange={(e) => {
-              const items = [...block.items]
-              items[i] = e.target.value
-              onChange({ ...block, items, updatedAt: new Date().toISOString() })
+              const items = [...block.items];
+              items[i] = e.target.value;
+              onChange({ ...block, items, updatedAt: new Date().toISOString() });
             }}
             placeholder="Item"
             style={{
@@ -130,12 +123,12 @@ export const list: BlockDefinition<"list"> = {
           <button
             type="button"
             onClick={() => {
-              const items = block.items.filter((_, j) => j !== i)
+              const items = block.items.filter((_, j) => j !== i);
               onChange({
                 ...block,
                 items: items.length ? items : [""],
                 updatedAt: new Date().toISOString(),
-              })
+              });
             }}
             style={{
               border: "var(--rule)",
@@ -185,20 +178,18 @@ export const list: BlockDefinition<"list"> = {
         (text): MdastListItem => ({
           type: "listItem",
           spread: false,
-          children: [
-            { type: "paragraph", children: [{ type: "text", value: text }] },
-          ],
+          children: [{ type: "paragraph", children: [{ type: "text", value: text }] }],
         }),
       ),
     },
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "list") return null
-    const l = node as MdastList
+    if (node.type !== "list") return null;
+    const l = node as MdastList;
     return {
       ...ctx.newBlockBase("list"),
       ordered: Boolean(l.ordered),
       items: l.children.map((c) => nodeToText(c)),
-    }
+    };
   },
-}
+};

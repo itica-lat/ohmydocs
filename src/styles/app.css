@@ -1,8 +1,8 @@
-@import 'tailwindcss';
-@import './tokens.css';
-@import './typography.css';
-@import './page.css';
-@import './print.css';
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./typography.css";
+@import "./page.css";
+@import "./print.css";
 
 @theme {
   --font-sans: var(--font-ui-sans);

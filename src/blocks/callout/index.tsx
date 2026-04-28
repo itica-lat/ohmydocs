@@ -1,17 +1,12 @@
-import { z } from "zod"
-import type { RootContent } from "mdast"
-import type { ContainerDirective } from "mdast-util-directive"
-import type { BlockDefinition } from "../registry"
-import type { CalloutBlock, CalloutVariant } from "../types"
-import { baseFields } from "../factory"
-import { nodeToText, textParagraph } from "../_shared"
+import { z } from "zod";
+import type { RootContent } from "mdast";
+import type { ContainerDirective } from "mdast-util-directive";
+import type { BlockDefinition } from "../registry";
+import type { CalloutBlock, CalloutVariant } from "../types";
+import { baseFields } from "../factory";
+import { nodeToText, textParagraph } from "../_shared";
 
-const variants: readonly CalloutVariant[] = [
-  "info",
-  "warning",
-  "danger",
-  "success",
-]
+const variants: readonly CalloutVariant[] = ["info", "warning", "danger", "success"];
 
 export const CalloutSchema: z.ZodType<CalloutBlock> = z.object({
   id: z.string(),
@@ -21,19 +16,19 @@ export const CalloutSchema: z.ZodType<CalloutBlock> = z.object({
   variant: z.enum(["info", "warning", "danger", "success"]),
   label: z.string(),
   body: z.string(),
-})
+});
 
 type VariantColor = {
-  border: string
-  tint: string
-}
+  border: string;
+  tint: string;
+};
 
 const variantColors: Record<CalloutVariant, VariantColor> = {
   info: { border: "var(--color-accent)", tint: "rgba(189,232,245,0.4)" },
   warning: { border: "#D9A441", tint: "rgba(217,164,65,0.12)" },
   danger: { border: "#C0556B", tint: "rgba(192,85,107,0.12)" },
   success: { border: "#5A9F7B", tint: "rgba(90,159,123,0.12)" },
-}
+};
 
 export const callout: BlockDefinition<"callout"> = {
   type: "callout",
@@ -49,7 +44,7 @@ export const callout: BlockDefinition<"callout"> = {
     ...over,
   }),
   Renderer: ({ block }) => {
-    const c = variantColors[block.variant]
+    const c = variantColors[block.variant];
     return (
       <aside
         style={{
@@ -72,11 +67,9 @@ export const callout: BlockDefinition<"callout"> = {
             {block.label}
           </strong>
         )}
-        <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.65 }}>
-          {block.body}
-        </div>
+        <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.65 }}>{block.body}</div>
       </aside>
-    )
+    );
   },
   Editor: ({ block, onChange }) => (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
@@ -161,25 +154,23 @@ export const callout: BlockDefinition<"callout"> = {
       name: "callout",
       attributes: { variant: block.variant, label: block.label },
       children: [textParagraph(block.body)],
-    }
-    return [dir as RootContent]
+    };
+    return [dir as RootContent];
   },
   deserialize: (node, ctx) => {
-    if (node.type !== "containerDirective") return null
-    const d = node as ContainerDirective
-    if (d.name !== "callout") return null
-    const variantAttr = d.attributes?.variant
-    const variant: CalloutVariant = variants.includes(
-      variantAttr as CalloutVariant,
-    )
-      ? variantAttr as CalloutVariant
-      : "info"
-    const body = d.children.map((c) => nodeToText(c)).join("\n\n")
+    if (node.type !== "containerDirective") return null;
+    const d = node as ContainerDirective;
+    if (d.name !== "callout") return null;
+    const variantAttr = d.attributes?.variant;
+    const variant: CalloutVariant = variants.includes(variantAttr as CalloutVariant)
+      ? (variantAttr as CalloutVariant)
+      : "info";
+    const body = d.children.map((c) => nodeToText(c)).join("\n\n");
     return {
       ...ctx.newBlockBase("callout"),
       variant,
       label: d.attributes?.label ?? "",
       body,
-    }
+    };
   },
-}
+};

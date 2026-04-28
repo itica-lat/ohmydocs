@@ -1,15 +1,15 @@
-import { z } from "zod"
-import type { RootContent } from "mdast"
-import type { ContainerDirective } from "mdast-util-directive"
-import type { BlockDefinition } from "../registry"
-import type { SignatureBlock, SignatureSlot } from "../types"
-import { baseFields } from "../factory"
+import { z } from "zod";
+import type { RootContent } from "mdast";
+import type { ContainerDirective } from "mdast-util-directive";
+import type { BlockDefinition } from "../registry";
+import type { SignatureBlock, SignatureSlot } from "../types";
+import { baseFields } from "../factory";
 
 const Slot = z.object({
   name: z.string(),
   role: z.string(),
   description: z.string(),
-})
+});
 
 export const SignatureSchema: z.ZodType<SignatureBlock> = z.object({
   id: z.string(),
@@ -17,7 +17,7 @@ export const SignatureSchema: z.ZodType<SignatureBlock> = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   slots: z.array(Slot),
-})
+});
 
 export const signatureBlock: BlockDefinition<"signature-block"> = {
   type: "signature-block",
@@ -51,10 +51,7 @@ export const signatureBlock: BlockDefinition<"signature-block"> = {
               paddingTop: "0.5rem",
             }}
           >
-            <div
-              className="mono-label"
-              style={{ color: "var(--color-ink-deepest)" }}
-            >
+            <div className="mono-label" style={{ color: "var(--color-ink-deepest)" }}>
               {s.name || " "}
             </div>
             <div
@@ -92,9 +89,9 @@ export const signatureBlock: BlockDefinition<"signature-block"> = {
           <input
             value={s.name}
             onChange={(ev) => {
-              const slots = [...block.slots]
-              slots[i] = { ...s, name: ev.target.value }
-              onChange({ ...block, slots, updatedAt: new Date().toISOString() })
+              const slots = [...block.slots];
+              slots[i] = { ...s, name: ev.target.value };
+              onChange({ ...block, slots, updatedAt: new Date().toISOString() });
             }}
             placeholder="Name"
             style={inp}
@@ -102,9 +99,9 @@ export const signatureBlock: BlockDefinition<"signature-block"> = {
           <input
             value={s.role}
             onChange={(ev) => {
-              const slots = [...block.slots]
-              slots[i] = { ...s, role: ev.target.value.toUpperCase() }
-              onChange({ ...block, slots, updatedAt: new Date().toISOString() })
+              const slots = [...block.slots];
+              slots[i] = { ...s, role: ev.target.value.toUpperCase() };
+              onChange({ ...block, slots, updatedAt: new Date().toISOString() });
             }}
             placeholder="ROLE"
             style={{
@@ -116,9 +113,9 @@ export const signatureBlock: BlockDefinition<"signature-block"> = {
           <input
             value={s.description}
             onChange={(ev) => {
-              const slots = [...block.slots]
-              slots[i] = { ...s, description: ev.target.value }
-              onChange({ ...block, slots, updatedAt: new Date().toISOString() })
+              const slots = [...block.slots];
+              slots[i] = { ...s, description: ev.target.value };
+              onChange({ ...block, slots, updatedAt: new Date().toISOString() });
             }}
             placeholder="Role description"
             style={inp}
@@ -160,32 +157,28 @@ export const signatureBlock: BlockDefinition<"signature-block"> = {
       attributes: {},
       children: block.slots.map((s) => ({
         type: "paragraph",
-        children: [
-          { type: "text", value: `${s.name} | ${s.role} | ${s.description}` },
-        ],
+        children: [{ type: "text", value: `${s.name} | ${s.role} | ${s.description}` }],
       })),
     } as ContainerDirective as RootContent,
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "containerDirective") return null
-    const d = node as ContainerDirective
-    if (d.name !== "signatures") return null
-    const slots: SignatureSlot[] = []
+    if (node.type !== "containerDirective") return null;
+    const d = node as ContainerDirective;
+    if (d.name !== "signatures") return null;
+    const slots: SignatureSlot[] = [];
     for (const c of d.children) {
-      if (c.type !== "paragraph") continue
-      const text = (c.children as { value?: string }[])
-        .map((n) => n.value ?? "")
-        .join("")
-      const parts = text.split("|").map((p) => p.trim())
+      if (c.type !== "paragraph") continue;
+      const text = (c.children as { value?: string }[]).map((n) => n.value ?? "").join("");
+      const parts = text.split("|").map((p) => p.trim());
       slots.push({
         name: parts[0] ?? "",
         role: parts[1] ?? "",
         description: parts[2] ?? "",
-      })
+      });
     }
-    return { ...ctx.newBlockBase("signature-block"), slots }
+    return { ...ctx.newBlockBase("signature-block"), slots };
   },
-}
+};
 
 const inp: React.CSSProperties = {
   border: "var(--rule)",
@@ -196,7 +189,7 @@ const inp: React.CSSProperties = {
   color: "var(--color-ink-deepest)",
   background: "var(--color-paper)",
   outline: "none",
-}
+};
 const addBtn: React.CSSProperties = {
   alignSelf: "flex-start",
   fontFamily: "var(--font-ui-mono)",
@@ -208,7 +201,7 @@ const addBtn: React.CSSProperties = {
   border: "none",
   padding: "0.25rem 0",
   cursor: "pointer",
-}
+};
 const delBtn: React.CSSProperties = {
   border: "var(--rule)",
   background: "transparent",
@@ -216,4 +209,4 @@ const delBtn: React.CSSProperties = {
   borderRadius: "4px",
   padding: "0.125rem 0.4rem",
   fontSize: "0.6875rem",
-}
+};

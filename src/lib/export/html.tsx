@@ -1,27 +1,25 @@
-import { renderToStaticMarkup } from "react-dom/server"
-import type { OhmyDocument, BrandingProfile } from "@/types/schemas"
-import { blockRegistry } from "@/blocks/registry"
-import type { Block } from "@/blocks/types"
-import { buildGoogleFontsHref } from "@/lib/fonts/catalog"
+import { renderToStaticMarkup } from "react-dom/server";
+import type { OhmyDocument, BrandingProfile } from "@/types/schemas";
+import { blockRegistry } from "@/blocks/registry";
+import type { Block } from "@/blocks/types";
+import { buildGoogleFontsHref } from "@/lib/fonts/catalog";
 
 interface ExportInput {
-  document: OhmyDocument
-  branding: BrandingProfile
+  document: OhmyDocument;
+  branding: BrandingProfile;
 }
 
 export function exportToHtml({ document: doc, branding }: ExportInput): string {
-  const blocksHtml = doc.blocks
-    .map((block) => renderBlock(block as Block))
-    .join("\n")
+  const blocksHtml = doc.blocks.map((block) => renderBlock(block as Block)).join("\n");
 
   const fontsHref = buildGoogleFontsHref([
     branding.fonts.serif,
     branding.fonts.sans,
     branding.fonts.mono,
-  ])
+  ]);
 
-  const css = inlineCss(branding)
-  const sidecar = JSON.stringify(doc).replace(/</g, "\\u003c")
+  const css = inlineCss(branding);
+  const sidecar = JSON.stringify(doc).replace(/</g, "\\u003c");
 
   return `<!doctype html>
 <html lang="en">
@@ -42,14 +40,14 @@ ${blocksHtml}
 </article>
 </body>
 </html>
-`
+`;
 }
 
 function renderBlock(block: Block): string {
-  const def = blockRegistry[block.type]
+  const def = blockRegistry[block.type];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const Renderer = def.Renderer as any
-  return renderToStaticMarkup(<Renderer block={block} mode="read" />)
+  const Renderer = def.Renderer as any;
+  return renderToStaticMarkup(<Renderer block={block} mode="read" />);
 }
 
 function escapeHtml(s: string): string {
@@ -58,14 +56,14 @@ function escapeHtml(s: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
+    .replace(/'/g, "&#39;");
 }
 
 function inlineCss(b: BrandingProfile): string {
-  const p = b.palette
-  const sf = b.fonts.serif.family
-  const sn = b.fonts.sans.family
-  const mn = b.fonts.mono.family
+  const p = b.palette;
+  const sf = b.fonts.serif.family;
+  const sn = b.fonts.sans.family;
+  const mn = b.fonts.mono.family;
   return `
 :root {
   --color-ink-deepest: ${p["ink-deepest"]};
@@ -109,5 +107,5 @@ body { font-family: var(--font-doc-sans); color: var(--color-ink-deepest); line-
   .page { margin: 0; box-shadow: none; page-break-after: always; }
   .page:last-child { page-break-after: auto; }
 }
-`
+`;
 }

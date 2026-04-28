@@ -1,4 +1,4 @@
-import { buildGoogleFontsHref, type GoogleFontRef } from "./catalog"
+import { buildGoogleFontsHref, type GoogleFontRef } from "./catalog";
 
 /**
  * Inject (or replace) a <link> for the given font set under a stable id.
@@ -6,22 +6,22 @@ import { buildGoogleFontsHref, type GoogleFontRef } from "./catalog"
  * document fonts independent.
  */
 export function ensureFontLink(id: string, refs: GoogleFontRef[]): void {
-  const href = buildGoogleFontsHref(refs)
-  let link = document.getElementById(id) as HTMLLinkElement | null
+  const href = buildGoogleFontsHref(refs);
+  let link = document.getElementById(id) as HTMLLinkElement | null;
   if (!link) {
-    link = document.createElement("link")
-    link.id = id
-    link.rel = "stylesheet"
-    document.head.appendChild(link)
+    link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
   }
-  if (link.href !== href) link.href = href
+  if (link.href !== href) link.href = href;
 }
 
 type PreconnectTarget = {
-  id: string
-  href: string
-  crossorigin?: boolean
-}
+  id: string;
+  href: string;
+  crossorigin?: boolean;
+};
 
 export function ensurePreconnects(): void {
   const targets: PreconnectTarget[] = [
@@ -31,14 +31,14 @@ export function ensurePreconnects(): void {
       href: "https://fonts.gstatic.com",
       crossorigin: true,
     },
-  ]
+  ];
   for (const t of targets) {
-    if (document.getElementById(t.id)) continue
-    const l = document.createElement("link")
-    l.id = t.id
-    l.rel = "preconnect"
-    l.href = t.href
-    if (t.crossorigin) l.crossOrigin = "anonymous"
-    document.head.appendChild(l)
+    if (document.getElementById(t.id)) continue;
+    const l = document.createElement("link");
+    l.id = t.id;
+    l.rel = "preconnect";
+    l.href = t.href;
+    if (t.crossorigin) l.crossOrigin = "anonymous";
+    document.head.appendChild(l);
   }
 }

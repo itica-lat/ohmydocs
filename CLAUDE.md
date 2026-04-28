@@ -62,9 +62,9 @@ Blocks that don't map to standard markdown use remark-directive syntax:
 - Container (`:::name{attrs}\n...\n:::`) for structural blocks with children
 - Leaf (`::name{attrs}`) for inline/single-line blocks
 
-When writing `serialize`, produce the directive as a `ContainerDirective` or `LeafDirective` from `mdast-util-directive`. The `children` type of `ContainerDirective` is `(BlockContent | DefinitionContent)[]`, not `RootContent[]` — use `textParagraph()` from [src/blocks/_shared.tsx](src/blocks/_shared.tsx) which returns `Paragraph` (not `RootContent`).
+When writing `serialize`, produce the directive as a `ContainerDirective` or `LeafDirective` from `mdast-util-directive`. The `children` type of `ContainerDirective` is `(BlockContent | DefinitionContent)[]`, not `RootContent[]` — use `textParagraph()` from [src/blocks/\_shared.tsx](src/blocks/_shared.tsx) which returns `Paragraph` (not `RootContent`).
 
-### Key shared helpers ([src/blocks/_shared.tsx](src/blocks/_shared.tsx))
+### Key shared helpers ([src/blocks/\_shared.tsx](src/blocks/_shared.tsx))
 
 - `textParagraph(text)` — returns a typed `Paragraph` mdast node
 - `nodeToText(node)` — recursive mdast text extraction
@@ -74,10 +74,10 @@ When writing `serialize`, produce the directive as a `ContainerDirective` or `Le
 
 Three Zustand stores, all persisted:
 
-| Store | Key | File |
-|---|---|---|
-| Documents | `ohmydocs:documents` | [src/features/editor/store.ts](src/features/editor/store.ts) |
-| Branding | `ohmydocs:branding` | [src/features/branding/store.ts](src/features/branding/store.ts) |
+| Store     | Key                  | File                                                               |
+| --------- | -------------------- | ------------------------------------------------------------------ |
+| Documents | `ohmydocs:documents` | [src/features/editor/store.ts](src/features/editor/store.ts)       |
+| Branding  | `ohmydocs:branding`  | [src/features/branding/store.ts](src/features/branding/store.ts)   |
 | Templates | `ohmydocs:templates` | [src/features/templates/store.ts](src/features/templates/store.ts) |
 
 On hydration, each store validates incoming data through Zod and re-seeds defaults (the Eternum branding profile and three templates always exist).
@@ -87,6 +87,7 @@ On hydration, each store validates incoming data through Zod and re-seeds defaul
 ## Palette / branding
 
 CSS custom properties drive all color. Never write hex values outside:
+
 - [src/lib/palette/defaults.ts](src/lib/palette/defaults.ts) — Eternum default values
 - Variant accent maps in `callout/index.tsx` — per-variant colors
 
@@ -99,6 +100,7 @@ Font vars: `--font-doc-serif`, `--font-doc-sans`, `--font-doc-mono` (document bo
 ## Validation boundary
 
 Zod is only used at system boundaries:
+
 - localStorage hydration (Zustand persist merge)
 - File imports (JSON, HTML sidecar, markdown)
 

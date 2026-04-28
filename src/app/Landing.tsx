@@ -1,8 +1,8 @@
-import { Sparkles } from "lucide-react"
-import { useDocumentsStore } from "@/features/editor/store"
+import { Sparkles } from "lucide-react";
+import { useDocumentsStore } from "@/features/editor/store";
 
 export function Landing() {
-  const create = useDocumentsStore((s) => s.createDocument)
+  const create = useDocumentsStore((s) => s.createDocument);
   return (
     <div
       className="flex flex-col items-center text-center max-w-xl pt-24 px-6"
@@ -57,5 +57,5 @@ export function Landing() {
         Start a new document
       </button>
     </div>
-  )
+  );
 }

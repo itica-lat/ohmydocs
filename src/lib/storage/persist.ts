@@ -1,4 +1,4 @@
-import type { StateStorage } from "zustand/middleware"
+import type { StateStorage } from "zustand/middleware";
 
 /**
  * Zustand storage adapter that wraps localStorage and surfaces quota errors
@@ -8,35 +8,33 @@ import type { StateStorage } from "zustand/middleware"
 export const safeLocalStorage: StateStorage = {
   getItem: (name) => {
     try {
-      return globalThis.localStorage.getItem(name)
+      return globalThis.localStorage.getItem(name);
     } catch {
-      return null
+      return null;
     }
   },
   setItem: (name, value) => {
     try {
-      globalThis.localStorage.setItem(name, value)
+      globalThis.localStorage.setItem(name, value);
     } catch (err) {
       if (err instanceof DOMException && err.name === "QuotaExceededError") {
-        window.dispatchEvent(
-          new CustomEvent("ohmydocs:quota-exceeded", { detail: { name } }),
-        )
+        window.dispatchEvent(new CustomEvent("ohmydocs:quota-exceeded", { detail: { name } }));
       }
-      throw err
+      throw err;
     }
   },
   removeItem: (name) => {
     try {
-      globalThis.localStorage.removeItem(name)
+      globalThis.localStorage.removeItem(name);
     } catch {
       /* ignore */
     }
   },
-}
+};
 
 export const STORAGE_KEYS = {
   documents: "ohmydocs:documents",
   templates: "ohmydocs:templates",
   branding: "ohmydocs:branding",
   settings: "ohmydocs:settings",
-} as const
+} as const;

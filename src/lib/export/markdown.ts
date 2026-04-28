@@ -1,6 +1,6 @@
-import type { OhmyDocument } from "@/types/schemas"
-import type { Block } from "@/blocks/types"
-import { blocksToMarkdown } from "@/lib/markdown"
+import type { OhmyDocument } from "@/types/schemas";
+import type { Block } from "@/blocks/types";
+import { blocksToMarkdown } from "@/lib/markdown";
 
 export function exportToMarkdown(doc: OhmyDocument): string {
   const fm = [
@@ -12,10 +12,10 @@ export function exportToMarkdown(doc: OhmyDocument): string {
     `date: ${escape(doc.metadata.date)}`,
     "---",
     "",
-  ].join("\n")
-  return fm + blocksToMarkdown(doc.blocks as Block[])
+  ].join("\n");
+  return fm + blocksToMarkdown(doc.blocks as Block[]);
 }
 
 function escape(s: string): string {
-  return s.replace(/[\n\r"]/g, " ").trim()
+  return s.replace(/[\n\r"]/g, " ").trim();
 }

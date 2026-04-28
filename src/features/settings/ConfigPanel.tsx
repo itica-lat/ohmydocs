@@ -1,13 +1,13 @@
-import { Moon, Sun, Languages } from "lucide-react"
-import { useSettingsStore } from "./store"
-import { useT } from "@/lib/i18n"
+import { Moon, Sun, Languages } from "lucide-react";
+import { useSettingsStore } from "./store";
+import { useT } from "@/lib/i18n";
 
 export function ConfigPanel() {
-  const colorScheme = useSettingsStore((s) => s.colorScheme)
-  const toggleColorScheme = useSettingsStore((s) => s.toggleColorScheme)
-  const locale = useSettingsStore((s) => s.locale)
-  const setLocale = useSettingsStore((s) => s.setLocale)
-  const t = useT()
+  const colorScheme = useSettingsStore((s) => s.colorScheme);
+  const toggleColorScheme = useSettingsStore((s) => s.toggleColorScheme);
+  const locale = useSettingsStore((s) => s.locale);
+  const setLocale = useSettingsStore((s) => s.setLocale);
+  const t = useT();
 
   return (
     <div className="p-4 flex flex-col gap-5">
@@ -29,7 +29,7 @@ export function ConfigPanel() {
         />
       </Section>
     </div>
-  )
+  );
 }
 
 function Section({ label, children }: { label: string; children: React.ReactNode }) {
@@ -48,7 +48,7 @@ function Section({ label, children }: { label: string; children: React.ReactNode
       </span>
       {children}
     </div>
-  )
+  );
 }
 
 function ToggleRow({
@@ -57,10 +57,10 @@ function ToggleRow({
   icon,
   label,
 }: {
-  active: boolean
-  onToggle: () => void
-  icon: React.ReactNode
-  label: string
+  active: boolean;
+  onToggle: () => void;
+  icon: React.ReactNode;
+  label: string;
 }) {
   return (
     <button
@@ -82,10 +82,15 @@ function ToggleRow({
         textAlign: "left",
       }}
     >
-      <span style={{ color: active ? "var(--color-accent)" : "var(--ui-ink-mute)", flexShrink: 0 }}>
+      <span
+        style={{
+          color: active ? "var(--color-accent)" : "var(--ui-ink-mute)",
+          flexShrink: 0,
+        }}
+      >
         {icon}
       </span>
       {label}
     </button>
-  )
+  );
 }

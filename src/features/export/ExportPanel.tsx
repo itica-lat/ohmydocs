@@ -1,11 +1,11 @@
-import { useCallback } from "react"
-import { FileDown, Download, FileText } from "lucide-react"
-import { useDocumentsStore } from "@/features/editor/store"
-import { useBrandingStore } from "@/features/branding/store"
-import { exportToHtml } from "@/lib/export/html"
-import { exportToMarkdown } from "@/lib/export/markdown"
-import { saveTextFile } from "@/lib/storage/fs-access"
-import { useT } from "@/lib/i18n"
+import { useCallback } from "react";
+import { FileDown, Download, FileText } from "lucide-react";
+import { useDocumentsStore } from "@/features/editor/store";
+import { useBrandingStore } from "@/features/branding/store";
+import { exportToHtml } from "@/lib/export/html";
+import { exportToMarkdown } from "@/lib/export/markdown";
+import { saveTextFile } from "@/lib/storage/fs-access";
+import { useT } from "@/lib/i18n";
 
 function slug(s: string): string {
   return (
@@ -13,24 +13,22 @@ function slug(s: string): string {
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "") || "document"
-  )
+  );
 }
 
 export function ExportPanel() {
-  const activeId = useDocumentsStore((s) => s.activeId)
-  const documents = useDocumentsStore((s) => s.documents)
-  const profiles = useBrandingStore((s) => s.profiles)
-  const activeBrandingId = useBrandingStore((s) => s.activeId)
-  const t = useT()
+  const activeId = useDocumentsStore((s) => s.activeId);
+  const documents = useDocumentsStore((s) => s.documents);
+  const profiles = useBrandingStore((s) => s.profiles);
+  const activeBrandingId = useBrandingStore((s) => s.activeId);
+  const t = useT();
 
-  const doc = activeId ? documents[activeId] : null
-  const branding = doc
-    ? (profiles[doc.brandingId] ?? profiles[activeBrandingId])
-    : null
+  const doc = activeId ? documents[activeId] : null;
+  const branding = doc ? (profiles[doc.brandingId] ?? profiles[activeBrandingId]) : null;
 
   const onExportHtml = useCallback(async () => {
-    if (!doc || !branding) return
-    const html = exportToHtml({ document: doc, branding })
+    if (!doc || !branding) return;
+    const html = exportToHtml({ document: doc, branding });
     await saveTextFile(
       html,
       {
@@ -38,26 +36,24 @@ export function ExportPanel() {
         types: [{ description: "HTML", accept: { "text/html": [".html"] } }],
       },
       "text/html",
-    )
-  }, [doc, branding])
+    );
+  }, [doc, branding]);
 
   const onExportMd = useCallback(async () => {
-    if (!doc) return
-    const md = exportToMarkdown(doc)
+    if (!doc) return;
+    const md = exportToMarkdown(doc);
     await saveTextFile(
       md,
       {
         suggestedName: `${slug(doc.title)}.md`,
-        types: [
-          { description: "Markdown", accept: { "text/markdown": [".md"] } },
-        ],
+        types: [{ description: "Markdown", accept: { "text/markdown": [".md"] } }],
       },
       "text/markdown",
-    )
-  }, [doc])
+    );
+  }, [doc]);
 
   const onExportJson = useCallback(async () => {
-    if (!doc) return
+    if (!doc) return;
     await saveTextFile(JSON.stringify(doc, null, 2), {
       suggestedName: `${slug(doc.title)}.ohmydocs.json`,
       types: [
@@ -66,13 +62,11 @@ export function ExportPanel() {
           accept: { "application/json": [".json"] },
         },
       ],
-    })
-  }, [doc])
+    });
+  }, [doc]);
 
   if (!doc) {
-    return (
-      <NoDocHint />
-    )
+    return <NoDocHint />;
   }
 
   return (
@@ -96,7 +90,7 @@ export function ExportPanel() {
         desc=".ohmydocs.json source"
       />
     </div>
-  )
+  );
 }
 
 function ExportBtn({
@@ -105,10 +99,10 @@ function ExportBtn({
   label,
   desc,
 }: {
-  onClick: () => void
-  icon: React.ReactNode
-  label: string
-  desc: string
+  onClick: () => void;
+  icon: React.ReactNode;
+  label: string;
+  desc: string;
 }) {
   return (
     <button
@@ -152,11 +146,11 @@ function ExportBtn({
         </span>
       </span>
     </button>
-  )
+  );
 }
 
 function NoDocHint() {
-  const t = useT()
+  const t = useT();
   return (
     <div
       style={{
@@ -180,5 +174,5 @@ function NoDocHint() {
         {t("export.noDoc")}
       </p>
     </div>
-  )
+  );
 }

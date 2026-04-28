@@ -1,12 +1,12 @@
-import { z } from "zod"
-import type { RootContent, Heading, Paragraph as MdastParagraph } from "mdast"
-import type { ContainerDirective } from "mdast-util-directive"
-import type { BlockDefinition } from "../registry"
-import type { CoverBlock, MetaPair } from "../types"
-import { baseFields } from "../factory"
-import { nodeToText, withAccent } from "../_shared"
+import { z } from "zod";
+import type { RootContent, Heading, Paragraph as MdastParagraph } from "mdast";
+import type { ContainerDirective } from "mdast-util-directive";
+import type { BlockDefinition } from "../registry";
+import type { CoverBlock, MetaPair } from "../types";
+import { baseFields } from "../factory";
+import { nodeToText, withAccent } from "../_shared";
 
-const MetaPair = z.object({ label: z.string(), value: z.string() })
+const MetaPair = z.object({ label: z.string(), value: z.string() });
 
 export const CoverSchema: z.ZodType<CoverBlock> = z.object({
   id: z.string(),
@@ -18,7 +18,7 @@ export const CoverSchema: z.ZodType<CoverBlock> = z.object({
   highlightWord: z.string(),
   metadata: z.array(MetaPair),
   callout: z.string().nullable(),
-})
+});
 
 export const cover: BlockDefinition<"cover"> = {
   type: "cover",
@@ -40,14 +40,13 @@ export const cover: BlockDefinition<"cover"> = {
   }),
   Renderer: ({ block }) => {
     // Title may include the highlight word literally; render it accent-colored.
-    const cleanTitle = block.title.replace(/[*]/g, "")
+    const cleanTitle = block.title.replace(/[*]/g, "");
     return (
       <section
         style={{
           background: "var(--color-ink-deepest)",
           color: "var(--color-ink-on-dark)",
-          margin:
-            "calc(-1 * var(--page-padding)) calc(-1 * var(--page-padding)) 0",
+          margin: "calc(-1 * var(--page-padding)) calc(-1 * var(--page-padding)) 0",
           padding: "var(--page-padding)",
           minHeight: "600px",
           display: "flex",
@@ -110,11 +109,11 @@ export const cover: BlockDefinition<"cover"> = {
           </aside>
         )}
       </section>
-    )
+    );
   },
   Editor: ({ block, onChange }) => {
     const update = <K extends keyof CoverBlock>(k: K, v: CoverBlock[K]) =>
-      onChange({ ...block, [k]: v, updatedAt: new Date().toISOString() })
+      onChange({ ...block, [k]: v, updatedAt: new Date().toISOString() });
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
         <input
@@ -135,18 +134,16 @@ export const cover: BlockDefinition<"cover"> = {
           placeholder="Highlight word"
           style={inputMono}
         />
-        <div
-          style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}
-        >
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
           {block.metadata.map((m, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <div key={i} style={{ display: "flex", gap: "0.5rem" }}>
               <input
                 value={m.label}
                 onChange={(e) => {
-                  const meta = [...block.metadata]
-                  meta[i] = { ...m, label: e.target.value.toUpperCase() }
-                  update("metadata", meta)
+                  const meta = [...block.metadata];
+                  meta[i] = { ...m, label: e.target.value.toUpperCase() };
+                  update("metadata", meta);
                 }}
                 placeholder="LABEL"
                 style={{ ...inputMono, width: "40%" }}
@@ -154,9 +151,9 @@ export const cover: BlockDefinition<"cover"> = {
               <input
                 value={m.value}
                 onChange={(e) => {
-                  const meta = [...block.metadata]
-                  meta[i] = { ...m, value: e.target.value }
-                  update("metadata", meta)
+                  const meta = [...block.metadata];
+                  meta[i] = { ...m, value: e.target.value };
+                  update("metadata", meta);
                 }}
                 placeholder="value"
                 style={{ ...inputSans, flex: 1 }}
@@ -177,9 +174,7 @@ export const cover: BlockDefinition<"cover"> = {
           ))}
           <button
             type="button"
-            onClick={() =>
-              update("metadata", [...block.metadata, { label: "", value: "" }])
-            }
+            onClick={() => update("metadata", [...block.metadata, { label: "", value: "" }])}
             style={addBtn}
           >
             + Metadata row
@@ -193,7 +188,7 @@ export const cover: BlockDefinition<"cover"> = {
           style={{ ...inputSans, resize: "vertical" }}
         />
       </div>
-    )
+    );
   },
   serialize: (block): RootContent[] => {
     const dir: ContainerDirective = {
@@ -226,27 +221,27 @@ export const cover: BlockDefinition<"cover"> = {
             ]
           : []),
       ],
-    }
-    return [dir as RootContent]
+    };
+    return [dir as RootContent];
   },
   deserialize: (node, ctx) => {
-    if (node.type !== "containerDirective") return null
-    const d = node as ContainerDirective
-    if (d.name !== "cover") return null
-    const heading = d.children.find((c) => c.type === "heading") as Heading | undefined
-    const metadata: MetaPair[] = []
-    let callout: string | null = null
+    if (node.type !== "containerDirective") return null;
+    const d = node as ContainerDirective;
+    if (d.name !== "cover") return null;
+    const heading = d.children.find((c) => c.type === "heading") as Heading | undefined;
+    const metadata: MetaPair[] = [];
+    let callout: string | null = null;
     for (const c of d.children) {
       if (c.type === "paragraph") {
-        const text = nodeToText(c)
-        const m = text.match(/^([^:]+):\s*(.*)$/)
+        const text = nodeToText(c);
+        const m = text.match(/^([^:]+):\s*(.*)$/);
         if (m)
           metadata.push({
             label: (m[1] ?? "").trim(),
             value: (m[2] ?? "").trim(),
-          })
+          });
       } else if (c.type === "blockquote") {
-        callout = nodeToText(c)
+        callout = nodeToText(c);
       }
     }
     return {
@@ -256,9 +251,9 @@ export const cover: BlockDefinition<"cover"> = {
       highlightWord: d.attributes?.highlight ?? "",
       metadata,
       callout,
-    }
+    };
   },
-}
+};
 
 const inputBase: React.CSSProperties = {
   border: "var(--rule)",
@@ -266,7 +261,7 @@ const inputBase: React.CSSProperties = {
   padding: "0.375rem 0.5rem",
   borderRadius: "4px",
   background: "var(--color-paper)",
-}
+};
 const inputMono: React.CSSProperties = {
   ...inputBase,
   fontFamily: "var(--font-doc-mono)",
@@ -274,20 +269,20 @@ const inputMono: React.CSSProperties = {
   letterSpacing: "0.08em",
   textTransform: "uppercase",
   color: "var(--color-ink-deep)",
-}
+};
 const inputSans: React.CSSProperties = {
   ...inputBase,
   fontFamily: "var(--font-doc-sans)",
   fontSize: "0.875rem",
   color: "var(--color-ink-deepest)",
-}
+};
 const inputDisplay: React.CSSProperties = {
   ...inputBase,
   fontFamily: "var(--font-doc-serif)",
   fontStyle: "italic",
   fontSize: "1.5rem",
   color: "var(--color-ink-deepest)",
-}
+};
 const removeBtn: React.CSSProperties = {
   border: "var(--rule)",
   background: "transparent",
@@ -295,7 +290,7 @@ const removeBtn: React.CSSProperties = {
   borderRadius: "4px",
   padding: "0.125rem 0.4rem",
   fontSize: "0.6875rem",
-}
+};
 const addBtn: React.CSSProperties = {
   alignSelf: "flex-start",
   fontFamily: "var(--font-ui-mono)",
@@ -307,4 +302,4 @@ const addBtn: React.CSSProperties = {
   border: "none",
   padding: "0.25rem 0",
   cursor: "pointer",
-}
+};

@@ -4,115 +4,138 @@
  */
 
 export interface BaseBlock<T extends string> {
-  id: string
-  type: T
-  createdAt: string
-  updatedAt: string
+  id: string;
+  type: T;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type MetaPair = {
-  label: string
-  value: string
-}
+  label: string;
+  value: string;
+};
 
 export type CoverBlock = BaseBlock<"cover"> & {
-  label: string
-  title: string
-  highlightWord: string
-  metadata: MetaPair[]
-  callout: string | null
-}
+  label: string;
+  title: string;
+  highlightWord: string;
+  metadata: MetaPair[];
+  callout: string | null;
+};
 
 export type SectionBlock = BaseBlock<"section"> & {
-  number: string
-  heading: string
-  lead: string
-}
+  number: string;
+  heading: string;
+  lead: string;
+};
 
 export type SubsectionBlock = BaseBlock<"subsection"> & {
-  heading: string
-}
+  heading: string;
+};
 
 export type MonoLabelBlock = BaseBlock<"mono-label"> & {
-  text: string
-}
+  text: string;
+};
 
 export type ParagraphBlock = BaseBlock<"paragraph"> & {
-  text: string
-}
+  text: string;
+};
 
-export type CalloutVariant = "info" | "warning" | "danger" | "success"
+export type CalloutVariant = "info" | "warning" | "danger" | "success";
 
 export type CalloutBlock = BaseBlock<"callout"> & {
-  variant: CalloutVariant
-  label: string
-  body: string
-}
+  variant: CalloutVariant;
+  label: string;
+  body: string;
+};
 
 export type CodeBlock = BaseBlock<"code-block"> & {
-  language: string
-  code: string
-}
+  language: string;
+  code: string;
+};
 
-export type DividerBlock = BaseBlock<"divider">
+export type DividerBlock = BaseBlock<"divider">;
 
 export type ListBlock = BaseBlock<"list"> & {
-  ordered: boolean
-  items: string[]
-}
+  ordered: boolean;
+  items: string[];
+};
 
 export type TableBlock = BaseBlock<"table"> & {
-  headers: string[]
-  rows: string[][]
-}
+  headers: string[];
+  rows: string[][];
+};
 
 export type MetadataGridBlock = BaseBlock<"metadata-grid"> & {
-  entries: MetaPair[]
-}
+  entries: MetaPair[];
+};
 
 export type ImageBlock = BaseBlock<"image"> & {
-  src: string
-  alt: string
-  caption: string
-  bordered: boolean
-}
+  src: string;
+  alt: string;
+  caption: string;
+  bordered: boolean;
+};
 
 export type QuoteBlock = BaseBlock<"quote"> & {
-  text: string
-  attribution: string
-}
+  text: string;
+  attribution: string;
+};
 
 export type GlossaryEntry = {
-  term: string
-  expansion: string
-  context: string
-}
+  term: string;
+  expansion: string;
+  context: string;
+};
 
 export type GlossaryEntryBlock = BaseBlock<"glossary-entry"> & {
-  entries: GlossaryEntry[]
-}
+  entries: GlossaryEntry[];
+};
 
 export type SignatureSlot = {
-  name: string
-  role: string
-  description: string
-}
+  name: string;
+  role: string;
+  description: string;
+};
 
 export type SignatureBlock = BaseBlock<"signature-block"> & {
-  slots: SignatureSlot[]
-}
+  slots: SignatureSlot[];
+};
 
 export type HeaderBarBlock = BaseBlock<"header-bar"> & {
-  left: string
-  right: string
-}
+  left: string;
+  right: string;
+};
 
 export type FooterBarBlock = BaseBlock<"footer-bar"> & {
-  left: string
-  right: string
-}
+  left: string;
+  right: string;
+};
 
-export type Block = CoverBlock | SectionBlock | SubsectionBlock | MonoLabelBlock | ParagraphBlock | CalloutBlock | CodeBlock | DividerBlock | ListBlock | TableBlock | MetadataGridBlock | ImageBlock | QuoteBlock | GlossaryEntryBlock | SignatureBlock | HeaderBarBlock | FooterBarBlock
+export type PageBreakBlock = BaseBlock<"page-break">;
 
-export type BlockType = Block["type"]
-export type BlockOf<T extends BlockType> = Extract<Block, { type: T }>
+export type IndexBlock = BaseBlock<"index">;
+
+export type Block =
+  | CoverBlock
+  | SectionBlock
+  | SubsectionBlock
+  | MonoLabelBlock
+  | ParagraphBlock
+  | CalloutBlock
+  | CodeBlock
+  | DividerBlock
+  | ListBlock
+  | TableBlock
+  | MetadataGridBlock
+  | ImageBlock
+  | QuoteBlock
+  | GlossaryEntryBlock
+  | SignatureBlock
+  | HeaderBarBlock
+  | FooterBarBlock
+  | PageBreakBlock
+  | IndexBlock;
+
+export type BlockType = Block["type"];
+export type BlockOf<T extends BlockType> = Extract<Block, { type: T }>;

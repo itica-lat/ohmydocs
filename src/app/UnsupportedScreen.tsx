@@ -72,5 +72,5 @@ export function UnsupportedScreen() {
         </p>
       </div>
     </div>
-  )
+  );
 }

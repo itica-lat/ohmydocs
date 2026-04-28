@@ -11,14 +11,14 @@
   --color-ink-on-dark: #e8f0fa;
 
   /* UI chrome (DM family). Document body uses the doc-* family below. */
-  --font-ui-sans: 'DM Sans', system-ui, sans-serif;
-  --font-ui-serif: 'DM Serif Display', Georgia, serif;
-  --font-ui-mono: 'DM Mono', ui-monospace, monospace;
+  --font-ui-sans: "DM Sans", system-ui, sans-serif;
+  --font-ui-serif: "DM Serif Display", Georgia, serif;
+  --font-ui-mono: "DM Mono", ui-monospace, monospace;
 
   /* Document fonts (Eternum default). Branding can override at runtime. */
-  --font-doc-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-  --font-doc-sans: 'Inter', 'IBM Plex Sans', system-ui, sans-serif;
-  --font-doc-mono: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace;
+  --font-doc-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-doc-sans: "Inter", "IBM Plex Sans", system-ui, sans-serif;
+  --font-doc-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
 
   --page-width: 816px;
   --page-padding: 96px;
@@ -37,7 +37,7 @@
   --ui-ink-mute: var(--color-mute);
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ui-surface: #1b2236;
   --ui-surface-soft: #141828;
   --ui-rule: #2a3550;

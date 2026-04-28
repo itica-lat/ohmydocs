@@ -1,9 +1,9 @@
-import { z } from "zod"
-import type { RootContent } from "mdast"
-import type { LeafDirective } from "mdast-util-directive"
-import type { BlockDefinition } from "../registry"
-import type { HeaderBarBlock } from "../types"
-import { baseFields } from "../factory"
+import { z } from "zod";
+import type { RootContent } from "mdast";
+import type { LeafDirective } from "mdast-util-directive";
+import type { BlockDefinition } from "../registry";
+import type { HeaderBarBlock } from "../types";
+import { baseFields } from "../factory";
 
 export const HeaderBarSchema: z.ZodType<HeaderBarBlock> = z.object({
   id: z.string(),
@@ -12,7 +12,7 @@ export const HeaderBarSchema: z.ZodType<HeaderBarBlock> = z.object({
   updatedAt: z.string(),
   left: z.string(),
   right: z.string(),
-})
+});
 
 export const headerBar: BlockDefinition<"header-bar"> = {
   type: "header-bar",
@@ -82,16 +82,16 @@ export const headerBar: BlockDefinition<"header-bar"> = {
     } satisfies LeafDirective as RootContent,
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "leafDirective") return null
-    const d = node as LeafDirective
-    if (d.name !== "header") return null
+    if (node.type !== "leafDirective") return null;
+    const d = node as LeafDirective;
+    if (d.name !== "header") return null;
     return {
       ...ctx.newBlockBase("header-bar"),
       left: d.attributes?.left ?? "",
       right: d.attributes?.right ?? "",
-    }
+    };
   },
-}
+};
 
 const inp: React.CSSProperties = {
   flex: 1,
@@ -105,4 +105,4 @@ const inp: React.CSSProperties = {
   color: "var(--color-ink-deep)",
   background: "var(--color-paper)",
   outline: "none",
-}
+};

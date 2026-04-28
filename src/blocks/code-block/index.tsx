@@ -1,8 +1,8 @@
-import { z } from "zod"
-import type { Code, RootContent } from "mdast"
-import type { BlockDefinition } from "../registry"
-import type { CodeBlock as CodeBlockT } from "../types"
-import { baseFields } from "../factory"
+import { z } from "zod";
+import type { Code, RootContent } from "mdast";
+import type { BlockDefinition } from "../registry";
+import type { CodeBlock as CodeBlockT } from "../types";
+import { baseFields } from "../factory";
 
 export const CodeSchema: z.ZodType<CodeBlockT> = z.object({
   id: z.string(),
@@ -11,7 +11,7 @@ export const CodeSchema: z.ZodType<CodeBlockT> = z.object({
   updatedAt: z.string(),
   language: z.string(),
   code: z.string(),
-})
+});
 
 export const codeBlock: BlockDefinition<"code-block"> = {
   type: "code-block",
@@ -56,9 +56,7 @@ export const codeBlock: BlockDefinition<"code-block"> = {
           {block.language}
         </span>
       )}
-      <pre style={{ margin: 0, fontFamily: "inherit", whiteSpace: "pre" }}>
-        {block.code}
-      </pre>
+      <pre style={{ margin: 0, fontFamily: "inherit", whiteSpace: "pre" }}>{block.code}</pre>
     </div>
   ),
   Editor: ({ block, onChange }) => (
@@ -115,12 +113,12 @@ export const codeBlock: BlockDefinition<"code-block"> = {
     { type: "code", lang: block.language || null, value: block.code },
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "code") return null
-    const c = node as Code
+    if (node.type !== "code") return null;
+    const c = node as Code;
     return {
       ...ctx.newBlockBase("code-block"),
       language: c.lang ?? "",
       code: c.value,
-    }
+    };
   },
-}
+};

@@ -1,9 +1,9 @@
-import { z } from "zod"
-import type { Heading, RootContent } from "mdast"
-import type { BlockDefinition } from "../registry"
-import type { SubsectionBlock } from "../types"
-import { baseFields } from "../factory"
-import { nodeToText } from "../_shared"
+import { z } from "zod";
+import type { Heading, RootContent } from "mdast";
+import type { BlockDefinition } from "../registry";
+import type { SubsectionBlock } from "../types";
+import { baseFields } from "../factory";
+import { nodeToText } from "../_shared";
 
 export const SubsectionSchema: z.ZodType<SubsectionBlock> = z.object({
   id: z.string(),
@@ -11,7 +11,7 @@ export const SubsectionSchema: z.ZodType<SubsectionBlock> = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   heading: z.string(),
-})
+});
 
 export const subsection: BlockDefinition<"subsection"> = {
   type: "subsection",
@@ -32,10 +32,7 @@ export const subsection: BlockDefinition<"subsection"> = {
         paddingBottom: "0.5rem",
       }}
     >
-      <h3
-        className="display-md"
-        style={{ color: "var(--color-ink-deep)", margin: 0 }}
-      >
+      <h3 className="display-md" style={{ color: "var(--color-ink-deep)", margin: 0 }}>
         {block.heading}
       </h3>
     </div>
@@ -71,9 +68,9 @@ export const subsection: BlockDefinition<"subsection"> = {
     },
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "heading") return null
-    const h = node as Heading
-    if (h.depth !== 3) return null
-    return { ...ctx.newBlockBase("subsection"), heading: nodeToText(h) }
+    if (node.type !== "heading") return null;
+    const h = node as Heading;
+    if (h.depth !== 3) return null;
+    return { ...ctx.newBlockBase("subsection"), heading: nodeToText(h) };
   },
-}
+};

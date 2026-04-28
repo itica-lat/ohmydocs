@@ -1,8 +1,8 @@
-import { z } from "zod"
-import type { Image as MdastImage, RootContent } from "mdast"
-import type { BlockDefinition } from "../registry"
-import type { ImageBlock } from "../types"
-import { baseFields } from "../factory"
+import { z } from "zod";
+import type { Image as MdastImage, RootContent } from "mdast";
+import type { BlockDefinition } from "../registry";
+import type { ImageBlock } from "../types";
+import { baseFields } from "../factory";
 
 export const ImageSchema: z.ZodType<ImageBlock> = z.object({
   id: z.string(),
@@ -13,7 +13,7 @@ export const ImageSchema: z.ZodType<ImageBlock> = z.object({
   alt: z.string(),
   caption: z.string(),
   bordered: z.boolean(),
-})
+});
 
 export const image: BlockDefinition<"image"> = {
   type: "image",
@@ -151,19 +151,19 @@ export const image: BlockDefinition<"image"> = {
     },
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "paragraph") return null
-    const first = node.children[0]
-    if (!first || first.type !== "image") return null
-    const img = first as MdastImage
+    if (node.type !== "paragraph") return null;
+    const first = node.children[0];
+    if (!first || first.type !== "image") return null;
+    const img = first as MdastImage;
     return {
       ...ctx.newBlockBase("image"),
       src: img.url,
       alt: img.alt ?? "",
       caption: img.title ?? "",
       bordered: false,
-    }
+    };
   },
-}
+};
 
 const inp: React.CSSProperties = {
   border: "var(--rule)",
@@ -174,4 +174,4 @@ const inp: React.CSSProperties = {
   color: "var(--color-ink-deepest)",
   background: "var(--color-paper)",
   outline: "none",
-}
+};

@@ -1,4 +1,4 @@
-export type Locale = "en" | "es"
+export type Locale = "en" | "es";
 
 export const translations = {
   en: {
@@ -31,16 +31,14 @@ export const translations = {
     "config.light": "Light",
     "config.language": "Language",
     "landing.title": "Welcome to OhMyDocs!",
-    "landing.subtitle":
-      "Select a document from the sidebar or create a new one to get started.",
+    "landing.subtitle": "Select a document from the sidebar or create a new one to get started.",
     "insert.label": "Add block",
   },
   es: {
     "sidebar.documents": "Documentos",
     "sidebar.new": "Nuevo",
     "sidebar.empty": "Sin documentos aun.",
-    "sidebar.emptyHint":
-      "Haz clic en Nuevo para crear tu primer documento Eternum.",
+    "sidebar.emptyHint": "Haz clic en Nuevo para crear tu primer documento Eternum.",
     "sidebar.collapse": "Contraer panel",
     "sidebar.expand": "Expandir panel",
     "toolbar.read": "Leer",
@@ -66,10 +64,9 @@ export const translations = {
     "config.light": "Claro",
     "config.language": "Idioma",
     "landing.title": "Bienvenido a OhMyDocs!",
-    "landing.subtitle":
-      "Selecciona un documento del panel o crea uno nuevo para comenzar.",
+    "landing.subtitle": "Selecciona un documento del panel o crea uno nuevo para comenzar.",
     "insert.label": "Agregar bloque",
   },
-} satisfies Record<Locale, Record<string, string>>
+} satisfies Record<Locale, Record<string, string>>;
 
-export type TranslationKey = keyof typeof translations["en"]
+export type TranslationKey = keyof (typeof translations)["en"];

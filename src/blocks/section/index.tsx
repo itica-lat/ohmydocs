@@ -1,10 +1,10 @@
-import { z } from "zod"
-import type { RootContent } from "mdast"
-import type { ContainerDirective } from "mdast-util-directive"
-import type { BlockDefinition } from "../registry"
-import type { SectionBlock } from "../types"
-import { baseFields } from "../factory"
-import { nodeToText, textParagraph, withAccent } from "../_shared"
+import { z } from "zod";
+import type { RootContent } from "mdast";
+import type { ContainerDirective } from "mdast-util-directive";
+import type { BlockDefinition } from "../registry";
+import type { SectionBlock } from "../types";
+import { baseFields } from "../factory";
+import { nodeToText, textParagraph, withAccent } from "../_shared";
 
 export const SectionSchema: z.ZodType<SectionBlock> = z.object({
   id: z.string(),
@@ -14,22 +14,22 @@ export const SectionSchema: z.ZodType<SectionBlock> = z.object({
   number: z.string(),
   heading: z.string(),
   lead: z.string(),
-})
+});
 
 /** Heading text supports `*word*` to highlight one word in accent color. */
 type AccentParts = {
-  plain: string
-  accent: string
-}
+  plain: string;
+  accent: string;
+};
 
 function parseAccent(heading: string): AccentParts {
-  const m = heading.match(/^(.*?)\*([^*]+)\*(.*)$/)
-  if (!m) return { plain: heading, accent: "" }
-  const [, before, word, after] = m
+  const m = heading.match(/^(.*?)\*([^*]+)\*(.*)$/);
+  if (!m) return { plain: heading, accent: "" };
+  const [, before, word, after] = m;
   return {
     plain: `${before ?? ""}${word ?? ""}${after ?? ""}`,
     accent: word ?? "",
-  }
+  };
 }
 
 export const section: BlockDefinition<"section"> = {
@@ -46,7 +46,7 @@ export const section: BlockDefinition<"section"> = {
     ...over,
   }),
   Renderer: ({ block }) => {
-    const parsed = parseAccent(block.heading)
+    const parsed = parseAccent(block.heading);
     return (
       <section style={{ margin: "3rem 0 1.5rem", position: "relative" }}>
         <span
@@ -83,7 +83,7 @@ export const section: BlockDefinition<"section"> = {
           </p>
         )}
       </section>
-    )
+    );
   },
   Editor: ({ block, onChange }) => (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
@@ -177,20 +177,20 @@ export const section: BlockDefinition<"section"> = {
             ]
           : []),
       ],
-    }
-    return [dir as RootContent]
+    };
+    return [dir as RootContent];
   },
   deserialize: (node, ctx) => {
-    if (node.type !== "containerDirective") return null
-    const d = node as ContainerDirective
-    if (d.name !== "section") return null
-    const heading = d.children.find((c) => c.type === "heading")
-    const quote = d.children.find((c) => c.type === "blockquote")
+    if (node.type !== "containerDirective") return null;
+    const d = node as ContainerDirective;
+    if (d.name !== "section") return null;
+    const heading = d.children.find((c) => c.type === "heading");
+    const quote = d.children.find((c) => c.type === "blockquote");
     return {
       ...ctx.newBlockBase("section"),
       number: d.attributes?.number ?? "",
       heading: heading ? nodeToText(heading) : "",
       lead: quote ? nodeToText(quote) : "",
-    }
+    };
   },
-}
+};

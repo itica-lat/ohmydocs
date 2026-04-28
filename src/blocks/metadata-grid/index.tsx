@@ -1,9 +1,9 @@
-import { z } from "zod"
-import type { RootContent } from "mdast"
-import type { ContainerDirective } from "mdast-util-directive"
-import type { BlockDefinition } from "../registry"
-import type { MetadataGridBlock, MetaPair } from "../types"
-import { baseFields } from "../factory"
+import { z } from "zod";
+import type { RootContent } from "mdast";
+import type { ContainerDirective } from "mdast-util-directive";
+import type { BlockDefinition } from "../registry";
+import type { MetadataGridBlock, MetaPair } from "../types";
+import { baseFields } from "../factory";
 
 export const MetadataGridSchema: z.ZodType<MetadataGridBlock> = z.object({
   id: z.string(),
@@ -11,7 +11,7 @@ export const MetadataGridSchema: z.ZodType<MetadataGridBlock> = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   entries: z.array(z.object({ label: z.string(), value: z.string() })),
-})
+});
 
 export const metadataGrid: BlockDefinition<"metadata-grid"> = {
   type: "metadata-grid",
@@ -58,13 +58,13 @@ export const metadataGrid: BlockDefinition<"metadata-grid"> = {
           <input
             value={e.label}
             onChange={(ev) => {
-              const entries = [...block.entries]
-              entries[i] = { ...e, label: ev.target.value.toUpperCase() }
+              const entries = [...block.entries];
+              entries[i] = { ...e, label: ev.target.value.toUpperCase() };
               onChange({
                 ...block,
                 entries,
                 updatedAt: new Date().toISOString(),
-              })
+              });
             }}
             placeholder="LABEL"
             style={{
@@ -77,13 +77,13 @@ export const metadataGrid: BlockDefinition<"metadata-grid"> = {
           <input
             value={e.value}
             onChange={(ev) => {
-              const entries = [...block.entries]
-              entries[i] = { ...e, value: ev.target.value }
+              const entries = [...block.entries];
+              entries[i] = { ...e, value: ev.target.value };
               onChange({
                 ...block,
                 entries,
                 updatedAt: new Date().toISOString(),
-              })
+              });
             }}
             placeholder="value"
             style={{ ...inp, flex: 1 }}
@@ -130,22 +130,19 @@ export const metadataGrid: BlockDefinition<"metadata-grid"> = {
     } as ContainerDirective as RootContent,
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "containerDirective") return null
-    const d = node as ContainerDirective
-    if (d.name !== "metadata") return null
-    const entries: MetaPair[] = []
+    if (node.type !== "containerDirective") return null;
+    const d = node as ContainerDirective;
+    if (d.name !== "metadata") return null;
+    const entries: MetaPair[] = [];
     for (const c of d.children) {
-      if (c.type !== "paragraph") continue
-      const text = (c.children as { value?: string }[])
-        .map((n) => n.value ?? "")
-        .join("")
-      const m = text.match(/^([^:]+):\s*(.*)$/)
-      if (m)
-        entries.push({ label: (m[1] ?? "").trim(), value: (m[2] ?? "").trim() })
+      if (c.type !== "paragraph") continue;
+      const text = (c.children as { value?: string }[]).map((n) => n.value ?? "").join("");
+      const m = text.match(/^([^:]+):\s*(.*)$/);
+      if (m) entries.push({ label: (m[1] ?? "").trim(), value: (m[2] ?? "").trim() });
     }
-    return { ...ctx.newBlockBase("metadata-grid"), entries }
+    return { ...ctx.newBlockBase("metadata-grid"), entries };
   },
-}
+};
 
 const inp: React.CSSProperties = {
   border: "var(--rule)",
@@ -156,7 +153,7 @@ const inp: React.CSSProperties = {
   color: "var(--color-ink-deepest)",
   background: "var(--color-paper)",
   outline: "none",
-}
+};
 const addBtn: React.CSSProperties = {
   alignSelf: "flex-start",
   fontFamily: "var(--font-ui-mono)",
@@ -168,7 +165,7 @@ const addBtn: React.CSSProperties = {
   border: "none",
   padding: "0.25rem 0",
   cursor: "pointer",
-}
+};
 const delBtn: React.CSSProperties = {
   border: "var(--rule)",
   background: "transparent",
@@ -176,4 +173,4 @@ const delBtn: React.CSSProperties = {
   borderRadius: "4px",
   padding: "0.125rem 0.4rem",
   fontSize: "0.6875rem",
-}
+};

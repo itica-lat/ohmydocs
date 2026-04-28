@@ -1,15 +1,15 @@
-import { z } from "zod"
-import type { RootContent } from "mdast"
-import type { BlockDefinition } from "../registry"
-import type { DividerBlock } from "../types"
-import { baseFields } from "../factory"
+import { z } from "zod";
+import type { RootContent } from "mdast";
+import type { BlockDefinition } from "../registry";
+import type { DividerBlock } from "../types";
+import { baseFields } from "../factory";
 
 export const DividerSchema: z.ZodType<DividerBlock> = z.object({
   id: z.string(),
   type: z.literal("divider"),
   createdAt: z.string(),
   updatedAt: z.string(),
-})
+});
 
 export const divider: BlockDefinition<"divider"> = {
   type: "divider",
@@ -43,7 +43,7 @@ export const divider: BlockDefinition<"divider"> = {
   ),
   serialize: (): RootContent[] => [{ type: "thematicBreak" }],
   deserialize: (node, ctx) => {
-    if (node.type !== "thematicBreak") return null
-    return { ...ctx.newBlockBase("divider") }
+    if (node.type !== "thematicBreak") return null;
+    return { ...ctx.newBlockBase("divider") };
   },
-}
+};

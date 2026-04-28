@@ -1,9 +1,9 @@
-import { z } from "zod"
-import type { RootContent } from "mdast"
-import type { LeafDirective } from "mdast-util-directive"
-import type { BlockDefinition } from "../registry"
-import type { MonoLabelBlock } from "../types"
-import { baseFields } from "../factory"
+import { z } from "zod";
+import type { RootContent } from "mdast";
+import type { LeafDirective } from "mdast-util-directive";
+import type { BlockDefinition } from "../registry";
+import type { MonoLabelBlock } from "../types";
+import { baseFields } from "../factory";
 
 export const MonoLabelSchema: z.ZodType<MonoLabelBlock> = z.object({
   id: z.string(),
@@ -11,7 +11,7 @@ export const MonoLabelSchema: z.ZodType<MonoLabelBlock> = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   text: z.string(),
-})
+});
 
 export const monoLabel: BlockDefinition<"mono-label"> = {
   type: "mono-label",
@@ -61,9 +61,9 @@ export const monoLabel: BlockDefinition<"mono-label"> = {
     } satisfies LeafDirective as RootContent,
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "leafDirective") return null
-    const d = node as LeafDirective
-    if (d.name !== "monolabel") return null
-    return { ...ctx.newBlockBase("mono-label"), text: d.attributes?.text ?? "" }
+    if (node.type !== "leafDirective") return null;
+    const d = node as LeafDirective;
+    if (d.name !== "monolabel") return null;
+    return { ...ctx.newBlockBase("mono-label"), text: d.attributes?.text ?? "" };
   },
-}
+};

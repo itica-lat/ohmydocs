@@ -1,9 +1,9 @@
-import { z } from "zod"
-import type { Paragraph as MdastParagraph, RootContent } from "mdast"
-import type { BlockDefinition } from "../registry"
-import type { ParagraphBlock } from "../types"
-import { baseFields } from "../factory"
-import { nodeToText, textParagraph } from "../_shared"
+import { z } from "zod";
+import type { Paragraph as MdastParagraph, RootContent } from "mdast";
+import type { BlockDefinition } from "../registry";
+import type { ParagraphBlock } from "../types";
+import { baseFields } from "../factory";
+import { nodeToText, textParagraph } from "../_shared";
 
 export const ParagraphSchema: z.ZodType<ParagraphBlock> = z.object({
   id: z.string(),
@@ -11,7 +11,7 @@ export const ParagraphSchema: z.ZodType<ParagraphBlock> = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   text: z.string(),
-})
+});
 
 export const paragraph: BlockDefinition<"paragraph"> = {
   type: "paragraph",
@@ -59,10 +59,10 @@ export const paragraph: BlockDefinition<"paragraph"> = {
   ),
   serialize: (block): RootContent[] => [textParagraph(block.text)],
   deserialize: (node, ctx) => {
-    if (node.type !== "paragraph") return null
+    if (node.type !== "paragraph") return null;
     return {
       ...ctx.newBlockBase("paragraph"),
       text: nodeToText(node as MdastParagraph),
-    }
+    };
   },
-}
+};

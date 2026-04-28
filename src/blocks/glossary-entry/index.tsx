@@ -1,15 +1,15 @@
-import { z } from "zod"
-import type { RootContent } from "mdast"
-import type { ContainerDirective } from "mdast-util-directive"
-import type { BlockDefinition } from "../registry"
-import type { GlossaryEntryBlock, GlossaryEntry } from "../types"
-import { baseFields } from "../factory"
+import { z } from "zod";
+import type { RootContent } from "mdast";
+import type { ContainerDirective } from "mdast-util-directive";
+import type { BlockDefinition } from "../registry";
+import type { GlossaryEntryBlock, GlossaryEntry } from "../types";
+import { baseFields } from "../factory";
 
 const Entry = z.object({
   term: z.string(),
   expansion: z.string(),
   context: z.string(),
-})
+});
 
 export const GlossarySchema: z.ZodType<GlossaryEntryBlock> = z.object({
   id: z.string(),
@@ -17,7 +17,7 @@ export const GlossarySchema: z.ZodType<GlossaryEntryBlock> = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   entries: z.array(Entry),
-})
+});
 
 export const glossaryEntry: BlockDefinition<"glossary-entry"> = {
   type: "glossary-entry",
@@ -48,9 +48,7 @@ export const glossaryEntry: BlockDefinition<"glossary-entry"> = {
           <dt className="mono-label" style={{ color: "var(--color-ink-deep)" }}>
             {e.term}
           </dt>
-          <dd style={{ margin: 0, color: "var(--color-ink-deepest)" }}>
-            {e.expansion}
-          </dd>
+          <dd style={{ margin: 0, color: "var(--color-ink-deepest)" }}>{e.expansion}</dd>
           <dd style={{ margin: 0, color: "var(--color-mute)" }}>{e.context}</dd>
         </div>
       ))}
@@ -71,13 +69,13 @@ export const glossaryEntry: BlockDefinition<"glossary-entry"> = {
           <input
             value={e.term}
             onChange={(ev) => {
-              const entries = [...block.entries]
-              entries[i] = { ...e, term: ev.target.value.toUpperCase() }
+              const entries = [...block.entries];
+              entries[i] = { ...e, term: ev.target.value.toUpperCase() };
               onChange({
                 ...block,
                 entries,
                 updatedAt: new Date().toISOString(),
-              })
+              });
             }}
             placeholder="TERM"
             style={{
@@ -89,13 +87,13 @@ export const glossaryEntry: BlockDefinition<"glossary-entry"> = {
           <input
             value={e.expansion}
             onChange={(ev) => {
-              const entries = [...block.entries]
-              entries[i] = { ...e, expansion: ev.target.value }
+              const entries = [...block.entries];
+              entries[i] = { ...e, expansion: ev.target.value };
               onChange({
                 ...block,
                 entries,
                 updatedAt: new Date().toISOString(),
-              })
+              });
             }}
             placeholder="Expansion"
             style={inp}
@@ -103,13 +101,13 @@ export const glossaryEntry: BlockDefinition<"glossary-entry"> = {
           <input
             value={e.context}
             onChange={(ev) => {
-              const entries = [...block.entries]
-              entries[i] = { ...e, context: ev.target.value }
+              const entries = [...block.entries];
+              entries[i] = { ...e, context: ev.target.value };
               onChange({
                 ...block,
                 entries,
                 updatedAt: new Date().toISOString(),
-              })
+              });
             }}
             placeholder="Context"
             style={inp}
@@ -134,10 +132,7 @@ export const glossaryEntry: BlockDefinition<"glossary-entry"> = {
         onClick={() =>
           onChange({
             ...block,
-            entries: [
-              ...block.entries,
-              { term: "", expansion: "", context: "" },
-            ],
+            entries: [...block.entries, { term: "", expansion: "", context: "" }],
             updatedAt: new Date().toISOString(),
           })
         }
@@ -154,32 +149,28 @@ export const glossaryEntry: BlockDefinition<"glossary-entry"> = {
       attributes: {},
       children: block.entries.map((e) => ({
         type: "paragraph",
-        children: [
-          { type: "text", value: `${e.term} | ${e.expansion} | ${e.context}` },
-        ],
+        children: [{ type: "text", value: `${e.term} | ${e.expansion} | ${e.context}` }],
       })),
     } as ContainerDirective as RootContent,
   ],
   deserialize: (node, ctx) => {
-    if (node.type !== "containerDirective") return null
-    const d = node as ContainerDirective
-    if (d.name !== "glossary") return null
-    const entries: GlossaryEntry[] = []
+    if (node.type !== "containerDirective") return null;
+    const d = node as ContainerDirective;
+    if (d.name !== "glossary") return null;
+    const entries: GlossaryEntry[] = [];
     for (const c of d.children) {
-      if (c.type !== "paragraph") continue
-      const text = (c.children as { value?: string }[])
-        .map((n) => n.value ?? "")
-        .join("")
-      const parts = text.split("|").map((p) => p.trim())
+      if (c.type !== "paragraph") continue;
+      const text = (c.children as { value?: string }[]).map((n) => n.value ?? "").join("");
+      const parts = text.split("|").map((p) => p.trim());
       entries.push({
         term: parts[0] ?? "",
         expansion: parts[1] ?? "",
         context: parts[2] ?? "",
-      })
+      });
     }
-    return { ...ctx.newBlockBase("glossary-entry"), entries }
+    return { ...ctx.newBlockBase("glossary-entry"), entries };
   },
-}
+};
 
 const inp: React.CSSProperties = {
   border: "var(--rule)",
@@ -190,7 +181,7 @@ const inp: React.CSSProperties = {
   color: "var(--color-ink-deepest)",
   background: "var(--color-paper)",
   outline: "none",
-}
+};
 const addBtn: React.CSSProperties = {
   alignSelf: "flex-start",
   fontFamily: "var(--font-ui-mono)",
@@ -202,7 +193,7 @@ const addBtn: React.CSSProperties = {
   border: "none",
   padding: "0.25rem 0",
   cursor: "pointer",
-}
+};
 const delBtn: React.CSSProperties = {
   border: "var(--rule)",
   background: "transparent",
@@ -210,4 +201,4 @@ const delBtn: React.CSSProperties = {
   borderRadius: "4px",
   padding: "0.125rem 0.4rem",
   fontSize: "0.6875rem",
-}
+};

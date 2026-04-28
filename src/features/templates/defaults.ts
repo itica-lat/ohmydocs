@@ -1,9 +1,9 @@
-import type { Template } from "@/types/schemas"
-import type { Block } from "@/blocks/types"
-import { blockRegistry } from "@/blocks/registry"
-import { ETERNUM_BRANDING } from "@/lib/palette/defaults"
+import type { Template } from "@/types/schemas";
+import type { Block } from "@/blocks/types";
+import { blockRegistry } from "@/blocks/registry";
+import { ETERNUM_BRANDING } from "@/lib/palette/defaults";
 
-const now = "2026-01-01T00:00:00.000Z"
+const now = "2026-01-01T00:00:00.000Z";
 
 function fix(blocks: Block[]): Template["blocks"] {
   return blocks.map((b, i) => ({
@@ -11,22 +11,18 @@ function fix(blocks: Block[]): Template["blocks"] {
     id: `seed-${b.type}-${i}`,
     createdAt: now,
     updatedAt: now,
-  })) as Template["blocks"]
+  })) as Template["blocks"];
 }
 
-function f<T extends Block["type"]>(
-  type: T,
-  over: Partial<Extract<Block, { type: T }>>,
-): Block {
+function f<T extends Block["type"]>(type: T, over: Partial<Extract<Block, { type: T }>>): Block {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return blockRegistry[type].factory(over as any) as Block
+  return blockRegistry[type].factory(over as any) as Block;
 }
 
 const technical = (): Template => ({
   id: "tpl:eternum-technical",
   name: "Eternum Technical Document",
-  description:
-    "Cover, sections with decorative numerals, code blocks, glossary, signatures.",
+  description: "Cover, sections with decorative numerals, code blocks, glossary, signatures.",
   blocks: fix([
     f("cover", {
       label: "ADMINISTRATION OF OPERATING SYSTEMS · FIRST DELIVERY",
@@ -107,7 +103,7 @@ const technical = (): Template => ({
   readOnly: true,
   createdAt: now,
   updatedAt: now,
-})
+});
 
 const brief = (): Template => ({
   id: "tpl:eternum-brief",
@@ -132,10 +128,7 @@ const brief = (): Template => ({
     }),
     f("list", {
       ordered: true,
-      items: [
-        "Confirm constraints with stakeholders",
-        "Land scope by end of week",
-      ],
+      items: ["Confirm constraints with stakeholders", "Land scope by end of week"],
     }),
     f("footer-bar", { left: "ETERNUM BRIEF", right: "CIRCULATE" }),
   ]),
@@ -144,7 +137,7 @@ const brief = (): Template => ({
   readOnly: true,
   createdAt: now,
   updatedAt: now,
-})
+});
 
 const reglament = (): Template => ({
   id: "tpl:eternum-reglament",
@@ -159,8 +152,7 @@ const reglament = (): Template => ({
         { label: "EFFECTIVE", value: "2026-01-01" },
         { label: "REVISION", value: "01" },
       ],
-      callout:
-        "This document is binding for all members of Eternum during the cited period.",
+      callout: "This document is binding for all members of Eternum during the cited period.",
     }),
     f("header-bar", { left: "ETERNUM · REGLAMENT", right: "ARTICLES" }),
     f("section", { number: "I", heading: "Object and *scope*", lead: "" }),
@@ -196,6 +188,6 @@ const reglament = (): Template => ({
   readOnly: true,
   createdAt: now,
   updatedAt: now,
-})
+});
 
-export const DEFAULT_TEMPLATES: Template[] = [technical(), brief(), reglament()]
+export const DEFAULT_TEMPLATES: Template[] = [technical(), brief(), reglament()];

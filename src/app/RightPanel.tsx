@@ -1,23 +1,23 @@
-import { useState } from "react"
-import { Palette, Settings, Layout, FileText, Download, SlidersHorizontal } from "lucide-react"
-import { BrandingPanel } from "@/features/branding/BrandingPanel"
-import { MetadataPanel } from "@/features/metadata/MetadataPanel"
-import { TemplatesPanel } from "@/features/templates/TemplatesPanel"
-import { ExportPanel } from "@/features/export/ExportPanel"
-import { ConfigPanel } from "@/features/settings/ConfigPanel"
-import { useDocumentsStore } from "@/features/editor/store"
-import { useT } from "@/lib/i18n"
+import { useState } from "react";
+import { Palette, Settings, Layout, FileText, Download, SlidersHorizontal } from "lucide-react";
+import { BrandingPanel } from "@/features/branding/BrandingPanel";
+import { MetadataPanel } from "@/features/metadata/MetadataPanel";
+import { TemplatesPanel } from "@/features/templates/TemplatesPanel";
+import { ExportPanel } from "@/features/export/ExportPanel";
+import { ConfigPanel } from "@/features/settings/ConfigPanel";
+import { useDocumentsStore } from "@/features/editor/store";
+import { useT } from "@/lib/i18n";
 
-type TabId = "metadata" | "branding" | "templates" | "export" | "config"
+type TabId = "metadata" | "branding" | "templates" | "export" | "config";
 
 export function RightPanel() {
-  const activeDocId = useDocumentsStore((s) => s.activeId)
-  const [tab, setTab] = useState<TabId>(activeDocId ? "metadata" : "templates")
-  const t = useT()
+  const activeDocId = useDocumentsStore((s) => s.activeId);
+  const [tab, setTab] = useState<TabId>(activeDocId ? "metadata" : "templates");
+  const t = useT();
 
   return (
     <aside
-      className="right-panel flex flex-col border-l overflow-y-auto"
+      className="right-panel flex flex-col border-l overflow-hidden"
       style={{ background: "var(--ui-surface)", borderColor: "var(--ui-rule)" }}
     >
       <nav
@@ -44,13 +44,9 @@ export function RightPanel() {
         </TabBtn>
       </nav>
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto min-h-0">
         {tab === "metadata" &&
-          (activeDocId ? (
-            <MetadataPanel />
-          ) : (
-            <NoDocHint icon={<FileText size={20} />} />
-          ))}
+          (activeDocId ? <MetadataPanel /> : <NoDocHint icon={<FileText size={20} />} />)}
         {tab === "branding" && <BrandingPanel />}
         {tab === "templates" && <TemplatesPanel />}
         {tab === "export" && <ExportPanel />}
@@ -69,7 +65,7 @@ export function RightPanel() {
         </p>
       </footer>
     </aside>
-  )
+  );
 }
 
 function TabBtn({
@@ -79,13 +75,13 @@ function TabBtn({
   icon,
   children,
 }: {
-  id: TabId
-  current: TabId
-  onClick: (id: TabId) => void
-  icon: React.ReactNode
-  children: React.ReactNode
+  id: TabId;
+  current: TabId;
+  onClick: (id: TabId) => void;
+  icon: React.ReactNode;
+  children: React.ReactNode;
 }) {
-  const isActive = id === current
+  const isActive = id === current;
   return (
     <button
       type="button"
@@ -99,9 +95,7 @@ function TabBtn({
         padding: "0.5rem 0.4rem",
         background: "transparent",
         border: "none",
-        borderBottom: isActive
-          ? "2px solid var(--color-accent)"
-          : "2px solid transparent",
+        borderBottom: isActive ? "2px solid var(--color-accent)" : "2px solid transparent",
         color: isActive ? "var(--ui-ink)" : "var(--ui-ink-mute)",
         fontFamily: "var(--font-ui-mono)",
         fontSize: "0.6rem",
@@ -113,11 +107,11 @@ function TabBtn({
       {icon}
       {children}
     </button>
-  )
+  );
 }
 
 function NoDocHint({ icon }: { icon: React.ReactNode }) {
-  const t = useT()
+  const t = useT();
   return (
     <div
       style={{
@@ -141,5 +135,5 @@ function NoDocHint({ icon }: { icon: React.ReactNode }) {
         {t("rightPanel.noDoc")}
       </p>
     </div>
-  )
+  );
 }
