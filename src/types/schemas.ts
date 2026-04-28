@@ -79,6 +79,7 @@ export const DocumentSchema = z.object({
   brandingId: z.string(),
   templateId: z.string().nullable(),
   blocks: z.array(BlockSchema),
+  htmlContent: z.string().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 })

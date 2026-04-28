@@ -1,12 +1,14 @@
 import { useState } from "react"
-import { Palette, Settings, Layout, FileText } from "lucide-react"
+import { Palette, Settings, Layout, FileText, Download, SlidersHorizontal } from "lucide-react"
 import { BrandingPanel } from "@/features/branding/BrandingPanel"
 import { MetadataPanel } from "@/features/metadata/MetadataPanel"
 import { TemplatesPanel } from "@/features/templates/TemplatesPanel"
+import { ExportPanel } from "@/features/export/ExportPanel"
+import { ConfigPanel } from "@/features/settings/ConfigPanel"
 import { useDocumentsStore } from "@/features/editor/store"
 import { useT } from "@/lib/i18n"
 
-type TabId = "metadata" | "branding" | "templates"
+type TabId = "metadata" | "branding" | "templates" | "export" | "config"
 
 export function RightPanel() {
   const activeDocId = useDocumentsStore((s) => s.activeId)
@@ -19,35 +21,26 @@ export function RightPanel() {
       style={{ background: "var(--ui-surface)", borderColor: "var(--ui-rule)" }}
     >
       <nav
-        className="flex"
+        className="flex flex-wrap"
         style={{
           borderBottom: `1px solid var(--ui-rule)`,
           background: "var(--ui-surface-soft)",
         }}
       >
-        <TabBtn
-          id="metadata"
-          current={tab}
-          onClick={setTab}
-          icon={<Settings size={12} />}
-        >
+        <TabBtn id="metadata" current={tab} onClick={setTab} icon={<Settings size={12} />}>
           {t("rightPanel.metadata")}
         </TabBtn>
-        <TabBtn
-          id="branding"
-          current={tab}
-          onClick={setTab}
-          icon={<Palette size={12} />}
-        >
+        <TabBtn id="branding" current={tab} onClick={setTab} icon={<Palette size={12} />}>
           {t("rightPanel.branding")}
         </TabBtn>
-        <TabBtn
-          id="templates"
-          current={tab}
-          onClick={setTab}
-          icon={<Layout size={12} />}
-        >
+        <TabBtn id="templates" current={tab} onClick={setTab} icon={<Layout size={12} />}>
           {t("rightPanel.templates")}
+        </TabBtn>
+        <TabBtn id="export" current={tab} onClick={setTab} icon={<Download size={12} />}>
+          {t("rightPanel.export")}
+        </TabBtn>
+        <TabBtn id="config" current={tab} onClick={setTab} icon={<SlidersHorizontal size={12} />}>
+          {t("rightPanel.config")}
         </TabBtn>
       </nav>
 
@@ -60,6 +53,8 @@ export function RightPanel() {
           ))}
         {tab === "branding" && <BrandingPanel />}
         {tab === "templates" && <TemplatesPanel />}
+        {tab === "export" && <ExportPanel />}
+        {tab === "config" && <ConfigPanel />}
       </div>
 
       <footer
@@ -96,12 +91,12 @@ function TabBtn({
       type="button"
       onClick={() => onClick(id)}
       style={{
-        flex: 1,
+        flex: "1 1 auto",
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
         gap: "0.3rem",
-        padding: "0.6rem 0.5rem",
+        padding: "0.5rem 0.4rem",
         background: "transparent",
         border: "none",
         borderBottom: isActive
@@ -109,9 +104,9 @@ function TabBtn({
           : "2px solid transparent",
         color: isActive ? "var(--ui-ink)" : "var(--ui-ink-mute)",
         fontFamily: "var(--font-ui-mono)",
-        fontSize: "0.6875rem",
+        fontSize: "0.6rem",
         textTransform: "uppercase",
-        letterSpacing: "0.08em",
+        letterSpacing: "0.06em",
         cursor: "pointer",
       }}
     >

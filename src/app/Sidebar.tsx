@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react"
-import { FileText, Plus, Trash2, Pencil } from "lucide-react"
+import { FileText, Plus, Trash2, Pencil, ChevronLeft, ChevronRight } from "lucide-react"
 import { useDocumentsStore } from "@/features/editor/store"
+import { useSettingsStore } from "@/features/settings/store"
 import { useT } from "@/lib/i18n"
 
 export function Sidebar() {
@@ -8,7 +9,38 @@ export function Sidebar() {
   const activeId = useDocumentsStore((s) => s.activeId)
   const setActive = useDocumentsStore((s) => s.setActive)
   const create = useDocumentsStore((s) => s.createDocument)
+  const sidebarCollapsed = useSettingsStore((s) => s.sidebarCollapsed)
+  const toggleSidebarCollapsed = useSettingsStore((s) => s.toggleSidebarCollapsed)
   const t = useT()
+
+  if (sidebarCollapsed) {
+    return (
+      <aside
+        className="sidebar flex flex-col items-center border-r py-4 gap-3"
+        style={{ background: "var(--ui-surface)", borderColor: "var(--ui-rule)" }}
+      >
+        <button
+          type="button"
+          onClick={toggleSidebarCollapsed}
+          title={t("sidebar.expand")}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 28,
+            height: 28,
+            background: "transparent",
+            border: `1px solid var(--ui-rule)`,
+            borderRadius: 4,
+            color: "var(--ui-ink-mute)",
+            cursor: "pointer",
+          }}
+        >
+          <ChevronRight size={14} />
+        </button>
+      </aside>
+    )
+  }
 
   const docs = Object.values(documents).sort((a, b) =>
     b.updatedAt.localeCompare(a.updatedAt),
@@ -23,20 +55,45 @@ export function Sidebar() {
         className="px-5 pt-5 pb-3 border-b"
         style={{ borderColor: "var(--ui-rule)" }}
       >
-        <div
-          className="text-[0.6875rem] uppercase tracking-[0.12em]"
-          style={{
-            color: "var(--color-accent)",
-            fontFamily: "var(--font-ui-mono)",
-          }}
-        >
-          Eternum
-        </div>
-        <div
-          className="text-[1.5rem] italic leading-tight"
-          style={{ color: "var(--ui-ink)", fontFamily: "var(--font-ui-serif)" }}
-        >
-          OhMyDocs!
+        <div className="flex items-start justify-between">
+          <div>
+            <div
+              className="text-[0.6875rem] uppercase tracking-[0.12em]"
+              style={{
+                color: "var(--color-accent)",
+                fontFamily: "var(--font-ui-mono)",
+              }}
+            >
+              Eternum
+            </div>
+            <div
+              className="text-[1.5rem] italic leading-tight"
+              style={{ color: "var(--ui-ink)", fontFamily: "var(--font-ui-serif)" }}
+            >
+              OhMyDocs!
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={toggleSidebarCollapsed}
+            title={t("sidebar.collapse")}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 24,
+              height: 24,
+              background: "transparent",
+              border: "none",
+              borderRadius: 4,
+              color: "var(--ui-ink-mute)",
+              cursor: "pointer",
+              marginTop: 4,
+              flexShrink: 0,
+            }}
+          >
+            <ChevronLeft size={14} />
+          </button>
         </div>
       </header>
 
