@@ -11,6 +11,7 @@ import {
 } from "lucide-react"
 import { useDocumentsStore } from "./store"
 import { useSettingsStore } from "@/features/settings/store"
+import { useViewport } from "@/hooks/useViewport"
 import { InsertMenu } from "./InsertMenu"
 import type { BlockType } from "@/blocks/types"
 import { insertBlock, withBlocks } from "./helpers"
@@ -26,6 +27,8 @@ export function Toolbar() {
   const setViewMode = useSettingsStore((s) => s.setViewMode)
   const zenMode = useSettingsStore((s) => s.zenMode)
   const toggleZenMode = useSettingsStore((s) => s.toggleZenMode)
+  const { category } = useViewport()
+  const isTablet = category === "tablet"
   const t = useT()
 
   const doc = activeId ? documents[activeId] : null
@@ -47,6 +50,8 @@ export function Toolbar() {
 
   const isHtml = viewMode === "html"
 
+  const touch = isTablet
+
   return (
     <div
       className="toolbar"
@@ -55,8 +60,8 @@ export function Toolbar() {
         bottom: "1rem",
         margin: "1rem auto 0",
         display: "flex",
-        gap: "0.5rem",
-        padding: "0.5rem",
+        gap: isTablet ? "0.375rem" : "0.5rem",
+        padding: isTablet ? "0.375rem" : "0.5rem",
         background: "var(--ui-surface)",
         border: `1px solid var(--ui-rule)`,
         borderRadius: "var(--radius-block)",
@@ -71,8 +76,9 @@ export function Toolbar() {
         <>
           <Button
             onClick={() => setZoom(zoom - 0.1)}
-            icon={<ZoomOut size={14} />}
+            icon={<ZoomOut size={touch ? 16 : 14} />}
             title={t("toolbar.zoomOut")}
+            touch={touch}
           />
           <span
             style={{
@@ -87,8 +93,9 @@ export function Toolbar() {
           </span>
           <Button
             onClick={() => setZoom(zoom + 0.1)}
-            icon={<ZoomIn size={14} />}
+            icon={<ZoomIn size={touch ? 16 : 14} />}
             title={t("toolbar.zoomIn")}
+            touch={touch}
           />
           <Divider />
         </>
@@ -97,20 +104,23 @@ export function Toolbar() {
       {isHtml ? (
         <Button
           onClick={() => setViewMode("edit")}
-          icon={<FileText size={14} />}
+          icon={<FileText size={touch ? 16 : 14} />}
           label={t("toolbar.blocks")}
+          touch={touch}
         />
       ) : (
         <>
           <Button
             onClick={() => setViewMode(viewMode === "edit" ? "read" : "edit")}
-            icon={viewMode === "edit" ? <FileText size={14} /> : <Plus size={14} />}
+            icon={viewMode === "edit" ? <FileText size={touch ? 16 : 14} /> : <Plus size={touch ? 16 : 14} />}
             label={viewMode === "edit" ? t("toolbar.read") : t("toolbar.edit")}
+            touch={touch}
           />
           <Button
             onClick={() => setViewMode("html")}
-            icon={<Code2 size={14} />}
+            icon={<Code2 size={touch ? 16 : 14} />}
             label={t("toolbar.html")}
+            touch={touch}
           />
         </>
       )}
@@ -118,8 +128,9 @@ export function Toolbar() {
       <Divider />
       <Button
         onClick={toggleZenMode}
-        icon={zenMode ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+        icon={zenMode ? <Minimize2 size={touch ? 16 : 14} /> : <Maximize2 size={touch ? 16 : 14} />}
         label={zenMode ? t("toolbar.exitZen") : t("toolbar.zen")}
+        touch={touch}
       />
     </div>
   )
@@ -130,22 +141,26 @@ function Button({
   icon,
   label,
   title,
+  touch = false,
 }: {
   onClick: () => void
   icon: React.ReactNode
   label?: string
   title?: string
+  touch?: boolean
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
       title={title ?? label}
+      aria-label={title ?? label}
       style={{
         display: "inline-flex",
         alignItems: "center",
         gap: "0.35rem",
-        padding: "0.4rem 0.65rem",
+        padding: touch ? "0.625rem 0.875rem" : "0.4rem 0.65rem",
+        minHeight: touch ? 44 : undefined,
         background: "transparent",
         border: `1px solid var(--ui-rule)`,
         borderRadius: "4px",

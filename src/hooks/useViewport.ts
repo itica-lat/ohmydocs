@@ -12,14 +12,36 @@ function classify(w: number): ViewportCategory {
   return "desktop"
 }
 
-export function useViewport(): { width: number; category: ViewportCategory } {
-  const [width, setWidth] = useState(() => window.innerWidth)
+interface ViewportState {
+  width: number
+  height: number
+  category: ViewportCategory
+  isLandscape: boolean
+  isPortrait: boolean
+  // iPad Split View or very narrow context (< 500px)
+  isSplitView: boolean
+}
+
+export function useViewport(): ViewportState {
+  const [size, setSize] = useState(() => ({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  }))
 
   useEffect(() => {
-    const handler = () => setWidth(window.innerWidth)
+    const handler = () =>
+      setSize({ width: window.innerWidth, height: window.innerHeight })
     window.addEventListener("resize", handler)
     return () => window.removeEventListener("resize", handler)
   }, [])
 
-  return { width, category: classify(width) }
+  const { width, height } = size
+  return {
+    width,
+    height,
+    category: classify(width),
+    isLandscape: width > height,
+    isPortrait: width <= height,
+    isSplitView: width < 500,
+  }
 }

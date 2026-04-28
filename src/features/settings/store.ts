@@ -7,6 +7,7 @@ export type ViewMode = "edit" | "read" | "html"
 export type ColorScheme = "light" | "dark"
 
 interface SettingsState {
+  // Persisted
   viewMode: ViewMode
   zoom: number
   defaultAuthor: string
@@ -21,6 +22,15 @@ interface SettingsState {
   toggleSidebarCollapsed: () => void
   toggleColorScheme: () => void
   setLocale: (locale: Locale) => void
+  // Transient (not persisted): portrait overlay states
+  drawerOpen: boolean
+  rightSheetOpen: boolean
+  openDrawer: () => void
+  closeDrawer: () => void
+  toggleDrawer: () => void
+  openRightSheet: () => void
+  closeRightSheet: () => void
+  toggleRightSheet: () => void
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -43,10 +53,27 @@ export const useSettingsStore = create<SettingsState>()(
           colorScheme: s.colorScheme === "light" ? "dark" : "light",
         })),
       setLocale: (locale) => set({ locale }),
+      drawerOpen: false,
+      rightSheetOpen: false,
+      openDrawer: () => set({ drawerOpen: true }),
+      closeDrawer: () => set({ drawerOpen: false }),
+      toggleDrawer: () => set((s) => ({ drawerOpen: !s.drawerOpen })),
+      openRightSheet: () => set({ rightSheetOpen: true }),
+      closeRightSheet: () => set({ rightSheetOpen: false }),
+      toggleRightSheet: () => set((s) => ({ rightSheetOpen: !s.rightSheetOpen })),
     }),
     {
       name: STORAGE_KEYS.settings,
       storage: createJSONStorage(() => safeLocalStorage),
+      partialize: (state) => ({
+        viewMode: state.viewMode,
+        zoom: state.zoom,
+        defaultAuthor: state.defaultAuthor,
+        zenMode: state.zenMode,
+        sidebarCollapsed: state.sidebarCollapsed,
+        colorScheme: state.colorScheme,
+        locale: state.locale,
+      }),
     },
   ),
 )
