@@ -10,7 +10,8 @@ interface ExportInput {
 }
 
 export function exportToHtml({ document: doc, branding }: ExportInput): string {
-  const blocksHtml = doc.blocks.map((block) => renderBlock(block as Block)).join("\n");
+  const allBlocks = doc.blocks as Block[];
+  const blocksHtml = allBlocks.map((block) => renderBlock(block, allBlocks)).join("\n");
 
   const fontsHref = buildGoogleFontsHref([
     branding.fonts.serif,
@@ -43,11 +44,11 @@ ${blocksHtml}
 `;
 }
 
-function renderBlock(block: Block): string {
+function renderBlock(block: Block, allBlocks: Block[]): string {
   const def = blockRegistry[block.type];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Renderer = def.Renderer as any;
-  return renderToStaticMarkup(<Renderer block={block} mode="read" />);
+  return renderToStaticMarkup(<Renderer block={block} mode="read" allBlocks={allBlocks} />);
 }
 
 function escapeHtml(s: string): string {
@@ -101,11 +102,20 @@ body { font-family: var(--font-doc-sans); color: var(--color-ink-deepest); line-
 .lead { font-family: var(--font-doc-serif); font-style: italic; font-size: 1.125rem; color: var(--color-mute); line-height: 1.55; }
 .mono-label { font-family: var(--font-doc-mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
 .mono-meta { font-family: var(--font-doc-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; }
-@page { size: letter; margin: 0; }
+@page :first { size: letter; margin: 0; }
+@page { size: letter; margin: 96px 0; }
 @media print {
-  body { background: #fff; }
-  .page { margin: 0; box-shadow: none; page-break-after: always; }
-  .page:last-child { page-break-after: auto; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #fff !important; }
+  .page { width: 816px; margin: 0; box-shadow: none; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  section { break-inside: avoid; }
+  p { break-inside: avoid; }
+  blockquote { break-inside: avoid; }
+  table { break-inside: avoid; }
+  pre { break-inside: avoid; }
+  figure { break-inside: avoid; }
+  .page-break-block { break-after: page; height: 0; display: block; }
 }
 `;
 }

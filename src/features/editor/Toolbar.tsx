@@ -37,16 +37,11 @@ export function Toolbar() {
     <div
       className="toolbar"
       style={{
-        position: "sticky",
-        bottom: "1rem",
-        margin: "1rem auto 0",
         display: "flex",
         gap: "0.5rem",
         padding: "0.5rem",
-        background: "var(--ui-surface)",
         border: `1px solid var(--ui-rule)`,
         borderRadius: "var(--radius-block)",
-        boxShadow: "0 4px 12px rgba(15,40,84,0.08)",
         width: "fit-content",
         alignItems: "center",
       }}

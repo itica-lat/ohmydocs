@@ -56,13 +56,11 @@ export function buildGoogleFontsHref(refs: GoogleFontRef[]): string {
       if (ref.italics) axes.push("ital");
       axes.push("wght");
       const tuples: string[] = [];
-      for (const w of ref.weights) {
-        if (ref.italics) {
-          tuples.push(`0,${w}`);
-          tuples.push(`1,${w}`);
-        } else {
-          tuples.push(`${w}`);
-        }
+      if (ref.italics) {
+        for (const w of ref.weights) tuples.push(`0,${w}`);
+        for (const w of ref.weights) tuples.push(`1,${w}`);
+      } else {
+        for (const w of ref.weights) tuples.push(`${w}`);
       }
       const family = ref.family.replace(/\s+/g, "+");
       return `family=${family}:${axes.join(",")}@${tuples.join(";")}`;

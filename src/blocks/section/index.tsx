@@ -4,9 +4,9 @@ import type { ContainerDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { SectionBlock } from "../types";
 import { baseFields } from "../factory";
-import { nodeToText, textParagraph, withAccent } from "../_shared";
+import { AlignButtons, nodeToText, textParagraph, withAccent } from "../_shared";
 
-export const SectionSchema: z.ZodType<SectionBlock> = z.object({
+export const SectionSchema = z.object({
   id: z.string(),
   type: z.literal("section"),
   createdAt: z.string(),
@@ -14,9 +14,9 @@ export const SectionSchema: z.ZodType<SectionBlock> = z.object({
   number: z.string(),
   heading: z.string(),
   lead: z.string(),
+  align: z.enum(["left", "center", "right", "justify"]).optional(),
 });
 
-/** Heading text supports `*word*` to highlight one word in accent color. */
 type AccentParts = {
   plain: string;
   accent: string;
@@ -43,10 +43,12 @@ export const section: BlockDefinition<"section"> = {
     number: "01",
     heading: "Section *title*",
     lead: "",
+    align: "left",
     ...over,
   }),
   Renderer: ({ block }) => {
     const parsed = parseAccent(block.heading);
+    const align = block.align ?? "left";
     return (
       <section style={{ margin: "3rem 0 1.5rem", position: "relative" }}>
         <span
@@ -73,90 +75,81 @@ export const section: BlockDefinition<"section"> = {
             color: "var(--color-ink-deepest)",
             margin: 0,
             position: "relative",
+            textAlign: align,
           }}
         >
           {withAccent(parsed.plain, parsed.accent)}
         </h2>
         {block.lead && (
-          <p className="lead" style={{ marginTop: "1rem", maxWidth: "60ch" }}>
+          <p className="lead" style={{ marginTop: "1rem", maxWidth: "60ch", textAlign: align }}>
             {block.lead}
           </p>
         )}
       </section>
     );
   },
-  Editor: ({ block, onChange }) => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-      <div style={{ display: "flex", gap: "0.75rem", alignItems: "baseline" }}>
-        <input
-          value={block.number}
-          onChange={(e) =>
-            onChange({
-              ...block,
-              number: e.target.value,
-              updatedAt: new Date().toISOString(),
-            })
-          }
-          placeholder="01"
+  Editor: ({ block, onChange }) => {
+    const update = (patch: Partial<SectionBlock>) =>
+      onChange({ ...block, ...patch, updatedAt: new Date().toISOString() });
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+        <div style={{ display: "flex", gap: "0.75rem", alignItems: "baseline" }}>
+          <input
+            value={block.number}
+            onChange={(e) => update({ number: e.target.value })}
+            placeholder="01"
+            style={{
+              width: "4rem",
+              border: "none",
+              background: "transparent",
+              outline: "none",
+              fontFamily: "var(--font-doc-mono)",
+              fontSize: "0.75rem",
+              letterSpacing: "0.08em",
+              color: "var(--color-mute)",
+            }}
+          />
+          <input
+            value={block.heading}
+            onChange={(e) => update({ heading: e.target.value })}
+            placeholder="Section *title*"
+            style={{
+              flex: 1,
+              border: "none",
+              background: "transparent",
+              outline: "none",
+              fontFamily: "var(--font-doc-serif)",
+              fontStyle: "italic",
+              fontSize: "2.5rem",
+              color: "var(--color-ink-deepest)",
+              textAlign: block.align ?? "left",
+            }}
+          />
+        </div>
+        <textarea
+          value={block.lead}
+          onChange={(e) => update({ lead: e.target.value })}
+          placeholder="Lead paragraph (italic)"
+          rows={2}
           style={{
-            width: "4rem",
+            width: "100%",
             border: "none",
             background: "transparent",
             outline: "none",
-            fontFamily: "var(--font-doc-mono)",
-            fontSize: "0.75rem",
-            letterSpacing: "0.08em",
-            color: "var(--color-mute)",
-          }}
-        />
-        <input
-          value={block.heading}
-          onChange={(e) =>
-            onChange({
-              ...block,
-              heading: e.target.value,
-              updatedAt: new Date().toISOString(),
-            })
-          }
-          placeholder="Section *title*"
-          style={{
-            flex: 1,
-            border: "none",
-            background: "transparent",
-            outline: "none",
+            resize: "vertical",
             fontFamily: "var(--font-doc-serif)",
             fontStyle: "italic",
-            fontSize: "2.5rem",
-            color: "var(--color-ink-deepest)",
+            fontSize: "1.125rem",
+            color: "var(--color-mute)",
+            lineHeight: 1.55,
+            textAlign: block.align ?? "left",
           }}
         />
+        <AlignButtons value={block.align} onChange={(a) => update({ align: a })} />
       </div>
-      <textarea
-        value={block.lead}
-        onChange={(e) =>
-          onChange({
-            ...block,
-            lead: e.target.value,
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        placeholder="Lead paragraph (italic)"
-        rows={2}
-        style={{
-          width: "100%",
-          border: "none",
-          background: "transparent",
-          outline: "none",
-          resize: "vertical",
-          fontFamily: "var(--font-doc-serif)",
-          fontStyle: "italic",
-          fontSize: "1.125rem",
-          color: "var(--color-mute)",
-          lineHeight: 1.55,
-        }}
-      />
-    </div>
-  ),
+    );
+  },
   serialize: (block): RootContent[] => {
     const dir: ContainerDirective = {
       type: "containerDirective",
@@ -191,6 +184,7 @@ export const section: BlockDefinition<"section"> = {
       number: d.attributes?.number ?? "",
       heading: heading ? nodeToText(heading) : "",
       lead: quote ? nodeToText(quote) : "",
+      align: "left",
     };
   },
 };

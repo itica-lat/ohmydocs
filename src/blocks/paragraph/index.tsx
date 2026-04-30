@@ -3,14 +3,15 @@ import type { Paragraph as MdastParagraph, RootContent } from "mdast";
 import type { BlockDefinition } from "../registry";
 import type { ParagraphBlock } from "../types";
 import { baseFields } from "../factory";
-import { nodeToText, textParagraph } from "../_shared";
+import { AlignButtons, nodeToText, textParagraph } from "../_shared";
 
-export const ParagraphSchema: z.ZodType<ParagraphBlock> = z.object({
+export const ParagraphSchema = z.object({
   id: z.string(),
   type: z.literal("paragraph"),
   createdAt: z.string(),
   updatedAt: z.string(),
   text: z.string(),
+  align: z.enum(["left", "center", "right", "justify"]).optional(),
 });
 
 export const paragraph: BlockDefinition<"paragraph"> = {
@@ -19,50 +20,66 @@ export const paragraph: BlockDefinition<"paragraph"> = {
   category: "content",
   iconName: "Type",
   schema: ParagraphSchema,
-  factory: (over) => ({ ...baseFields("paragraph"), text: "", ...over }),
-  Renderer: ({ block }) => (
-    <p
-      style={{
-        maxWidth: "65ch",
-        lineHeight: 1.65,
-        color: "var(--color-ink-deepest)",
-        margin: "0 0 1.25rem",
-        opacity: 0.9,
-      }}
-    >
-      {block.text}
-    </p>
-  ),
-  Editor: ({ block, onChange }) => (
-    <textarea
-      value={block.text}
-      onChange={(e) =>
-        onChange({
-          ...block,
-          text: e.target.value,
-          updatedAt: new Date().toISOString(),
-        })
-      }
-      placeholder="Write a paragraph…"
-      rows={Math.max(2, block.text.split("\n").length)}
-      style={{
-        width: "100%",
-        background: "transparent",
-        border: "none",
-        outline: "none",
-        resize: "vertical",
-        font: "inherit",
-        color: "var(--color-ink-deepest)",
-        lineHeight: 1.65,
-      }}
-    />
-  ),
+  factory: (over) => ({ ...baseFields("paragraph"), text: "", align: "left", ...over }),
+  Renderer: ({ block }) => {
+    const align = block.align ?? "left";
+    const lines = block.text.split("\n");
+    return (
+      <p
+        style={{
+          maxWidth: align === "center" || align === "right" ? undefined : "65ch",
+          width: align === "center" || align === "right" ? "100%" : undefined,
+          lineHeight: 1.65,
+          color: "var(--color-ink-deepest)",
+          margin: "0 0 1.25rem",
+          opacity: 0.9,
+          textAlign: align,
+        }}
+      >
+        {lines.map((line, i) => (
+          <span key={i}>
+            {line}
+            {i < lines.length - 1 && <br />}
+          </span>
+        ))}
+      </p>
+    );
+  },
+  Editor: ({ block, onChange }) => {
+    const align = block.align ?? "left";
+    const update = (patch: Partial<ParagraphBlock>) =>
+      onChange({ ...block, ...patch, updatedAt: new Date().toISOString() });
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+        <textarea
+          value={block.text}
+          onChange={(e) => update({ text: e.target.value })}
+          placeholder="Write a paragraph…"
+          rows={Math.max(2, block.text.split("\n").length)}
+          style={{
+            width: "100%",
+            background: "transparent",
+            border: "none",
+            outline: "none",
+            resize: "vertical",
+            font: "inherit",
+            color: "var(--color-ink-deepest)",
+            lineHeight: 1.65,
+            textAlign: align,
+          }}
+        />
+        <AlignButtons value={block.align} onChange={(a) => update({ align: a })} />
+      </div>
+    );
+  },
   serialize: (block): RootContent[] => [textParagraph(block.text)],
   deserialize: (node, ctx) => {
     if (node.type !== "paragraph") return null;
     return {
       ...ctx.newBlockBase("paragraph"),
       text: nodeToText(node as MdastParagraph),
+      align: "left",
     };
   },
 };

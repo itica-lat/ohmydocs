@@ -24,13 +24,21 @@ function stripAccent(text: string): string {
   return text.replace(/\*([^*]+)\*/g, "$1");
 }
 
-function IndexRenderer({ mode }: { block: IndexBlock; mode: "edit" | "read" }) {
+function IndexRenderer({
+  mode,
+  allBlocks: allBlocksProp,
+}: {
+  block: IndexBlock;
+  mode: "edit" | "read";
+  allBlocks?: Block[];
+}) {
   const activeId = useDocumentsStore((s) => s.activeId);
   const documents = useDocumentsStore((s) => s.documents);
   const doc = activeId ? documents[activeId] : null;
+  const sourceBlocks: Block[] = allBlocksProp ?? ((doc?.blocks ?? []) as Block[]);
 
   const entries: Entry[] = [];
-  for (const block of (doc?.blocks ?? []) as Block[]) {
+  for (const block of sourceBlocks) {
     if (block.type === "section") {
       const b = block as SectionBlock;
       entries.push({

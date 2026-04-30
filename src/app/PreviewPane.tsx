@@ -51,7 +51,7 @@ export function PreviewPane() {
   if (viewMode === "html") {
     return (
       <div
-        className="preview-pane h-full flex flex-col"
+        className="preview-pane h-full flex flex-col overflow-hidden"
         style={{ background: "var(--ui-surface-soft)" }}
       >
         <div className="flex-1 min-h-0">
@@ -69,18 +69,12 @@ export function PreviewPane() {
 
   return (
     <main
-      ref={containerRef}
-      className="preview-pane h-full overflow-y-auto"
+      className="preview-pane h-full flex flex-col overflow-hidden"
       style={{ background: "var(--ui-surface-soft)" }}
     >
-      <div className="pt-12 pb-24 px-8 flex flex-col items-center" style={{ minHeight: "100%" }}>
-        {doc ? (
-          <>
-            {/*
-              Wrapper sized to the visual footprint of the scaled article.
-              This gives flex items-center a correctly-sized child to center,
-              avoiding the overflow-x clipping issue.
-            */}
+      <div ref={containerRef} className="flex-1 min-h-0 overflow-y-auto">
+        <div className="py-12 px-8 flex flex-col items-center" style={{ minHeight: "100%" }}>
+          {doc ? (
             <div
               style={{
                 width: PAGE_WIDTH * effectiveZoom,
@@ -109,12 +103,16 @@ export function PreviewPane() {
                 )}
               </article>
             </div>
-            <Toolbar />
-          </>
-        ) : (
-          <Landing />
-        )}
+          ) : (
+            <Landing />
+          )}
+        </div>
       </div>
+      {doc && (
+        <div className="flex justify-center py-3" style={{ borderColor: "var(--ui-rule)" }}>
+          <Toolbar />
+        </div>
+      )}
     </main>
   );
 }

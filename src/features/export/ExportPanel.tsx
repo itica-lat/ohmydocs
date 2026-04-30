@@ -1,9 +1,10 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { FileDown, Download, FileText } from "lucide-react";
 import { useDocumentsStore } from "@/features/editor/store";
 import { useBrandingStore } from "@/features/branding/store";
 import { exportToHtml } from "@/lib/export/html";
 import { exportToMarkdown } from "@/lib/export/markdown";
+import { exportToPdf } from "@/lib/export/pdf";
 import { saveTextFile } from "@/lib/storage/fs-access";
 import { useT } from "@/lib/i18n";
 
@@ -22,9 +23,11 @@ export function ExportPanel() {
   const profiles = useBrandingStore((s) => s.profiles);
   const activeBrandingId = useBrandingStore((s) => s.activeId);
   const t = useT();
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const [pdfError, setPdfError] = useState<string | null>(null);
 
   const doc = activeId ? documents[activeId] : null;
-  const branding = doc ? (profiles[doc.brandingId] ?? profiles[activeBrandingId]) : null;
+  const branding = doc ? (profiles[activeBrandingId] ?? profiles[doc.brandingId]) : null;
 
   const onExportHtml = useCallback(async () => {
     if (!doc || !branding) return;
@@ -51,6 +54,25 @@ export function ExportPanel() {
       "text/markdown",
     );
   }, [doc]);
+
+  const onExportPdf = useCallback(async () => {
+    if (!doc || !branding) return;
+    setPdfLoading(true);
+    setPdfError(null);
+    try {
+      const blob = await exportToPdf(doc, branding);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${slug(doc.title)}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setPdfError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setPdfLoading(false);
+    }
+  }, [doc, branding]);
 
   const onExportJson = useCallback(async () => {
     if (!doc) return;
@@ -89,6 +111,26 @@ export function ExportPanel() {
         label={t("export.json")}
         desc=".ohmydocs.json source"
       />
+      <ExportBtn
+        onClick={onExportPdf}
+        icon={<FileDown size={14} />}
+        label={pdfLoading ? t("export.pdf.loading") : t("export.pdf")}
+        desc=".pdf client-side, no server"
+        disabled={pdfLoading}
+      />
+      {pdfError && (
+        <p
+          style={{
+            fontFamily: "var(--font-ui-mono)",
+            fontSize: "0.6875rem",
+            color: "var(--color-accent)",
+            margin: "0 0.25rem",
+            lineHeight: 1.4,
+          }}
+        >
+          {pdfError}
+        </p>
+      )}
     </div>
   );
 }
@@ -98,16 +140,19 @@ function ExportBtn({
   icon,
   label,
   desc,
+  disabled = false,
 }: {
   onClick: () => void;
   icon: React.ReactNode;
   label: string;
   desc: string;
+  disabled?: boolean;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       style={{
         display: "flex",
         alignItems: "center",
@@ -116,7 +161,8 @@ function ExportBtn({
         background: "var(--ui-surface-soft)",
         border: "1px solid var(--ui-rule)",
         borderRadius: 6,
-        cursor: "pointer",
+        cursor: disabled ? "not-allowed" : "pointer",
+        opacity: disabled ? 0.6 : 1,
         textAlign: "left",
         width: "100%",
       }}

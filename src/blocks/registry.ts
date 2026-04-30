@@ -8,6 +8,7 @@ import * as all from "./all";
 export type RendererProps<T extends BlockType> = {
   block: BlockOf<T>;
   mode: "edit" | "read";
+  allBlocks?: Block[];
 };
 
 export interface BlockDefinition<T extends BlockType> {
@@ -58,6 +59,7 @@ export const blockRegistry: Record<BlockType, BlockDefinition<any>> = {
   "footer-bar": all.footerBar,
   "page-break": all.pageBreak,
   index: all.indexBlock,
+  spacer: all.spacer,
 };
 
 export function getBlockDef<T extends BlockType>(type: T): BlockDefinition<T> {

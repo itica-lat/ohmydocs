@@ -45,7 +45,7 @@ export function Shell() {
 
   return (
     <div
-      className="app-shell grid h-full"
+      className="app-shell grid h-full overflow-hidden"
       style={{ gridTemplateColumns: `${sidebar}px 1fr ${right}px` }}
     >
       <Sidebar />

@@ -17,3 +17,4 @@ export { headerBar } from "./header-bar";
 export { footerBar } from "./footer-bar";
 export { pageBreak } from "./page-break";
 export { indexBlock } from "./index-block";
+export { spacer } from "./spacer";

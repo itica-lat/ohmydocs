@@ -3,14 +3,15 @@ import type { Heading, RootContent } from "mdast";
 import type { BlockDefinition } from "../registry";
 import type { SubsectionBlock } from "../types";
 import { baseFields } from "../factory";
-import { nodeToText } from "../_shared";
+import { AlignButtons, nodeToText } from "../_shared";
 
-export const SubsectionSchema: z.ZodType<SubsectionBlock> = z.object({
+export const SubsectionSchema = z.object({
   id: z.string(),
   type: z.literal("subsection"),
   createdAt: z.string(),
   updatedAt: z.string(),
   heading: z.string(),
+  align: z.enum(["left", "center", "right", "justify"]).optional(),
 });
 
 export const subsection: BlockDefinition<"subsection"> = {
@@ -22,6 +23,7 @@ export const subsection: BlockDefinition<"subsection"> = {
   factory: (over) => ({
     ...baseFields("subsection"),
     heading: "Subsection title",
+    align: "left",
     ...over,
   }),
   Renderer: ({ block }) => (
@@ -32,34 +34,40 @@ export const subsection: BlockDefinition<"subsection"> = {
         paddingBottom: "0.5rem",
       }}
     >
-      <h3 className="display-md" style={{ color: "var(--color-ink-deep)", margin: 0 }}>
+      <h3
+        className="display-md"
+        style={{ color: "var(--color-ink-deep)", margin: 0, textAlign: block.align ?? "left" }}
+      >
         {block.heading}
       </h3>
     </div>
   ),
-  Editor: ({ block, onChange }) => (
-    <input
-      value={block.heading}
-      onChange={(e) =>
-        onChange({
-          ...block,
-          heading: e.target.value,
-          updatedAt: new Date().toISOString(),
-        })
-      }
-      placeholder="Subsection title"
-      style={{
-        width: "100%",
-        border: "none",
-        outline: "none",
-        background: "transparent",
-        fontFamily: "var(--font-doc-serif)",
-        fontStyle: "italic",
-        fontSize: "1.75rem",
-        color: "var(--color-ink-deep)",
-      }}
-    />
-  ),
+  Editor: ({ block, onChange }) => {
+    const update = (patch: Partial<SubsectionBlock>) =>
+      onChange({ ...block, ...patch, updatedAt: new Date().toISOString() });
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+        <input
+          value={block.heading}
+          onChange={(e) => update({ heading: e.target.value })}
+          placeholder="Subsection title"
+          style={{
+            width: "100%",
+            border: "none",
+            outline: "none",
+            background: "transparent",
+            fontFamily: "var(--font-doc-serif)",
+            fontStyle: "italic",
+            fontSize: "1.75rem",
+            color: "var(--color-ink-deep)",
+            textAlign: block.align ?? "left",
+          }}
+        />
+        <AlignButtons value={block.align} onChange={(a) => update({ align: a })} />
+      </div>
+    );
+  },
   serialize: (block): RootContent[] => [
     {
       type: "heading",
@@ -71,6 +79,6 @@ export const subsection: BlockDefinition<"subsection"> = {
     if (node.type !== "heading") return null;
     const h = node as Heading;
     if (h.depth !== 3) return null;
-    return { ...ctx.newBlockBase("subsection"), heading: nodeToText(h) };
+    return { ...ctx.newBlockBase("subsection"), heading: nodeToText(h), align: "left" };
   },
 };

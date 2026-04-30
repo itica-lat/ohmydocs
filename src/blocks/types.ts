@@ -27,18 +27,24 @@ export type SectionBlock = BaseBlock<"section"> & {
   number: string;
   heading: string;
   lead: string;
+  align?: TextAlign | undefined;
 };
 
 export type SubsectionBlock = BaseBlock<"subsection"> & {
   heading: string;
+  align?: TextAlign | undefined;
 };
 
 export type MonoLabelBlock = BaseBlock<"mono-label"> & {
   text: string;
+  align?: TextAlign | undefined;
 };
+
+export type TextAlign = "left" | "center" | "right" | "justify";
 
 export type ParagraphBlock = BaseBlock<"paragraph"> & {
   text: string;
+  align?: TextAlign | undefined;
 };
 
 export type CalloutVariant = "info" | "warning" | "danger" | "success";
@@ -47,6 +53,7 @@ export type CalloutBlock = BaseBlock<"callout"> & {
   variant: CalloutVariant;
   label: string;
   body: string;
+  align?: TextAlign | undefined;
 };
 
 export type CodeBlock = BaseBlock<"code-block"> & {
@@ -59,6 +66,7 @@ export type DividerBlock = BaseBlock<"divider">;
 export type ListBlock = BaseBlock<"list"> & {
   ordered: boolean;
   items: string[];
+  align?: TextAlign | undefined;
 };
 
 export type TableBlock = BaseBlock<"table"> & {
@@ -80,6 +88,7 @@ export type ImageBlock = BaseBlock<"image"> & {
 export type QuoteBlock = BaseBlock<"quote"> & {
   text: string;
   attribution: string;
+  align?: TextAlign | undefined;
 };
 
 export type GlossaryEntry = {
@@ -116,6 +125,12 @@ export type PageBreakBlock = BaseBlock<"page-break">;
 
 export type IndexBlock = BaseBlock<"index">;
 
+export type SpacerSize = "xs" | "sm" | "md" | "lg" | "xl";
+
+export type SpacerBlock = BaseBlock<"spacer"> & {
+  size: SpacerSize;
+};
+
 export type Block =
   | CoverBlock
   | SectionBlock
@@ -135,7 +150,8 @@ export type Block =
   | HeaderBarBlock
   | FooterBarBlock
   | PageBreakBlock
-  | IndexBlock;
+  | IndexBlock
+  | SpacerBlock;
 
 export type BlockType = Block["type"];
 export type BlockOf<T extends BlockType> = Extract<Block, { type: T }>;
