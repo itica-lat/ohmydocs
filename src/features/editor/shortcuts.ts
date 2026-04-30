@@ -9,6 +9,9 @@ export function useEditorShortcuts(): void {
     const onKey = (e: KeyboardEvent) => {
       const meta = e.metaKey || e.ctrlKey;
       if (!meta) return;
+      const target = e.target as HTMLElement;
+      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)
+        return;
       const state = useDocumentsStore.getState();
       const doc = state.activeId ? state.documents[state.activeId] : null;
       if (!doc) return;
