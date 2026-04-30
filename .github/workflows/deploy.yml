@@ -1,0 +1,12 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, vps]
+    steps:
+      - name: Run deploy script
+        run: /var/www/ohmydocs/deploy.sh

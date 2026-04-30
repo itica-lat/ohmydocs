@@ -20,7 +20,6 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@react-pdf/renderer": "^4.3.0",
-    "elysia": "^1.4.28",
     "lucide-react": "^0.460.0",
     "mdast-util-directive": "^3.0.0",
     "mdast-util-from-markdown": "^2.0.2",
