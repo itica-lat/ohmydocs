@@ -36,4 +36,15 @@
   .page-break-block {
     page-break-after: always;
   }
+  .page section {
+    break-inside: avoid;
+    break-after: avoid;
+  }
+  .page h2,
+  .page h3 {
+    break-after: avoid;
+  }
+  .link-ext-icon {
+    display: none;
+  }
 }

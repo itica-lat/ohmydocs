@@ -18,3 +18,4 @@ export { footerBar } from "./footer-bar";
 export { pageBreak } from "./page-break";
 export { indexBlock } from "./index-block";
 export { spacer } from "./spacer";
+export { referenceList } from "./reference-list";

@@ -131,6 +131,8 @@ export type SpacerBlock = BaseBlock<"spacer"> & {
   size: SpacerSize;
 };
 
+export type ReferenceListBlock = BaseBlock<"reference-list">;
+
 export type Block =
   | CoverBlock
   | SectionBlock
@@ -151,7 +153,8 @@ export type Block =
   | FooterBarBlock
   | PageBreakBlock
   | IndexBlock
-  | SpacerBlock;
+  | SpacerBlock
+  | ReferenceListBlock;
 
 export type BlockType = Block["type"];
 export type BlockOf<T extends BlockType> = Extract<Block, { type: T }>;

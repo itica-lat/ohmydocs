@@ -60,6 +60,7 @@ export const blockRegistry: Record<BlockType, BlockDefinition<any>> = {
   "page-break": all.pageBreak,
   index: all.indexBlock,
   spacer: all.spacer,
+  "reference-list": all.referenceList,
 };
 
 export function getBlockDef<T extends BlockType>(type: T): BlockDefinition<T> {
