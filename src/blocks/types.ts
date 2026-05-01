@@ -83,6 +83,7 @@ export type ImageBlock = BaseBlock<"image"> & {
   alt: string;
   caption: string;
   bordered: boolean;
+  width: 25 | 50 | 75 | 100;
 };
 
 export type QuoteBlock = BaseBlock<"quote"> & {

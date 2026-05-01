@@ -50,12 +50,12 @@ export const section: BlockDefinition<"section"> = {
     const parsed = parseAccent(block.heading);
     const align = block.align ?? "left";
     return (
-      <section style={{ margin: "3rem 0 1.5rem", position: "relative" }}>
+      <section style={{ margin: "1rem 0 1.5rem", paddingTop: "3rem", position: "relative" }}>
         <span
           aria-hidden
           style={{
             position: "absolute",
-            top: "-2.5rem",
+            top: "0",
             left: "-1rem",
             fontFamily: "var(--font-doc-serif)",
             fontStyle: "italic",

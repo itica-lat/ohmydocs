@@ -103,14 +103,28 @@ body { font-family: var(--font-doc-sans); color: var(--color-ink-deepest); line-
 .mono-label { font-family: var(--font-doc-mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
 .mono-meta { font-family: var(--font-doc-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; }
 @page :first { size: letter; margin: 0; }
-@page { size: letter; margin: 96px 0; }
+@page { size: letter; margin: 1in 0; }
 @media print {
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  *, *::before, *::after {
+    transform: none !important;
+    will-change: auto !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
   html, body { background: #fff !important; }
-  .page { width: 816px; margin: 0; box-shadow: none; }
+  .page { width: 100%; margin: 0; box-shadow: none; }
+  p {
+    break-inside: avoid;
+    opacity: 1 !important;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-smooth: always;
+  }
   h1, h2, h3, h4, h5, h6 { break-after: avoid; }
   section { break-inside: avoid; }
-  p { break-inside: avoid; }
   blockquote { break-inside: avoid; }
   table { break-inside: avoid; }
   pre { break-inside: avoid; }

@@ -4,35 +4,81 @@
 }
 
 @media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Strip GPU compositing triggers — these force the browser to rasterize
+     content as a bitmap before sending to the PDF renderer, which causes
+     blurry text. Inline styles (zoom transform, paragraph opacity) require
+     !important to be overridden here. */
+  *,
+  *::before,
+  *::after {
+    transform: none !important;
+    will-change: auto !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
   html,
   body {
     background: #ffffff;
   }
+
   .app-shell,
   .sidebar,
   .right-panel,
   .toolbar {
     display: none !important;
   }
+
   .preview-pane {
     background: #ffffff !important;
     padding: 0 !important;
   }
+
+  /* Reset zoom container positioning set by PreviewPane */
+  .preview-pane > * {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
   .page {
+    position: static !important;
+    width: 100% !important;
     box-shadow: none !important;
     background: #ffffff !important;
     page-break-after: always;
     margin: 0 !important;
   }
+
   .page:last-child {
     page-break-after: auto;
   }
+
+  /* Restore paragraph opacity stripped by compositing reset, and force
+     vector text rendering for sharp PDF output */
+  p,
+  [data-block="paragraph"] {
+    opacity: 1 !important;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-smooth: always;
+  }
+
   .header-bar {
     position: running(header);
   }
+
   .footer-bar {
     position: running(footer);
   }
+
   .page-break-block {
     page-break-after: always;
   }
