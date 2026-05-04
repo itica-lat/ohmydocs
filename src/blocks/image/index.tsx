@@ -13,6 +13,7 @@ export const ImageSchema: z.ZodType<ImageBlock> = z.object({
   alt: z.string(),
   caption: z.string(),
   bordered: z.boolean(),
+  width: z.union([z.literal(25), z.literal(50), z.literal(75), z.literal(100)]),
 });
 
 export const image: BlockDefinition<"image"> = {
@@ -27,6 +28,7 @@ export const image: BlockDefinition<"image"> = {
     alt: "",
     caption: "",
     bordered: false,
+    width: 100,
     ...over,
   }),
   Renderer: ({ block }) => (
@@ -36,7 +38,7 @@ export const image: BlockDefinition<"image"> = {
           src={block.src}
           alt={block.alt}
           style={{
-            maxWidth: "100%",
+            width: `${block.width}%`,
             height: "auto",
             border: block.bordered ? "var(--rule)" : "none",
             borderRadius: block.bordered ? "4px" : 0,
@@ -110,6 +112,34 @@ export const image: BlockDefinition<"image"> = {
         placeholder="Caption (optional)"
         style={inp}
       />
+      <div style={{ display: "flex", gap: "0.35rem" }}>
+        {([25, 50, 75, 100] as const).map((w) => (
+          <button
+            key={w}
+            onClick={() =>
+              onChange({
+                ...block,
+                width: w,
+                updatedAt: new Date().toISOString(),
+              })
+            }
+            style={{
+              flex: 1,
+              padding: "0.3rem 0",
+              border: "var(--rule)",
+              borderRadius: "4px",
+              fontFamily: "var(--font-ui-mono)",
+              fontSize: "0.6875rem",
+              letterSpacing: "0.06em",
+              cursor: "pointer",
+              background: block.width === w ? "var(--color-accent)" : "var(--color-paper)",
+              color: block.width === w ? "var(--color-ink-on-dark)" : "var(--color-ink-deep)",
+            }}
+          >
+            {w}%
+          </button>
+        ))}
+      </div>
       <label
         style={{
           fontFamily: "var(--font-ui-mono)",
@@ -161,6 +191,7 @@ export const image: BlockDefinition<"image"> = {
       alt: img.alt ?? "",
       caption: img.title ?? "",
       bordered: false,
+      width: 100,
     };
   },
 };

@@ -10,6 +10,7 @@ import type { Block } from "@/blocks/types";
 import { useEffect, useRef, useState } from "react";
 
 const PAGE_WIDTH = 816;
+const PAGE_HEIGHT = 1056; // US Letter at 96dpi
 const PANE_PADDING = 64;
 
 export function PreviewPane() {
@@ -102,6 +103,11 @@ export function PreviewPane() {
                   <BlockList />
                 )}
               </article>
+              <PageBoundaryMarkers
+                articleHeight={articleHeight}
+                effectiveZoom={effectiveZoom}
+                pageWidth={PAGE_WIDTH}
+              />
             </div>
           ) : (
             <Landing />
@@ -141,6 +147,68 @@ function EmptyDocument() {
         Cover · Section · Paragraph · Callout · Code · List · Divider
       </p>
     </div>
+  );
+}
+
+function PageBoundaryMarkers({
+  articleHeight,
+  effectiveZoom,
+  pageWidth,
+}: {
+  articleHeight: number;
+  effectiveZoom: number;
+  pageWidth: number;
+}) {
+  const count = Math.floor(articleHeight / PAGE_HEIGHT);
+  if (count === 0) return null;
+
+  return (
+    <>
+      {Array.from({ length: count }, (_, i) => {
+        const y = (i + 1) * PAGE_HEIGHT * effectiveZoom;
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              top: y,
+              left: 0,
+              width: pageWidth * effectiveZoom,
+              pointerEvents: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <div
+              style={{
+                flex: 1,
+                borderTop: "1px dashed var(--ui-rule)",
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "var(--font-ui-mono)",
+                fontSize: `${0.5625 * effectiveZoom}rem`,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                color: "var(--color-mute)",
+                userSelect: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Page {i + 2}
+            </span>
+            <div
+              style={{
+                flex: 1,
+                borderTop: "1px dashed var(--ui-rule)",
+              }}
+            />
+          </div>
+        );
+      })}
+    </>
   );
 }
 

@@ -48,10 +48,12 @@ export const cover: BlockDefinition<"cover"> = {
           color: "var(--color-ink-on-dark)",
           margin: "calc(-1 * var(--page-padding)) calc(-1 * var(--page-padding)) 0",
           padding: "var(--page-padding)",
-          minHeight: "600px",
+          minHeight: "1056px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          pageBreakAfter: "always",
+          breakAfter: "page",
         }}
       >
         <div>

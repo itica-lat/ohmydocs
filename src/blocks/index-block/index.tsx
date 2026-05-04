@@ -56,10 +56,19 @@ function IndexRenderer({
     }
   }
 
+  const pageIsolation: React.CSSProperties = {
+    pageBreakBefore: "always",
+    breakBefore: "page",
+    pageBreakAfter: "always",
+    breakAfter: "page",
+    minHeight: "864px",
+  };
+
   if (entries.length === 0) {
     return (
       <div
         style={{
+          ...pageIsolation,
           color: "var(--color-mute)",
           fontFamily: "var(--font-ui-mono)",
           fontSize: "0.75rem",
@@ -74,7 +83,7 @@ function IndexRenderer({
   }
 
   return (
-    <div style={{ margin: "1.5rem 0" }}>
+    <div style={{ ...pageIsolation, margin: "1.5rem 0" }}>
       {entries.map((entry, i) => (
         <div
           // eslint-disable-next-line react/no-array-index-key

@@ -27,6 +27,9 @@ import type {
 // Fonts served via jsDelivr @fontsource CDN — direct .woff2 URLs (not CSS).
 const CDN = "https://cdn.jsdelivr.net/npm";
 
+// Disable hyphenation — the default algorithm blurs text rendering in react-pdf
+Font.registerHyphenationCallback((word) => [word]);
+
 Font.register({
   family: "Playfair Display",
   fonts: [
