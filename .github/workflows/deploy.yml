@@ -4,9 +4,14 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: deploy-docs
+  cancel-in-progress: true
+
 jobs:
   deploy:
-    runs-on: [self-hosted, vps]
+    runs-on: self-hosted
+    timeout-minutes: 10
     steps:
-      - name: Run deploy script
-        run: /var/www/ohmydocs/deploy.sh
+      - name: Deploy
+        run: bash /home/hermes/deploy/ohmy.sh docs
