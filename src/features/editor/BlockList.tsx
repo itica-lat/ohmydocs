@@ -18,8 +18,9 @@ import { Copy, GripVertical, Plus, Trash2 } from "lucide-react";
 import { useDocumentsStore } from "./store";
 import { useSettingsStore } from "@/features/settings/store";
 import { blockRegistry } from "@/blocks/registry";
-import type { Block } from "@/blocks/types";
-import { duplicateBlock, removeBlock, replaceBlock, withBlocks } from "./helpers";
+import type { Block, BlockType } from "@/blocks/types";
+import { duplicateBlock, insertBlock, removeBlock, replaceBlock, withBlocks } from "./helpers";
+import { InsertMenu } from "./InsertMenu";
 import { useT } from "@/lib/i18n";
 
 /** In edit mode, all blocks show their inline editor (Apple Pages-style) */
@@ -55,6 +56,15 @@ export function BlockList() {
       editorEl?.focus();
     });
   }, [doc, blocks, upsert, select]);
+
+  const onInsertAtEnd = useCallback(
+    (type: BlockType) => {
+      if (!doc) return;
+      const next = insertBlock(blocks, type, blocks.length);
+      upsert(withBlocks(doc, next));
+    },
+    [doc, blocks, upsert],
+  );
 
   if (!doc) return null;
 
@@ -100,8 +110,8 @@ export function BlockList() {
             ))
           )}
 
-          {/* Add block area — click anywhere in empty space to create a new paragraph */}
-          <AddBlockButton onClick={addParagraph} />
+          {/* Add block area — click to choose which block to insert */}
+          <InsertMenu onInsert={onInsertAtEnd} />
         </div>
       </SortableContext>
     </DndContext>
@@ -153,54 +163,6 @@ function EmptyDocumentHint({ onStart }: { onStart: () => void }) {
       >
         {t("landing.orPressSlash")}
       </p>
-    </div>
-  );
-}
-
-// ── Add block button ─────────────────────────────────────────────────────────
-
-function AddBlockButton({ onClick }: { onClick: () => void }) {
-  const [hover, setHover] = useState(false);
-  const t = useT();
-
-  return (
-    <div
-      onClick={onClick}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onClick();
-        }
-      }}
-      aria-label={t("insert.addBlock")}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "0.5rem",
-        padding: "1.75rem 0",
-        cursor: "text",
-        border: `2px dashed ${hover ? "var(--color-accent)" : "transparent"}`,
-        borderRadius: "8px",
-        color: hover ? "var(--color-accent)" : "var(--color-mute)",
-        transition: "all 0.15s ease",
-        marginTop: "0.5rem",
-        userSelect: "none",
-        outline: "none",
-        width: "100%",
-        minHeight: "3.5rem",
-        opacity: hover ? 1 : 0.4,
-        background: hover ? "var(--color-accent-soft)" : "transparent",
-      }}
-    >
-      <Plus size={18} strokeWidth={2.5} />
-      <span style={{ fontSize: "0.875rem", fontFamily: "var(--font-ui-sans)", fontWeight: 500 }}>
-        {t("insert.addBlock")}
-      </span>
     </div>
   );
 }
