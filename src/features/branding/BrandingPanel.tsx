@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { AlertTriangle, Plus, Trash2 } from "lucide-react";
+import { useT } from "@/lib/i18n";
 import { useBrandingStore } from "./store";
 import type { BrandingProfile } from "@/types/schemas";
 import { PALETTE_TOKENS, type PaletteToken } from "@/types/palette";
@@ -7,6 +8,7 @@ import { meetsAA } from "@/lib/palette/contrast";
 import { newId } from "@/lib/id";
 
 export function BrandingPanel() {
+  const t = useT();
   const profiles = useBrandingStore((s) => s.profiles);
   const activeId = useBrandingStore((s) => s.activeId);
   const setActive = useBrandingStore((s) => s.setActive);
@@ -29,11 +31,11 @@ export function BrandingPanel() {
     ];
     for (const [fg, bg] of checks) {
       if (!meetsAA(draft.palette[fg], draft.palette[bg])) {
-        out.push(`Low contrast: ${fg} on ${bg}`);
+        out.push(t("branding.lowContrast").replace("{fg}", fg).replace("{bg}", bg));
       }
     }
     return out;
-  }, [draft]);
+  }, [draft, t]);
 
   if (!draft) return null;
 
@@ -85,7 +87,7 @@ export function BrandingPanel() {
           {Object.values(profiles).map((p) => (
             <option key={p.id} value={p.id}>
               {p.name}
-              {p.readOnly ? " · read-only" : ""}
+              {p.readOnly ? ` · ${t("branding.readOnly")}` : ""}
             </option>
           ))}
         </select>
@@ -94,7 +96,7 @@ export function BrandingPanel() {
             type="text"
             value={editing.name}
             onChange={(e) => setEditing({ ...editing, name: e.target.value })}
-            placeholder="Palette name"
+            placeholder={t("rightPanel.brandingNamePlaceholder")}
             style={selectStyle}
           />
         )}
@@ -189,21 +191,21 @@ export function BrandingPanel() {
       <div style={{ display: "flex", gap: "0.5rem" }}>
         {!editing && !isReadOnly && (
           <button type="button" onClick={startEditing} style={primaryBtn}>
-            Edit
+            {t("branding.edit")}
           </button>
         )}
         {!editing && isReadOnly && (
           <button type="button" onClick={cloneAsNew} style={primaryBtn}>
-            <Plus size={12} /> Clone
+            <Plus size={12} /> {t("branding.duplicate")}
           </button>
         )}
         {editing && (
           <>
             <button type="button" onClick={save} style={primaryBtn}>
-              Save
+              {t("branding.save")}
             </button>
             <button type="button" onClick={cancel} style={secondaryBtn}>
-              Cancel
+              {t("branding.cancel")}
             </button>
             {!isReadOnly && (
               <button
@@ -214,7 +216,7 @@ export function BrandingPanel() {
                 }}
                 style={{ ...secondaryBtn, color: "#C0556B" }}
               >
-                <Trash2 size={12} /> Delete
+                <Trash2 size={12} /> {t("branding.delete")}
               </button>
             )}
           </>
@@ -233,6 +235,7 @@ function FontEditor({
   readOnly: boolean;
   onChange: (p: Partial<BrandingProfile>) => void;
 }) {
+  const t = useT();
   const set = (cat: "serif" | "sans" | "mono", family: string) =>
     onChange({
       fonts: {
@@ -251,7 +254,7 @@ function FontEditor({
           color: "var(--color-mute)",
         }}
       >
-        Document fonts (Google Fonts family name)
+        {t("branding.documentFonts")}
       </span>
       {(["serif", "sans", "mono"] as const).map((cat) => (
         <label key={cat} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>

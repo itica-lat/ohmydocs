@@ -5,6 +5,7 @@ import type { BlockDefinition } from "../registry";
 import type { QuoteBlock } from "../types";
 import { baseFields } from "../factory";
 import { AlignButtons } from "../_shared";
+import { useT } from "@/lib/i18n";
 
 export const QuoteSchema = z.object({
   id: z.string(),
@@ -64,6 +65,7 @@ export const quote: BlockDefinition<"quote"> = {
     );
   },
   Editor: ({ block, onChange }) => {
+    const t = useT();
     const update = (patch: Partial<QuoteBlock>) =>
       onChange({ ...block, ...patch, updatedAt: new Date().toISOString() });
 
@@ -72,7 +74,7 @@ export const quote: BlockDefinition<"quote"> = {
         <textarea
           value={block.text}
           onChange={(e) => update({ text: e.target.value })}
-          placeholder="Quote"
+          placeholder={t("block.quote.text")}
           rows={3}
           style={{
             ...inp,
@@ -86,7 +88,7 @@ export const quote: BlockDefinition<"quote"> = {
         <input
           value={block.attribution}
           onChange={(e) => update({ attribution: e.target.value })}
-          placeholder="Attribution (optional)"
+          placeholder={t("block.quote.attribution")}
           style={{
             ...inp,
             fontFamily: "var(--font-doc-mono)",

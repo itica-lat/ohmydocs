@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as Icons from "lucide-react";
+import { useT } from "@/lib/i18n";
 import { listBlockDefs } from "@/blocks/registry";
 import type { BlockType } from "@/blocks/types";
 
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export function InsertMenu({ onInsert }: Props) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,7 +66,7 @@ export function InsertMenu({ onInsert }: Props) {
         }}
       >
         <Icons.Plus size={14} />
-        Add block
+        {t("insert.addBlock")}
       </button>
 
       {open && (
@@ -95,7 +97,7 @@ export function InsertMenu({ onInsert }: Props) {
               ref={inputRef}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search blocks…"
+              placeholder={t("insert.search")}
               style={{
                 width: "100%",
                 padding: "0.5rem 0.75rem",

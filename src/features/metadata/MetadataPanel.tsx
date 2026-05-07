@@ -1,8 +1,10 @@
 import { Plus, Trash2 } from "lucide-react";
+import { useT } from "@/lib/i18n";
 import { useDocumentsStore } from "@/features/editor/store";
 import type { OhmyDocument } from "@/types/schemas";
 
 export function MetadataPanel() {
+  const t = useT();
   const activeId = useDocumentsStore((s) => s.activeId);
   const documents = useDocumentsStore((s) => s.documents);
   const upsert = useDocumentsStore((s) => s.upsertDocument);
@@ -23,31 +25,31 @@ export function MetadataPanel() {
         gap: "0.5rem",
       }}
     >
-      <Field label="Title">
+      <Field label={t("metadata.documentTitle")}>
         <input value={doc.title} onChange={(e) => update({ title: e.target.value })} style={inp} />
       </Field>
-      <Field label="Author">
+      <Field label={t("metadata.author")}>
         <input
           value={doc.metadata.author}
           onChange={(e) => updateMeta({ author: e.target.value })}
           style={inp}
         />
       </Field>
-      <Field label="Team">
+      <Field label={t("metadata.team")}>
         <input
           value={doc.metadata.team}
           onChange={(e) => updateMeta({ team: e.target.value })}
           style={inp}
         />
       </Field>
-      <Field label="Institution">
+      <Field label={t("metadata.institution")}>
         <input
           value={doc.metadata.institution}
           onChange={(e) => updateMeta({ institution: e.target.value })}
           style={inp}
         />
       </Field>
-      <Field label="Date">
+      <Field label={t("metadata.date")}>
         <input
           type="date"
           value={doc.metadata.date}
@@ -71,6 +73,7 @@ function CustomFields({
   fields: Record<string, string>;
   onChange: (next: Record<string, string>) => void;
 }) {
+  const t = useT();
   const entries = Object.entries(fields);
   const setKey = (oldKey: string, newKey: string) => {
     if (!newKey || oldKey === newKey) return;
@@ -99,7 +102,7 @@ function CustomFields({
           marginTop: "0.5rem",
         }}
       >
-        Custom fields
+        {t("metadata.customFields")}
       </span>
       {entries.map(([k, v]) => (
         <div key={k} style={{ display: "flex", gap: "0.25rem" }}>
@@ -119,7 +122,7 @@ function CustomFields({
         </div>
       ))}
       <button type="button" onClick={add} style={addBtn}>
-        <Plus size={12} /> Field
+        <Plus size={12} /> {t("metadata.addField")}
       </button>
     </div>
   );

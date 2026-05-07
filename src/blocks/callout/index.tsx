@@ -5,6 +5,7 @@ import type { BlockDefinition } from "../registry";
 import type { CalloutBlock, CalloutVariant } from "../types";
 import { baseFields } from "../factory";
 import { AlignButtons, nodeToText, textParagraph } from "../_shared";
+import { useT } from "@/lib/i18n";
 
 const variants: readonly CalloutVariant[] = ["info", "warning", "danger", "success"];
 
@@ -78,6 +79,7 @@ export const callout: BlockDefinition<"callout"> = {
     );
   },
   Editor: ({ block, onChange }) => {
+    const t = useT();
     const update = (patch: Partial<CalloutBlock>) =>
       onChange({ ...block, ...patch, updatedAt: new Date().toISOString() });
 
@@ -124,7 +126,7 @@ export const callout: BlockDefinition<"callout"> = {
         <textarea
           value={block.body}
           onChange={(e) => update({ body: e.target.value })}
-          placeholder="Callout body"
+          placeholder={t("block.callout.body")}
           rows={3}
           style={{
             width: "100%",

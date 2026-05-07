@@ -6,6 +6,7 @@ import { baseFields } from "../factory";
 import { AlignButtons, nodeToText, textParagraph } from "../_shared";
 import { extractDocumentLinks, renderInlineText } from "../_links";
 import { useDocumentsStore } from "@/features/editor/store";
+import { useT } from "@/lib/i18n";
 
 export const ParagraphSchema = z.object({
   id: z.string(),
@@ -70,6 +71,7 @@ export const paragraph: BlockDefinition<"paragraph"> = {
   Renderer: ParagraphRenderer,
   Editor: ({ block, onChange }) => {
     const align = block.align ?? "left";
+    const t = useT();
     const update = (patch: Partial<ParagraphBlock>) =>
       onChange({ ...block, ...patch, updatedAt: new Date().toISOString() });
 
@@ -78,7 +80,7 @@ export const paragraph: BlockDefinition<"paragraph"> = {
         <textarea
           value={block.text}
           onChange={(e) => update({ text: e.target.value })}
-          placeholder="Write a paragraph… use [text](url) for inline links"
+          placeholder={t("block.paragraph.placeholder")}
           rows={Math.max(2, block.text.split("\n").length)}
           style={{
             width: "100%",

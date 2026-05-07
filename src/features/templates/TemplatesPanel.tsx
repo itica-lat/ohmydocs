@@ -1,4 +1,5 @@
 import { Download, FileUp, Plus, Trash2 } from "lucide-react";
+import { useT } from "@/lib/i18n";
 import { useTemplatesStore } from "./store";
 import { useDocumentsStore } from "@/features/editor/store";
 import { saveTextFile, openTextFile } from "@/lib/storage/fs-access";
@@ -7,6 +8,7 @@ import { importHtml } from "@/features/import/html";
 import { importMarkdown } from "@/features/import/markdown";
 
 export function TemplatesPanel() {
+  const t = useT();
   const templates = useTemplatesStore((s) => s.templates);
   const upsertTpl = useTemplatesStore((s) => s.upsert);
   const removeTpl = useTemplatesStore((s) => s.remove);
@@ -45,13 +47,13 @@ export function TemplatesPanel() {
       const result = TemplateSchema.safeParse(parsed);
       if (!result.success) {
         // eslint-disable-next-line no-alert
-        alert("Invalid template file.");
+        alert(t("templates.invalidFile"));
         return;
       }
       upsertTpl(result.data);
     } catch {
       // eslint-disable-next-line no-alert
-      alert("Could not parse template file.");
+      alert(t("templates.couldNotParse"));
     }
   };
 
@@ -73,7 +75,7 @@ export function TemplatesPanel() {
       const doc = importHtml(file.text);
       if (!doc) {
         // eslint-disable-next-line no-alert
-        alert("Could not import HTML (best-effort heuristics not yet supported).");
+        alert(t("templates.htmlImportNotSupported"));
         return;
       }
       upsertDoc(doc);
@@ -90,7 +92,7 @@ export function TemplatesPanel() {
         }
       } catch {
         // eslint-disable-next-line no-alert
-        alert("Invalid JSON.");
+        alert(t("templates.invalidJson"));
       }
       return;
     }
@@ -114,10 +116,10 @@ export function TemplatesPanel() {
     >
       <div style={{ display: "flex", gap: "0.5rem" }}>
         <button type="button" onClick={importTpl} style={btn}>
-          <FileUp size={12} /> Import template
+          <FileUp size={12} /> {t("templates.import")}
         </button>
         <button type="button" onClick={importDoc} style={btn}>
-          <FileUp size={12} /> Import doc
+          <FileUp size={12} /> {t("templates.importDoc")}
         </button>
       </div>
 
@@ -131,9 +133,9 @@ export function TemplatesPanel() {
           gap: "0.4rem",
         }}
       >
-        {list.map((t) => (
+        {list.map((tmpl) => (
           <li
-            key={t.id}
+            key={tmpl.id}
             style={{
               border: "var(--rule)",
               borderRadius: "var(--radius-block)",
@@ -159,9 +161,9 @@ export function TemplatesPanel() {
                   color: "var(--color-ink-deepest)",
                 }}
               >
-                {t.name}
+                {tmpl.name}
               </strong>
-              {t.readOnly && (
+              {tmpl.readOnly && (
                 <span
                   style={{
                     fontFamily: "var(--font-ui-mono)",
@@ -171,7 +173,7 @@ export function TemplatesPanel() {
                     color: "var(--color-mute)",
                   }}
                 >
-                  read-only
+                  {t("templates.readOnly")}
                 </span>
               )}
             </div>
@@ -183,19 +185,19 @@ export function TemplatesPanel() {
                 lineHeight: 1.4,
               }}
             >
-              {t.description}
+              {tmpl.description}
             </p>
             <div style={{ display: "flex", gap: "0.4rem" }}>
-              <button type="button" onClick={() => useTemplate(t.id)} style={primary}>
-                <Plus size={12} /> Use
+              <button type="button" onClick={() => useTemplate(tmpl.id)} style={primary}>
+                <Plus size={12} /> {t("templates.use")}
               </button>
-              <button type="button" onClick={() => exportTpl(t)} style={btn}>
+              <button type="button" onClick={() => exportTpl(tmpl)} style={btn}>
                 <Download size={12} />
               </button>
-              {!t.readOnly && (
+              {!tmpl.readOnly && (
                 <button
                   type="button"
-                  onClick={() => removeTpl(t.id)}
+                  onClick={() => removeTpl(tmpl.id)}
                   style={{ ...btn, color: "#C0556B" }}
                 >
                   <Trash2 size={12} />

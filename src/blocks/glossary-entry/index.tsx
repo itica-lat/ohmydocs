@@ -4,6 +4,7 @@ import type { ContainerDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { GlossaryEntryBlock, GlossaryEntry } from "../types";
 import { baseFields } from "../factory";
+import { useT } from "@/lib/i18n";
 
 const Entry = z.object({
   term: z.string(),
@@ -54,94 +55,97 @@ export const glossaryEntry: BlockDefinition<"glossary-entry"> = {
       ))}
     </dl>
   ),
-  Editor: ({ block, onChange }) => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-      {block.entries.map((e, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <div
-          key={i}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "120px 1fr 1.5fr auto",
-            gap: "0.4rem",
-          }}
-        >
-          <input
-            value={e.term}
-            onChange={(ev) => {
-              const entries = [...block.entries];
-              entries[i] = { ...e, term: ev.target.value.toUpperCase() };
-              onChange({
-                ...block,
-                entries,
-                updatedAt: new Date().toISOString(),
-              });
-            }}
-            placeholder="TERM"
+  Editor: ({ block, onChange }) => {
+    const t = useT();
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+        {block.entries.map((e, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div
+            key={i}
             style={{
-              ...inp,
-              fontFamily: "var(--font-doc-mono)",
-              textTransform: "uppercase",
+              display: "grid",
+              gridTemplateColumns: "120px 1fr 1.5fr auto",
+              gap: "0.4rem",
             }}
-          />
-          <input
-            value={e.expansion}
-            onChange={(ev) => {
-              const entries = [...block.entries];
-              entries[i] = { ...e, expansion: ev.target.value };
-              onChange({
-                ...block,
-                entries,
-                updatedAt: new Date().toISOString(),
-              });
-            }}
-            placeholder="Expansion"
-            style={inp}
-          />
-          <input
-            value={e.context}
-            onChange={(ev) => {
-              const entries = [...block.entries];
-              entries[i] = { ...e, context: ev.target.value };
-              onChange({
-                ...block,
-                entries,
-                updatedAt: new Date().toISOString(),
-              });
-            }}
-            placeholder="Context"
-            style={inp}
-          />
-          <button
-            type="button"
-            onClick={() =>
-              onChange({
-                ...block,
-                entries: block.entries.filter((_, j) => j !== i),
-                updatedAt: new Date().toISOString(),
-              })
-            }
-            style={delBtn}
           >
-            ×
-          </button>
-        </div>
-      ))}
-      <button
-        type="button"
-        onClick={() =>
-          onChange({
-            ...block,
-            entries: [...block.entries, { term: "", expansion: "", context: "" }],
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        style={addBtn}
-      >
-        + Entry
-      </button>
-    </div>
-  ),
+            <input
+              value={e.term}
+              onChange={(ev) => {
+                const entries = [...block.entries];
+                entries[i] = { ...e, term: ev.target.value.toUpperCase() };
+                onChange({
+                  ...block,
+                  entries,
+                  updatedAt: new Date().toISOString(),
+                });
+              }}
+              placeholder={t("block.glossary.term")}
+              style={{
+                ...inp,
+                fontFamily: "var(--font-doc-mono)",
+                textTransform: "uppercase",
+              }}
+            />
+            <input
+              value={e.expansion}
+              onChange={(ev) => {
+                const entries = [...block.entries];
+                entries[i] = { ...e, expansion: ev.target.value };
+                onChange({
+                  ...block,
+                  entries,
+                  updatedAt: new Date().toISOString(),
+                });
+              }}
+              placeholder={t("block.glossary.expansion")}
+              style={inp}
+            />
+            <input
+              value={e.context}
+              onChange={(ev) => {
+                const entries = [...block.entries];
+                entries[i] = { ...e, context: ev.target.value };
+                onChange({
+                  ...block,
+                  entries,
+                  updatedAt: new Date().toISOString(),
+                });
+              }}
+              placeholder={t("block.glossary.context")}
+              style={inp}
+            />
+            <button
+              type="button"
+              onClick={() =>
+                onChange({
+                  ...block,
+                  entries: block.entries.filter((_, j) => j !== i),
+                  updatedAt: new Date().toISOString(),
+                })
+              }
+              style={delBtn}
+            >
+              ×
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={() =>
+            onChange({
+              ...block,
+              entries: [...block.entries, { term: "", expansion: "", context: "" }],
+              updatedAt: new Date().toISOString(),
+            })
+          }
+          style={addBtn}
+        >
+          + Entry
+        </button>
+      </div>
+    );
+  },
   serialize: (block): RootContent[] => [
     {
       type: "containerDirective",

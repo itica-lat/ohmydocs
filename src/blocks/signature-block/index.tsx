@@ -4,6 +4,7 @@ import type { ContainerDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { SignatureBlock, SignatureSlot } from "../types";
 import { baseFields } from "../factory";
+import { useT } from "@/lib/i18n";
 
 const Slot = z.object({
   name: z.string(),
@@ -74,82 +75,85 @@ export const signatureBlock: BlockDefinition<"signature-block"> = {
       ))}
     </div>
   ),
-  Editor: ({ block, onChange }) => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-      {block.slots.map((s, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <div
-          key={i}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1.5fr auto",
-            gap: "0.4rem",
-          }}
-        >
-          <input
-            value={s.name}
-            onChange={(ev) => {
-              const slots = [...block.slots];
-              slots[i] = { ...s, name: ev.target.value };
-              onChange({ ...block, slots, updatedAt: new Date().toISOString() });
-            }}
-            placeholder="Name"
-            style={inp}
-          />
-          <input
-            value={s.role}
-            onChange={(ev) => {
-              const slots = [...block.slots];
-              slots[i] = { ...s, role: ev.target.value.toUpperCase() };
-              onChange({ ...block, slots, updatedAt: new Date().toISOString() });
-            }}
-            placeholder="ROLE"
+  Editor: ({ block, onChange }) => {
+    const t = useT();
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+        {block.slots.map((s, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div
+            key={i}
             style={{
-              ...inp,
-              fontFamily: "var(--font-doc-mono)",
-              textTransform: "uppercase",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1.5fr auto",
+              gap: "0.4rem",
             }}
-          />
-          <input
-            value={s.description}
-            onChange={(ev) => {
-              const slots = [...block.slots];
-              slots[i] = { ...s, description: ev.target.value };
-              onChange({ ...block, slots, updatedAt: new Date().toISOString() });
-            }}
-            placeholder="Role description"
-            style={inp}
-          />
-          <button
-            type="button"
-            onClick={() =>
-              onChange({
-                ...block,
-                slots: block.slots.filter((_, j) => j !== i),
-                updatedAt: new Date().toISOString(),
-              })
-            }
-            style={delBtn}
           >
-            ×
-          </button>
-        </div>
-      ))}
-      <button
-        type="button"
-        onClick={() =>
-          onChange({
-            ...block,
-            slots: [...block.slots, { name: "", role: "", description: "" }],
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        style={addBtn}
-      >
-        + Signature
-      </button>
-    </div>
-  ),
+            <input
+              value={s.name}
+              onChange={(ev) => {
+                const slots = [...block.slots];
+                slots[i] = { ...s, name: ev.target.value };
+                onChange({ ...block, slots, updatedAt: new Date().toISOString() });
+              }}
+              placeholder={t("block.signature.name")}
+              style={inp}
+            />
+            <input
+              value={s.role}
+              onChange={(ev) => {
+                const slots = [...block.slots];
+                slots[i] = { ...s, role: ev.target.value.toUpperCase() };
+                onChange({ ...block, slots, updatedAt: new Date().toISOString() });
+              }}
+              placeholder="ROLE"
+              style={{
+                ...inp,
+                fontFamily: "var(--font-doc-mono)",
+                textTransform: "uppercase",
+              }}
+            />
+            <input
+              value={s.description}
+              onChange={(ev) => {
+                const slots = [...block.slots];
+                slots[i] = { ...s, description: ev.target.value };
+                onChange({ ...block, slots, updatedAt: new Date().toISOString() });
+              }}
+              placeholder={t("block.signature.role")}
+              style={inp}
+            />
+            <button
+              type="button"
+              onClick={() =>
+                onChange({
+                  ...block,
+                  slots: block.slots.filter((_, j) => j !== i),
+                  updatedAt: new Date().toISOString(),
+                })
+              }
+              style={delBtn}
+            >
+              ×
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={() =>
+            onChange({
+              ...block,
+              slots: [...block.slots, { name: "", role: "", description: "" }],
+              updatedAt: new Date().toISOString(),
+            })
+          }
+          style={addBtn}
+        >
+          + Signature
+        </button>
+      </div>
+    );
+  },
   serialize: (block): RootContent[] => [
     {
       type: "containerDirective",

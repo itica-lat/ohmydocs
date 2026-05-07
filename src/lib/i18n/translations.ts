@@ -2,12 +2,17 @@ export type Locale = "en" | "es";
 
 export const translations = {
   en: {
+    // Sidebar
     "sidebar.documents": "Documents",
     "sidebar.new": "New",
     "sidebar.empty": "No documents yet.",
     "sidebar.emptyHint": "Click New to start your first Eternum document.",
     "sidebar.collapse": "Collapse sidebar",
     "sidebar.expand": "Expand sidebar",
+    "sidebar.rename": "Rename",
+    "sidebar.delete": "Delete",
+
+    // Toolbar
     "toolbar.read": "Read",
     "toolbar.edit": "Edit",
     "toolbar.html": "HTML",
@@ -16,12 +21,19 @@ export const translations = {
     "toolbar.exitZen": "Exit Zen",
     "toolbar.zoomOut": "Zoom out",
     "toolbar.zoomIn": "Zoom in",
+
+    // Right panel
     "rightPanel.metadata": "Metadata",
     "rightPanel.branding": "Branding",
     "rightPanel.templates": "Templates",
     "rightPanel.export": "Export",
     "rightPanel.config": "Config",
     "rightPanel.noDoc": "Open a document to edit its metadata.",
+    "rightPanel.brandingName": "Branding name",
+    "rightPanel.brandingNamePlaceholder": "Palette name",
+    "rightPanel.noBranding": "No branding profiles yet.",
+
+    // Export
     "export.html": "Export HTML",
     "export.md": "Export Markdown",
     "export.json": "Export JSON",
@@ -29,21 +41,138 @@ export const translations = {
     "export.pdf.loading": "Generating PDF...",
     "export.pdf.error": "PDF generation failed.",
     "export.noDoc": "Open a document to export it.",
+    "export.copy": "Copy",
+    "export.download": "Download",
+    "export.copySuccess": "Copied to clipboard",
+
+    // Config
     "config.theme": "Theme",
     "config.dark": "Dark",
     "config.light": "Light",
     "config.language": "Language",
+
+    // Landing / empty state
     "landing.title": "Welcome to OhMyDocs!",
-    "landing.subtitle": "Select a document from the sidebar or create a new one to get started.",
-    "insert.label": "Add block",
+    "landing.subtitle": "Documents that look like they were designed, not typed.",
+    "landing.clickToStart": "Click here or press Enter to start writing...",
+    "landing.orPressSlash": "Or press / to insert any block type",
+    "landing.startTyping": "Start a new document",
+
+    // Insert menu
+    "insert.addBlock": "Add block",
+    "insert.search": "Search blocks...",
+    "insert.structural": "Structural",
+    "insert.content": "Content",
+    "insert.data": "Data",
+    "insert.media": "Media",
+
+    // Block toolbar
+    "block.drag": "Drag",
+    "block.duplicate": "Duplicate",
+    "block.delete": "Delete",
+    "block.addBelow": "Add paragraph below",
+
+    // Block placeholders
+    "block.paragraph.placeholder": "Write a paragraph… use [text](url) for inline links",
+    "block.section.title": "Section *title*",
+    "block.section.lead": "Lead paragraph (italic)",
+    "block.subsection.title": "Subsection title",
+    "block.callout.body": "Callout body",
+    "block.quote.text": "Quote",
+    "block.quote.attribution": "Attribution (optional)",
+    "block.list.item": "Item",
+    "block.code.placeholder": "Write your code here...",
+    "block.image.url": "Image URL or data:",
+    "block.image.alt": "Alt text",
+    "block.image.caption": "Caption (optional)",
+    "block.cover.title": "Title (use *word* to highlight)",
+    "block.cover.highlight": "Highlight word",
+    "block.cover.callout": "Optional callout",
+    "block.table.header": "Header",
+    "block.glossary.term": "Term",
+    "block.glossary.expansion": "Expansion",
+    "block.glossary.context": "Context",
+    "block.signature.name": "Name",
+    "block.signature.role": "Role description",
+    "block.metadata.label": "Label",
+    "block.metadata.value": "Value",
+    "block.headerBar.left": "Left text",
+    "block.headerBar.right": "Right text",
+    "block.footerBar.left": "Left text",
+    "block.footerBar.right": "Right text",
+    "block.alignLeft": "Align left",
+    "block.alignCenter": "Align center",
+    "block.alignRight": "Align right",
+    "block.justify": "Justify",
+
+    // Blocks categories
+    "block.cat.content": "Content",
+    "block.cat.structural": "Structural",
+    "block.cat.data": "Data",
+    "block.cat.media": "Media",
+
+    // Branding
+    "branding.palette": "Palette",
+    "branding.name": "Branding name",
+    "branding.colors": "Colors",
+    "branding.fonts": "Fonts",
+    "branding.save": "Save profile",
+    "branding.delete": "Delete profile",
+    "branding.duplicate": "Duplicate profile",
+    "branding.default": "Default branding",
+    "branding.readOnly": "read-only",
+    "branding.edit": "Edit",
+    "branding.cancel": "Cancel",
+    "branding.documentFonts": "Document fonts (Google Fonts family name)",
+    "branding.lowContrast": "Low contrast: {fg} on {bg}",
+
+    // Templates
+    "templates.title": "Templates",
+    "templates.load": "Load template",
+    "templates.delete": "Delete template",
+    "templates.save": "Save as template",
+    "templates.empty": "No saved templates.",
+    "templates.import": "Import template",
+    "templates.importDoc": "Import doc",
+    "templates.readOnly": "read-only",
+    "templates.use": "Use",
+    "templates.invalidFile": "Invalid template file.",
+    "templates.couldNotParse": "Could not parse template file.",
+    "templates.htmlImportNotSupported":
+      "Could not import HTML (best-effort heuristics not yet supported).",
+    "templates.invalidJson": "Invalid JSON.",
+
+    // Metadata
+    "metadata.author": "Author",
+    "metadata.team": "Team",
+    "metadata.institution": "Institution",
+    "metadata.date": "Date",
+    "metadata.customFields": "Custom fields",
+    "metadata.addField": "Add field",
+    "metadata.documentTitle": "Title",
+    "metadata.header": "Header",
+    "metadata.footer": "Footer",
+    "metadata.left": "Left",
+    "metadata.right": "Right",
+    "metadata.showOnFirstPage": "Show on first page",
+    "metadata.showPageNumber": "Show page number",
+
+    // HTML editor
+    "html.placeholder": "Edit HTML directly...",
+    "html.syntaxError": "Syntax error",
   },
   es: {
+    // Sidebar
     "sidebar.documents": "Documentos",
     "sidebar.new": "Nuevo",
     "sidebar.empty": "Sin documentos aun.",
     "sidebar.emptyHint": "Haz clic en Nuevo para crear tu primer documento Eternum.",
     "sidebar.collapse": "Contraer panel",
     "sidebar.expand": "Expandir panel",
+    "sidebar.rename": "Renombrar",
+    "sidebar.delete": "Eliminar",
+
+    // Toolbar
     "toolbar.read": "Leer",
     "toolbar.edit": "Editar",
     "toolbar.html": "HTML",
@@ -52,12 +181,19 @@ export const translations = {
     "toolbar.exitZen": "Salir Zen",
     "toolbar.zoomOut": "Alejar",
     "toolbar.zoomIn": "Acercar",
+
+    // Right panel
     "rightPanel.metadata": "Metadatos",
     "rightPanel.branding": "Marca",
     "rightPanel.templates": "Plantillas",
     "rightPanel.export": "Exportar",
     "rightPanel.config": "Config",
     "rightPanel.noDoc": "Abre un documento para editar sus metadatos.",
+    "rightPanel.brandingName": "Nombre de la paleta",
+    "rightPanel.brandingNamePlaceholder": "Nombre de la paleta",
+    "rightPanel.noBranding": "Sin perfiles de marca aun.",
+
+    // Export
     "export.html": "Exportar HTML",
     "export.md": "Exportar Markdown",
     "export.json": "Exportar JSON",
@@ -65,13 +201,125 @@ export const translations = {
     "export.pdf.loading": "Generando PDF...",
     "export.pdf.error": "Error al generar el PDF.",
     "export.noDoc": "Abre un documento para exportarlo.",
+    "export.copy": "Copiar",
+    "export.download": "Descargar",
+    "export.copySuccess": "Copiado al portapapeles",
+
+    // Config
     "config.theme": "Tema",
     "config.dark": "Oscuro",
     "config.light": "Claro",
     "config.language": "Idioma",
+
+    // Landing / empty state
     "landing.title": "Bienvenido a OhMyDocs!",
-    "landing.subtitle": "Selecciona un documento del panel o crea uno nuevo para comenzar.",
-    "insert.label": "Agregar bloque",
+    "landing.subtitle": "Documentos que parecen disenados, no escritos.",
+    "landing.clickToStart": "Click aqui o presiona Enter para empezar a escribir...",
+    "landing.orPressSlash": "O presiona / para insertar cualquier tipo de bloque",
+    "landing.startTyping": "Crear un nuevo documento",
+
+    // Insert menu
+    "insert.addBlock": "Agregar bloque",
+    "insert.search": "Buscar bloques...",
+    "insert.structural": "Estructural",
+    "insert.content": "Contenido",
+    "insert.data": "Datos",
+    "insert.media": "Multimedia",
+
+    // Block toolbar
+    "block.drag": "Arrastrar",
+    "block.duplicate": "Duplicar",
+    "block.delete": "Eliminar",
+    "block.addBelow": "Agregar parrafo debajo",
+
+    // Block placeholders
+    "block.paragraph.placeholder": "Escribe un parrafo… usa [texto](url) para enlaces",
+    "block.section.title": "Titulo de seccion *resaltado*",
+    "block.section.lead": "Parrafo de introduccion (cursiva)",
+    "block.subsection.title": "Titulo de subseccion",
+    "block.callout.body": "Cuerpo de la nota",
+    "block.quote.text": "Cita",
+    "block.quote.attribution": "Atribucion (opcional)",
+    "block.list.item": "Elemento",
+    "block.code.placeholder": "Escribe tu codigo aqui...",
+    "block.image.url": "URL de la imagen o data:",
+    "block.image.alt": "Texto alternativo",
+    "block.image.caption": "Leyenda (opcional)",
+    "block.cover.title": "Titulo (usa *palabra* para resaltar)",
+    "block.cover.highlight": "Palabra a resaltar",
+    "block.cover.callout": "Llamada opcional",
+    "block.table.header": "Encabezado",
+    "block.glossary.term": "Termino",
+    "block.glossary.expansion": "Definicion",
+    "block.glossary.context": "Contexto",
+    "block.signature.name": "Nombre",
+    "block.signature.role": "Descripcion del rol",
+    "block.metadata.label": "Etiqueta",
+    "block.metadata.value": "Valor",
+    "block.headerBar.left": "Texto izquierdo",
+    "block.headerBar.right": "Texto derecho",
+    "block.footerBar.left": "Texto izquierdo",
+    "block.footerBar.right": "Texto derecho",
+    "block.alignLeft": "Alinear a la izquierda",
+    "block.alignCenter": "Alinear al centro",
+    "block.alignRight": "Alinear a la derecha",
+    "block.justify": "Justificar",
+
+    // Blocks categories
+    "block.cat.content": "Contenido",
+    "block.cat.structural": "Estructural",
+    "block.cat.data": "Datos",
+    "block.cat.media": "Multimedia",
+
+    // Branding
+    "branding.palette": "Paleta",
+    "branding.name": "Nombre de la marca",
+    "branding.colors": "Colores",
+    "branding.fonts": "Fuentes",
+    "branding.save": "Guardar perfil",
+    "branding.delete": "Eliminar perfil",
+    "branding.duplicate": "Duplicar perfil",
+    "branding.default": "Marca por defecto",
+    "branding.readOnly": "solo lectura",
+    "branding.edit": "Editar",
+    "branding.cancel": "Cancelar",
+    "branding.documentFonts": "Fuentes del documento (nombre de la familia Google Fonts)",
+    "branding.lowContrast": "Bajo contraste: {fg} sobre {bg}",
+
+    // Templates
+    "templates.title": "Plantillas",
+    "templates.load": "Cargar plantilla",
+    "templates.delete": "Eliminar plantilla",
+    "templates.save": "Guardar como plantilla",
+    "templates.empty": "Sin plantillas guardadas.",
+    "templates.import": "Importar plantilla",
+    "templates.importDoc": "Importar documento",
+    "templates.readOnly": "solo lectura",
+    "templates.use": "Usar",
+    "templates.invalidFile": "Archivo de plantilla invalido.",
+    "templates.couldNotParse": "No se pudo analizar el archivo de plantilla.",
+    "templates.htmlImportNotSupported":
+      "No se pudo importar HTML (heuristicas aproximadas no soportadas aun).",
+    "templates.invalidJson": "JSON invalido.",
+
+    // Metadata
+    "metadata.author": "Autor",
+    "metadata.team": "Equipo",
+    "metadata.institution": "Institucion",
+    "metadata.date": "Fecha",
+    "metadata.customFields": "Campos personalizados",
+    "metadata.addField": "Agregar campo",
+    "metadata.documentTitle": "Titulo",
+    "metadata.header": "Encabezado",
+    "metadata.footer": "Pie de pagina",
+    "metadata.left": "Izquierda",
+    "metadata.right": "Derecha",
+    "metadata.showOnFirstPage": "Mostrar en primera pagina",
+    "metadata.showPageNumber": "Mostrar numero de pagina",
+
+    // HTML editor
+    "html.placeholder": "Editar HTML directamente...",
+    "html.syntaxError": "Error de sintaxis",
   },
 } satisfies Record<Locale, Record<string, string>>;
 

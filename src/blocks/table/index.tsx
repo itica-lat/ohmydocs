@@ -4,6 +4,7 @@ import type { BlockDefinition } from "../registry";
 import type { TableBlock } from "../types";
 import { baseFields } from "../factory";
 import { nodeToText } from "../_shared";
+import { useT } from "@/lib/i18n";
 
 export const TableSchema: z.ZodType<TableBlock> = z.object({
   id: z.string(),
@@ -85,6 +86,7 @@ export const table: BlockDefinition<"table"> = {
     </table>
   ),
   Editor: ({ block, onChange }) => {
+    const t = useT();
     const setCell = (ri: number, ci: number, v: string) => {
       const rows = block.rows.map((r) => [...r]);
       const row = rows[ri];
@@ -114,7 +116,7 @@ export const table: BlockDefinition<"table"> = {
                 fontFamily: "var(--font-doc-mono)",
                 textTransform: "uppercase",
               }}
-              placeholder="Header"
+              placeholder={t("block.table.header")}
             />
           ))}
         </div>

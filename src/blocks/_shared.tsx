@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useT } from "@/lib/i18n";
 import type { Paragraph, RootContent } from "mdast";
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 import type { TextAlign } from "./types";
@@ -25,12 +26,12 @@ export function nodeToText(node: RootContent | undefined): string {
   return walk(node as AnyNode);
 }
 
-const ALIGN_OPTIONS: { value: TextAlign; icon: ReactNode; title: string }[] = [
-  { value: "left", icon: <AlignLeft size={12} />, title: "Align left" },
-  { value: "center", icon: <AlignCenter size={12} />, title: "Align center" },
-  { value: "right", icon: <AlignRight size={12} />, title: "Align right" },
-  { value: "justify", icon: <AlignJustify size={12} />, title: "Justify" },
-];
+const ALIGN_OPTIONS = [
+  { value: "left" as const, icon: <AlignLeft size={12} />, titleKey: "block.alignLeft" },
+  { value: "center" as const, icon: <AlignCenter size={12} />, titleKey: "block.alignCenter" },
+  { value: "right" as const, icon: <AlignRight size={12} />, titleKey: "block.alignRight" },
+  { value: "justify" as const, icon: <AlignJustify size={12} />, titleKey: "block.justify" },
+] as const;
 
 export function AlignButtons({
   value,
@@ -39,14 +40,15 @@ export function AlignButtons({
   value: TextAlign | undefined;
   onChange: (align: TextAlign) => void;
 }) {
+  const t = useT();
   const current = value ?? "left";
   return (
     <div style={{ display: "flex", gap: "0.25rem" }}>
-      {ALIGN_OPTIONS.map(({ value: v, icon, title }) => (
+      {ALIGN_OPTIONS.map(({ value: v, icon, titleKey }) => (
         <button
           key={v}
           type="button"
-          title={title}
+          title={t(titleKey)}
           onClick={() => onChange(v)}
           style={{
             display: "inline-flex",

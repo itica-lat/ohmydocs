@@ -163,6 +163,7 @@ function DocRow({
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(title);
   const inputRef = useRef<HTMLInputElement>(null);
+  const t = useT();
 
   useEffect(() => {
     if (editing) {
@@ -231,10 +232,10 @@ function DocRow({
             className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100"
             style={{ flexShrink: 0 }}
           >
-            <IconBtn onClick={() => setEditing(true)} title="Rename">
+            <IconBtn onClick={() => setEditing(true)} title={t("sidebar.rename")}>
               <Pencil size={11} />
             </IconBtn>
-            <IconBtn onClick={() => remove(id)} title="Delete">
+            <IconBtn onClick={() => remove(id)} title={t("sidebar.delete")}>
               <Trash2 size={11} />
             </IconBtn>
           </span>

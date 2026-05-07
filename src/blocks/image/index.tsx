@@ -3,6 +3,7 @@ import type { Image as MdastImage, RootContent } from "mdast";
 import type { BlockDefinition } from "../registry";
 import type { ImageBlock } from "../types";
 import { baseFields } from "../factory";
+import { useT } from "@/lib/i18n";
 
 export const ImageSchema: z.ZodType<ImageBlock> = z.object({
   id: z.string(),
@@ -74,99 +75,102 @@ export const image: BlockDefinition<"image"> = {
       )}
     </figure>
   ),
-  Editor: ({ block, onChange }) => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-      <input
-        value={block.src}
-        onChange={(e) =>
-          onChange({
-            ...block,
-            src: e.target.value,
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        placeholder="Image URL or data:"
-        style={inp}
-      />
-      <input
-        value={block.alt}
-        onChange={(e) =>
-          onChange({
-            ...block,
-            alt: e.target.value,
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        placeholder="Alt text"
-        style={inp}
-      />
-      <input
-        value={block.caption}
-        onChange={(e) =>
-          onChange({
-            ...block,
-            caption: e.target.value,
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        placeholder="Caption (optional)"
-        style={inp}
-      />
-      <div style={{ display: "flex", gap: "0.35rem" }}>
-        {([25, 50, 75, 100] as const).map((w) => (
-          <button
-            key={w}
-            onClick={() =>
-              onChange({
-                ...block,
-                width: w,
-                updatedAt: new Date().toISOString(),
-              })
-            }
-            style={{
-              flex: 1,
-              padding: "0.3rem 0",
-              border: "var(--rule)",
-              borderRadius: "4px",
-              fontFamily: "var(--font-ui-mono)",
-              fontSize: "0.6875rem",
-              letterSpacing: "0.06em",
-              cursor: "pointer",
-              background: block.width === w ? "var(--color-accent)" : "var(--color-paper)",
-              color: block.width === w ? "var(--color-ink-on-dark)" : "var(--color-ink-deep)",
-            }}
-          >
-            {w}%
-          </button>
-        ))}
-      </div>
-      <label
-        style={{
-          fontFamily: "var(--font-ui-mono)",
-          fontSize: "0.6875rem",
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-          color: "var(--color-mute)",
-          display: "flex",
-          gap: "0.5rem",
-          alignItems: "center",
-        }}
-      >
+  Editor: ({ block, onChange }) => {
+    const t = useT();
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
         <input
-          type="checkbox"
-          checked={block.bordered}
+          value={block.src}
           onChange={(e) =>
             onChange({
               ...block,
-              bordered: e.target.checked,
+              src: e.target.value,
               updatedAt: new Date().toISOString(),
             })
           }
+          placeholder={t("block.image.url")}
+          style={inp}
         />
-        Border
-      </label>
-    </div>
-  ),
+        <input
+          value={block.alt}
+          onChange={(e) =>
+            onChange({
+              ...block,
+              alt: e.target.value,
+              updatedAt: new Date().toISOString(),
+            })
+          }
+          placeholder={t("block.image.alt")}
+          style={inp}
+        />
+        <input
+          value={block.caption}
+          onChange={(e) =>
+            onChange({
+              ...block,
+              caption: e.target.value,
+              updatedAt: new Date().toISOString(),
+            })
+          }
+          placeholder={t("block.image.caption")}
+          style={inp}
+        />
+        <div style={{ display: "flex", gap: "0.35rem" }}>
+          {([25, 50, 75, 100] as const).map((w) => (
+            <button
+              key={w}
+              onClick={() =>
+                onChange({
+                  ...block,
+                  width: w,
+                  updatedAt: new Date().toISOString(),
+                })
+              }
+              style={{
+                flex: 1,
+                padding: "0.3rem 0",
+                border: "var(--rule)",
+                borderRadius: "4px",
+                fontFamily: "var(--font-ui-mono)",
+                fontSize: "0.6875rem",
+                letterSpacing: "0.06em",
+                cursor: "pointer",
+                background: block.width === w ? "var(--color-accent)" : "var(--color-paper)",
+                color: block.width === w ? "var(--color-ink-on-dark)" : "var(--color-ink-deep)",
+              }}
+            >
+              {w}%
+            </button>
+          ))}
+        </div>
+        <label
+          style={{
+            fontFamily: "var(--font-ui-mono)",
+            fontSize: "0.6875rem",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "var(--color-mute)",
+            display: "flex",
+            gap: "0.5rem",
+            alignItems: "center",
+          }}
+        >
+          <input
+            type="checkbox"
+            checked={block.bordered}
+            onChange={(e) =>
+              onChange({
+                ...block,
+                bordered: e.target.checked,
+                updatedAt: new Date().toISOString(),
+              })
+            }
+          />
+          Border
+        </label>
+      </div>
+    );
+  },
   serialize: (block): RootContent[] => [
     {
       type: "paragraph",

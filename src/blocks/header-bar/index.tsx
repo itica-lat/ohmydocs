@@ -4,6 +4,7 @@ import type { LeafDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { HeaderBarBlock } from "../types";
 import { baseFields } from "../factory";
+import { useT } from "@/lib/i18n";
 
 export const HeaderBarSchema: z.ZodType<HeaderBarBlock> = z.object({
   id: z.string(),
@@ -45,34 +46,37 @@ export const headerBar: BlockDefinition<"header-bar"> = {
       </span>
     </div>
   ),
-  Editor: ({ block, onChange }) => (
-    <div style={{ display: "flex", gap: "0.5rem" }}>
-      <input
-        value={block.left}
-        onChange={(e) =>
-          onChange({
-            ...block,
-            left: e.target.value.toUpperCase(),
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        placeholder="LEFT"
-        style={inp}
-      />
-      <input
-        value={block.right}
-        onChange={(e) =>
-          onChange({
-            ...block,
-            right: e.target.value.toUpperCase(),
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        placeholder="RIGHT"
-        style={inp}
-      />
-    </div>
-  ),
+  Editor: ({ block, onChange }) => {
+    const t = useT();
+    return (
+      <div style={{ display: "flex", gap: "0.5rem" }}>
+        <input
+          value={block.left}
+          onChange={(e) =>
+            onChange({
+              ...block,
+              left: e.target.value.toUpperCase(),
+              updatedAt: new Date().toISOString(),
+            })
+          }
+          placeholder={t("block.headerBar.left")}
+          style={inp}
+        />
+        <input
+          value={block.right}
+          onChange={(e) =>
+            onChange({
+              ...block,
+              right: e.target.value.toUpperCase(),
+              updatedAt: new Date().toISOString(),
+            })
+          }
+          placeholder={t("block.headerBar.right")}
+          style={inp}
+        />
+      </div>
+    );
+  },
   serialize: (block): RootContent[] => [
     {
       type: "leafDirective",

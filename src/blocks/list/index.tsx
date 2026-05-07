@@ -4,6 +4,7 @@ import type { BlockDefinition } from "../registry";
 import type { ListBlock } from "../types";
 import { baseFields } from "../factory";
 import { AlignButtons, nodeToText } from "../_shared";
+import { useT } from "@/lib/i18n";
 
 export const ListSchema = z.object({
   id: z.string(),
@@ -76,6 +77,7 @@ export const list: BlockDefinition<"list"> = {
     );
   },
   Editor: ({ block, onChange }) => {
+    const t = useT();
     const update = (patch: Partial<ListBlock>) =>
       onChange({ ...block, ...patch, updatedAt: new Date().toISOString() });
 
@@ -110,7 +112,7 @@ export const list: BlockDefinition<"list"> = {
                 items[i] = e.target.value;
                 update({ items });
               }}
-              placeholder="Item"
+              placeholder={t("block.list.item")}
               style={{
                 flex: 1,
                 border: "none",

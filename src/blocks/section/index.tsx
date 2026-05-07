@@ -5,6 +5,7 @@ import type { BlockDefinition } from "../registry";
 import type { SectionBlock } from "../types";
 import { baseFields } from "../factory";
 import { AlignButtons, nodeToText, textParagraph, withAccent } from "../_shared";
+import { useT } from "@/lib/i18n";
 
 export const SectionSchema = z.object({
   id: z.string(),
@@ -91,6 +92,7 @@ export const section: BlockDefinition<"section"> = {
   Editor: ({ block, onChange }) => {
     const update = (patch: Partial<SectionBlock>) =>
       onChange({ ...block, ...patch, updatedAt: new Date().toISOString() });
+    const t = useT();
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
@@ -113,7 +115,7 @@ export const section: BlockDefinition<"section"> = {
           <input
             value={block.heading}
             onChange={(e) => update({ heading: e.target.value })}
-            placeholder="Section *title*"
+            placeholder={t("block.section.title")}
             style={{
               flex: 1,
               border: "none",
@@ -130,7 +132,7 @@ export const section: BlockDefinition<"section"> = {
         <textarea
           value={block.lead}
           onChange={(e) => update({ lead: e.target.value })}
-          placeholder="Lead paragraph (italic)"
+          placeholder={t("block.section.lead")}
           rows={2}
           style={{
             width: "100%",

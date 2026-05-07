@@ -4,6 +4,7 @@ import type { ContainerDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { MetadataGridBlock, MetaPair } from "../types";
 import { baseFields } from "../factory";
+import { useT } from "@/lib/i18n";
 
 export const MetadataGridSchema: z.ZodType<MetadataGridBlock> = z.object({
   id: z.string(),
@@ -50,74 +51,77 @@ export const metadataGrid: BlockDefinition<"metadata-grid"> = {
       ))}
     </div>
   ),
-  Editor: ({ block, onChange }) => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-      {block.entries.map((e, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <div key={i} style={{ display: "flex", gap: "0.5rem" }}>
-          <input
-            value={e.label}
-            onChange={(ev) => {
-              const entries = [...block.entries];
-              entries[i] = { ...e, label: ev.target.value.toUpperCase() };
-              onChange({
-                ...block,
-                entries,
-                updatedAt: new Date().toISOString(),
-              });
-            }}
-            placeholder="LABEL"
-            style={{
-              ...inp,
-              width: "40%",
-              textTransform: "uppercase",
-              fontFamily: "var(--font-doc-mono)",
-            }}
-          />
-          <input
-            value={e.value}
-            onChange={(ev) => {
-              const entries = [...block.entries];
-              entries[i] = { ...e, value: ev.target.value };
-              onChange({
-                ...block,
-                entries,
-                updatedAt: new Date().toISOString(),
-              });
-            }}
-            placeholder="value"
-            style={{ ...inp, flex: 1 }}
-          />
-          <button
-            type="button"
-            onClick={() =>
-              onChange({
-                ...block,
-                entries: block.entries.filter((_, j) => j !== i),
-                updatedAt: new Date().toISOString(),
-              })
-            }
-            style={delBtn}
-          >
-            ×
-          </button>
-        </div>
-      ))}
-      <button
-        type="button"
-        onClick={() =>
-          onChange({
-            ...block,
-            entries: [...block.entries, { label: "", value: "" }],
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        style={addBtn}
-      >
-        + Entry
-      </button>
-    </div>
-  ),
+  Editor: ({ block, onChange }) => {
+    const t = useT();
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+        {block.entries.map((e, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div key={i} style={{ display: "flex", gap: "0.5rem" }}>
+            <input
+              value={e.label}
+              onChange={(ev) => {
+                const entries = [...block.entries];
+                entries[i] = { ...e, label: ev.target.value.toUpperCase() };
+                onChange({
+                  ...block,
+                  entries,
+                  updatedAt: new Date().toISOString(),
+                });
+              }}
+              placeholder="LABEL"
+              style={{
+                ...inp,
+                width: "40%",
+                textTransform: "uppercase",
+                fontFamily: "var(--font-doc-mono)",
+              }}
+            />
+            <input
+              value={e.value}
+              onChange={(ev) => {
+                const entries = [...block.entries];
+                entries[i] = { ...e, value: ev.target.value };
+                onChange({
+                  ...block,
+                  entries,
+                  updatedAt: new Date().toISOString(),
+                });
+              }}
+              placeholder={t("block.metadata.value")}
+              style={{ ...inp, flex: 1 }}
+            />
+            <button
+              type="button"
+              onClick={() =>
+                onChange({
+                  ...block,
+                  entries: block.entries.filter((_, j) => j !== i),
+                  updatedAt: new Date().toISOString(),
+                })
+              }
+              style={delBtn}
+            >
+              ×
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={() =>
+            onChange({
+              ...block,
+              entries: [...block.entries, { label: "", value: "" }],
+              updatedAt: new Date().toISOString(),
+            })
+          }
+          style={addBtn}
+        >
+          + Entry
+        </button>
+      </div>
+    );
+  },
   serialize: (block): RootContent[] => [
     {
       type: "containerDirective",

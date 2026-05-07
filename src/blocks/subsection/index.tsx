@@ -4,6 +4,7 @@ import type { BlockDefinition } from "../registry";
 import type { SubsectionBlock } from "../types";
 import { baseFields } from "../factory";
 import { AlignButtons, nodeToText } from "../_shared";
+import { useT } from "@/lib/i18n";
 
 export const SubsectionSchema = z.object({
   id: z.string(),
@@ -45,13 +46,14 @@ export const subsection: BlockDefinition<"subsection"> = {
   Editor: ({ block, onChange }) => {
     const update = (patch: Partial<SubsectionBlock>) =>
       onChange({ ...block, ...patch, updatedAt: new Date().toISOString() });
+    const t = useT();
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
         <input
           value={block.heading}
           onChange={(e) => update({ heading: e.target.value })}
-          placeholder="Subsection title"
+          placeholder={t("block.subsection.title")}
           style={{
             width: "100%",
             border: "none",
