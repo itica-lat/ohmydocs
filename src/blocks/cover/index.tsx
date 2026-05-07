@@ -5,6 +5,7 @@ import type { BlockDefinition } from "../registry";
 import type { CoverBlock, MetaPair } from "../types";
 import { baseFields } from "../factory";
 import { nodeToText, withAccent } from "../_shared";
+import { useT } from "@/lib/i18n";
 
 const MetaPair = z.object({ label: z.string(), value: z.string() });
 
@@ -32,7 +33,7 @@ export const cover: BlockDefinition<"cover"> = {
     title: "Document title *highlight*",
     highlightWord: "highlight",
     metadata: [
-      { label: "TEAM", value: "Eternum Team" },
+      { label: "TEAM", value: "" },
       { label: "DATE", value: new Date().toISOString().slice(0, 10) },
     ],
     callout: null,
@@ -116,24 +117,25 @@ export const cover: BlockDefinition<"cover"> = {
   Editor: ({ block, onChange }) => {
     const update = <K extends keyof CoverBlock>(k: K, v: CoverBlock[K]) =>
       onChange({ ...block, [k]: v, updatedAt: new Date().toISOString() });
+    const t = useT();
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
         <input
           value={block.label}
           onChange={(e) => update("label", e.target.value.toUpperCase())}
-          placeholder="LABEL"
+          placeholder={t("block.cover.label")}
           style={inputMono}
         />
         <input
           value={block.title}
           onChange={(e) => update("title", e.target.value)}
-          placeholder="Title (use *word* to highlight)"
+          placeholder={t("block.cover.title")}
           style={inputDisplay}
         />
         <input
           value={block.highlightWord}
           onChange={(e) => update("highlightWord", e.target.value)}
-          placeholder="Highlight word"
+          placeholder={t("block.cover.highlight")}
           style={inputMono}
         />
         <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
@@ -147,7 +149,7 @@ export const cover: BlockDefinition<"cover"> = {
                   meta[i] = { ...m, label: e.target.value.toUpperCase() };
                   update("metadata", meta);
                 }}
-                placeholder="LABEL"
+                placeholder={t("block.metadata.label")}
                 style={{ ...inputMono, width: "40%" }}
               />
               <input
@@ -157,7 +159,7 @@ export const cover: BlockDefinition<"cover"> = {
                   meta[i] = { ...m, value: e.target.value };
                   update("metadata", meta);
                 }}
-                placeholder="value"
+                placeholder={t("block.metadata.value")}
                 style={{ ...inputSans, flex: 1 }}
               />
               <button
@@ -179,13 +181,13 @@ export const cover: BlockDefinition<"cover"> = {
             onClick={() => update("metadata", [...block.metadata, { label: "", value: "" }])}
             style={addBtn}
           >
-            + Metadata row
+            + {t("block.metadata.addRow")}
           </button>
         </div>
         <textarea
           value={block.callout ?? ""}
           onChange={(e) => update("callout", e.target.value || null)}
-          placeholder="Optional callout"
+          placeholder={t("block.cover.callout")}
           rows={2}
           style={{ ...inputSans, resize: "vertical" }}
         />

@@ -109,7 +109,7 @@ export const callout: BlockDefinition<"callout"> = {
           <input
             value={block.label}
             onChange={(e) => update({ label: e.target.value.toUpperCase() })}
-            placeholder="LABEL"
+            placeholder={t("block.callout.label")}
             style={{
               flex: 1,
               border: "none",

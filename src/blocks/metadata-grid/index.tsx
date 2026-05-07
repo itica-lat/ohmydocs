@@ -69,7 +69,7 @@ export const metadataGrid: BlockDefinition<"metadata-grid"> = {
                   updatedAt: new Date().toISOString(),
                 });
               }}
-              placeholder="LABEL"
+              placeholder={t("block.metadata.label")}
               style={{
                 ...inp,
                 width: "40%",

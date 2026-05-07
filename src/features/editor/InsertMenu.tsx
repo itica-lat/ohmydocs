@@ -121,7 +121,15 @@ export function InsertMenu({ onInsert }: Props) {
                     margin: "0.25rem 0",
                   }}
                 >
-                  {cat}
+                  {t(
+                    cat === "structural"
+                      ? "insert.structural"
+                      : cat === "content"
+                        ? "insert.content"
+                        : cat === "data"
+                          ? "insert.data"
+                          : "insert.media",
+                  )}
                 </div>
                 <div
                   style={{
@@ -158,7 +166,7 @@ export function InsertMenu({ onInsert }: Props) {
                         }}
                       >
                         <Icon size={14} style={{ color: "var(--color-accent)" }} />
-                        {d.label}
+                        {t(`block.${d.type}.name`)}
                       </button>
                     );
                   })}

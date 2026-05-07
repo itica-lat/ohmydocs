@@ -130,7 +130,7 @@ export const table: BlockDefinition<"table"> = {
                 value={c}
                 onChange={(e) => setCell(ri, ci, e.target.value)}
                 style={cellInput}
-                placeholder="cell"
+                placeholder={t("block.table.cell")}
               />
             ))}
           </div>

@@ -73,7 +73,7 @@ export const codeBlock: BlockDefinition<"code-block"> = {
               updatedAt: new Date().toISOString(),
             })
           }
-          placeholder={t("block.code.placeholder")}
+          placeholder={t("block.code.language")}
           style={{
             width: "8rem",
             border: "var(--rule)",
@@ -93,7 +93,7 @@ export const codeBlock: BlockDefinition<"code-block"> = {
               updatedAt: new Date().toISOString(),
             })
           }
-          placeholder="// code"
+          placeholder={t("block.code.placeholder")}
           rows={Math.max(4, block.code.split("\n").length)}
           spellCheck={false}
           style={{

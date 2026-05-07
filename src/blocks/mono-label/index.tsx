@@ -5,6 +5,7 @@ import type { BlockDefinition } from "../registry";
 import type { MonoLabelBlock } from "../types";
 import { baseFields } from "../factory";
 import { AlignButtons } from "../_shared";
+import { useT } from "@/lib/i18n";
 
 export const MonoLabelSchema = z.object({
   id: z.string(),
@@ -37,13 +38,14 @@ export const monoLabel: BlockDefinition<"mono-label"> = {
   Editor: ({ block, onChange }) => {
     const update = (patch: Partial<MonoLabelBlock>) =>
       onChange({ ...block, ...patch, updatedAt: new Date().toISOString() });
+    const t = useT();
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
         <input
           value={block.text}
           onChange={(e) => update({ text: e.target.value.toUpperCase() })}
-          placeholder="LABEL"
+          placeholder={t("block.monoLabel.label")}
           style={{
             width: "100%",
             border: "none",

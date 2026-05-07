@@ -10,18 +10,6 @@ export function Landing() {
       className="flex flex-col items-center text-center max-w-xl pt-24 px-6"
       style={{ color: "var(--color-ink-deepest)" }}
     >
-      <div
-        className="mb-6"
-        style={{
-          fontFamily: "var(--font-ui-mono)",
-          fontSize: "0.6875rem",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color: "var(--color-accent)",
-        }}
-      >
-        Eternum Edition · v0.1
-      </div>
       <h1
         className="italic leading-[1.05]"
         style={{
@@ -29,6 +17,7 @@ export function Landing() {
           fontSize: "3rem",
           color: "var(--color-ink-deepest)",
           margin: 0,
+          marginBottom: "1rem",
         }}
       >
         OhMyDocs!

@@ -106,7 +106,7 @@ export const signatureBlock: BlockDefinition<"signature-block"> = {
                 slots[i] = { ...s, role: ev.target.value.toUpperCase() };
                 onChange({ ...block, slots, updatedAt: new Date().toISOString() });
               }}
-              placeholder="ROLE"
+              placeholder={t("block.signature.roleName")}
               style={{
                 ...inp,
                 fontFamily: "var(--font-doc-mono)",
