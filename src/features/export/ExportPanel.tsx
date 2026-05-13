@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import { FileDown, Download, FileText } from "lucide-react";
+import { useCallback, useState, type ReactNode } from "react";
+import { FileDown, Download, FileText, Bug } from "lucide-react";
 import { useDocumentsStore } from "@/features/editor/store";
 import { useBrandingStore } from "@/features/branding/store";
 import { exportToHtml } from "@/lib/export/html";
@@ -7,6 +7,8 @@ import { exportToMarkdown } from "@/lib/export/markdown";
 import { exportToPdf } from "@/lib/export/pdf";
 import { saveTextFile } from "@/lib/storage/fs-access";
 import { useT } from "@/lib/i18n";
+
+const DEV = typeof import.meta !== "undefined" ? import.meta.env.DEV : false;
 
 function slug(s: string): string {
   return (
@@ -24,7 +26,11 @@ export function ExportPanel() {
   const activeBrandingId = useBrandingStore((s) => s.activeId);
   const t = useT();
   const [pdfLoading, setPdfLoading] = useState(false);
-  const [pdfError, setPdfError] = useState<string | null>(null);
+  const [pdfError, setPdfError] = useState<{
+    message: string;
+    name?: string;
+    stack?: string;
+  } | null>(null);
 
   const doc = activeId ? documents[activeId] : null;
   const branding = doc ? (profiles[activeBrandingId] ?? profiles[doc.brandingId]) : null;
@@ -68,7 +74,17 @@ export function ExportPanel() {
       a.click();
       URL.revokeObjectURL(url);
     } catch (err) {
-      setPdfError(err instanceof Error ? err.message : String(err));
+      if (err instanceof Error) {
+        setPdfError(
+          err.stack
+            ? { message: err.message, name: err.name, stack: err.stack }
+            : { message: err.message, name: err.name },
+        );
+      } else {
+        setPdfError({ message: String(err) });
+      }
+      // eslint-disable-next-line no-console
+      console.error("[PDF export]", err);
     } finally {
       setPdfLoading(false);
     }
@@ -118,19 +134,7 @@ export function ExportPanel() {
         desc=".pdf client-side, no server"
         disabled={pdfLoading}
       />
-      {pdfError && (
-        <p
-          style={{
-            fontFamily: "var(--font-ui-mono)",
-            fontSize: "0.6875rem",
-            color: "var(--color-accent)",
-            margin: "0 0.25rem",
-            lineHeight: 1.4,
-          }}
-        >
-          {pdfError}
-        </p>
-      )}
+      {pdfError && <PdfErrorDisplay error={pdfError} />}
     </div>
   );
 }
@@ -143,7 +147,7 @@ function ExportBtn({
   disabled = false,
 }: {
   onClick: () => void;
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   desc: string;
   disabled?: boolean;
@@ -192,6 +196,96 @@ function ExportBtn({
         </span>
       </span>
     </button>
+  );
+}
+
+function PdfErrorDisplay({ error }: { error: { message: string; name?: string; stack?: string } }) {
+  const [expanded, setExpanded] = useState(false);
+  const { message, name, stack } = error;
+
+  const details = {
+    name: name ?? "Error",
+    message,
+    stack: stack ?? "(no stack)",
+    userAgent: navigator.userAgent,
+    url: location.href,
+    time: new Date().toISOString(),
+  };
+
+  return (
+    <div
+      style={{
+        fontFamily: "var(--font-ui-mono)",
+        fontSize: "0.6875rem",
+        color: DEV ? "var(--color-accent)" : "var(--ui-ink-mute)",
+        margin: "0 0.25rem",
+        padding: DEV ? "0.5rem" : 0,
+        background: DEV ? "var(--color-paper-soft)" : "transparent",
+        borderRadius: DEV ? 4 : 0,
+        border: DEV ? "1px solid var(--color-rule)" : "none",
+        lineHeight: 1.4,
+      }}
+    >
+      <div style={{ display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
+        <span style={{ flex: 1, wordBreak: "break-word" }}>{message}</span>
+        {DEV && (
+          <button
+            type="button"
+            onClick={() => setExpanded(!expanded)}
+            style={{
+              background: "none",
+              border: "1px solid var(--color-rule)",
+              borderRadius: 4,
+              padding: "0.2rem 0.4rem",
+              cursor: "pointer",
+              color: "var(--color-mute)",
+              fontSize: "0.625rem",
+              fontFamily: "var(--font-ui-mono)",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+            }}
+          >
+            <Bug size={12} style={{ verticalAlign: "middle", marginRight: 4 }} />
+            {expanded ? "collapse" : "debug"}
+          </button>
+        )}
+      </div>
+
+      {DEV && expanded && (
+        <div style={{ marginTop: "0.5rem", fontSize: "0.625rem", color: "var(--color-mute)" }}>
+          <div
+            style={{
+              background: "var(--color-paper)",
+              padding: "0.5rem",
+              borderRadius: 4,
+              overflow: "auto",
+              maxHeight: 200,
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-all",
+            }}
+          >
+            {JSON.stringify(details, null, 2)}
+          </div>
+          <button
+            type="button"
+            onClick={() => navigator.clipboard.writeText(JSON.stringify(details, null, 2))}
+            style={{
+              marginTop: "0.3rem",
+              background: "none",
+              border: "1px solid var(--color-rule)",
+              borderRadius: 4,
+              padding: "0.2rem 0.4rem",
+              cursor: "pointer",
+              color: "var(--color-mute)",
+              fontSize: "0.625rem",
+              fontFamily: "var(--font-ui-mono)",
+            }}
+          >
+            Copy error details
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 

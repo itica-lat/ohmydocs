@@ -32,23 +32,25 @@ import type {
 } from "../src/blocks/types";
 
 // --- Font registration ---------------------------------------------------------
-// Fonts served via jsDelivr @fontsource CDN — direct .woff2 URLs (not CSS).
-const CDN = "https://cdn.jsdelivr.net/npm";
+// Raw .ttf via @expo-google-fonts on jsDelivr. fontkit's woff/woff2 decoders
+// throw "offset is outside the bounds of the dataview" on payloads that look
+// valid to browsers but trip the bundled parser. TrueType parses reliably.
+const CDN = "https://cdn.jsdelivr.net/npm/@expo-google-fonts";
 
 Font.register({
   family: "Playfair Display",
   fonts: [
-    { src: `${CDN}/@fontsource/playfair-display@5/files/playfair-display-latin-400-normal.woff2` },
+    { src: `${CDN}/playfair-display@0.2.3/PlayfairDisplay_400Regular.ttf` },
     {
-      src: `${CDN}/@fontsource/playfair-display@5/files/playfair-display-latin-400-italic.woff2`,
+      src: `${CDN}/playfair-display@0.2.3/PlayfairDisplay_400Regular_Italic.ttf`,
       fontStyle: "italic",
     },
     {
-      src: `${CDN}/@fontsource/playfair-display@5/files/playfair-display-latin-700-normal.woff2`,
+      src: `${CDN}/playfair-display@0.2.3/PlayfairDisplay_700Bold.ttf`,
       fontWeight: 700,
     },
     {
-      src: `${CDN}/@fontsource/playfair-display@5/files/playfair-display-latin-700-italic.woff2`,
+      src: `${CDN}/playfair-display@0.2.3/PlayfairDisplay_700Bold_Italic.ttf`,
       fontWeight: 700,
       fontStyle: "italic",
     },
@@ -58,43 +60,47 @@ Font.register({
 Font.register({
   family: "Inter",
   fonts: [
-    { src: `${CDN}/@fontsource/inter@4/files/inter-latin-400-normal.woff2` },
-    { src: `${CDN}/@fontsource/inter@4/files/inter-latin-400-normal.woff2`, fontStyle: "italic" },
-    { src: `${CDN}/@fontsource/inter@4/files/inter-latin-500-normal.woff2`, fontWeight: 500 },
+    { src: `${CDN}/inter@0.2.3/Inter_400Regular.ttf` },
+    { src: `${CDN}/inter@0.2.3/Inter_400Regular.ttf`, fontStyle: "italic" },
+    { src: `${CDN}/inter@0.2.3/Inter_500Medium.ttf`, fontWeight: 500 },
     {
-      src: `${CDN}/@fontsource/inter@4/files/inter-latin-500-normal.woff2`,
+      src: `${CDN}/inter@0.2.3/Inter_500Medium.ttf`,
       fontWeight: 500,
       fontStyle: "italic",
     },
-    { src: `${CDN}/@fontsource/inter@4/files/inter-latin-600-normal.woff2`, fontWeight: 600 },
+    { src: `${CDN}/inter@0.2.3/Inter_600SemiBold.ttf`, fontWeight: 600 },
     {
-      src: `${CDN}/@fontsource/inter@4/files/inter-latin-600-normal.woff2`,
+      src: `${CDN}/inter@0.2.3/Inter_600SemiBold.ttf`,
       fontWeight: 600,
       fontStyle: "italic",
     },
-    { src: `${CDN}/@fontsource/inter@4/files/inter-latin-700-normal.woff2`, fontWeight: 700 },
+    { src: `${CDN}/inter@0.2.3/Inter_700Bold.ttf`, fontWeight: 700 },
     {
-      src: `${CDN}/@fontsource/inter@4/files/inter-latin-700-normal.woff2`,
+      src: `${CDN}/inter@0.2.3/Inter_700Bold.ttf`,
       fontWeight: 700,
       fontStyle: "italic",
     },
   ],
 });
 
+// IBM Plex Mono TTFs (both @fontsource WOFF and @expo-google-fonts TTF) trip
+// fontkit during glyph metrics with "offset is outside the bounds of the
+// DataView". JetBrains Mono is the closest substitute that parses cleanly.
+// Screen mono stays IBM Plex Mono (set via branding tokens); PDF-only swap.
 Font.register({
   family: "IBM Plex Mono",
   fonts: [
-    { src: `${CDN}/@fontsource/ibm-plex-mono@5/files/ibm-plex-mono-latin-400-normal.woff2` },
+    { src: `${CDN}/jetbrains-mono@0.2.3/JetBrainsMono_400Regular.ttf` },
     {
-      src: `${CDN}/@fontsource/ibm-plex-mono@5/files/ibm-plex-mono-latin-400-normal.woff2`,
+      src: `${CDN}/jetbrains-mono@0.2.3/JetBrainsMono_400Regular_Italic.ttf`,
       fontStyle: "italic",
     },
     {
-      src: `${CDN}/@fontsource/ibm-plex-mono@5/files/ibm-plex-mono-latin-500-normal.woff2`,
+      src: `${CDN}/jetbrains-mono@0.2.3/JetBrainsMono_500Medium.ttf`,
       fontWeight: 500,
     },
     {
-      src: `${CDN}/@fontsource/ibm-plex-mono@5/files/ibm-plex-mono-latin-500-normal.woff2`,
+      src: `${CDN}/jetbrains-mono@0.2.3/JetBrainsMono_500Medium_Italic.ttf`,
       fontWeight: 500,
       fontStyle: "italic",
     },
