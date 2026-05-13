@@ -2,6 +2,7 @@ import { z } from "zod";
 import type { Image as MdastImage, RootContent } from "mdast";
 import type { BlockDefinition } from "../registry";
 import type { ImageBlock } from "../types";
+import type { CSSProperties } from "react";
 import { baseFields } from "../factory";
 import { useT } from "@/lib/i18n";
 
@@ -200,7 +201,7 @@ export const image: BlockDefinition<"image"> = {
   },
 };
 
-const inp: React.CSSProperties = {
+const inp: CSSProperties = {
   border: "var(--rule)",
   padding: "0.4rem 0.5rem",
   borderRadius: "4px",

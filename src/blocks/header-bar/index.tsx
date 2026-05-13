@@ -3,6 +3,7 @@ import type { RootContent } from "mdast";
 import type { LeafDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { HeaderBarBlock } from "../types";
+import type { CSSProperties } from "react";
 import { baseFields } from "../factory";
 import { useT } from "@/lib/i18n";
 
@@ -97,7 +98,7 @@ export const headerBar: BlockDefinition<"header-bar"> = {
   },
 };
 
-const inp: React.CSSProperties = {
+const inp: CSSProperties = {
   flex: 1,
   border: "var(--rule)",
   padding: "0.35rem 0.5rem",

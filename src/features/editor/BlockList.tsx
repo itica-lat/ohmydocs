@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useRef, useCallback, useState } from "react";
+import { useMemo, useEffect, useRef, useCallback, useState, memo, type CSSProperties } from "react";
 import {
   DndContext,
   PointerSensor,
@@ -35,7 +35,20 @@ export function BlockList() {
   const doc = activeId ? documents[activeId] : null;
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }));
   const blocks = useMemo(() => (doc?.blocks ?? []) as Block[], [doc?.blocks]);
-  const ids = useMemo(() => blocks.map((b) => b.id), [blocks]);
+
+  // Stable IDs array — only changes when blocks are added/removed/reordered,
+  // NOT when block data changes. This prevents SortableContext from re-rendering
+  // all sortable items on every keystroke.
+  const idsRef = useRef<string[]>([]);
+  const ids = useMemo(() => {
+    const next = blocks.map((b) => b.id);
+    const prev = idsRef.current;
+    if (prev.length === next.length && prev.every((id, i) => id === next[i])) {
+      return prev;
+    }
+    idsRef.current = next;
+    return next;
+  }, [blocks]);
 
   const addParagraph = useCallback(() => {
     if (!doc) return;
@@ -207,167 +220,175 @@ function AddBlockButton({ onClick }: { onClick: () => void }) {
 
 // ── Sortable block row ───────────────────────────────────────────────────────
 
-function SortableBlockRow({
-  block,
-  isSelected,
-  isEditMode,
-  onSelect,
-  onChange,
-  onDuplicate,
-  onRemove,
-  onAddAfter,
-}: {
-  block: Block;
-  isSelected: boolean;
-  isEditMode: boolean;
-  onSelect: () => void;
-  onChange: (next: Block) => void;
-  onDuplicate: () => void;
-  onRemove: () => void;
-  onAddAfter: () => void;
-}) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-    id: block.id,
-  });
-  const def = blockRegistry[block.type];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const Renderer = def.Renderer as any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const Editor = def.Editor as any;
-  const editorRef = useRef<HTMLDivElement>(null);
-  const [showAddAfter, setShowAddAfter] = useState(false);
-  const t = useT();
+const SortableBlockRow = memo(
+  function SortableBlockRow({
+    block,
+    isSelected,
+    isEditMode,
+    onSelect,
+    onChange,
+    onDuplicate,
+    onRemove,
+    onAddAfter,
+  }: {
+    block: Block;
+    isSelected: boolean;
+    isEditMode: boolean;
+    onSelect: () => void;
+    onChange: (next: Block) => void;
+    onDuplicate: () => void;
+    onRemove: () => void;
+    onAddAfter: () => void;
+  }) {
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+      id: block.id,
+    });
+    const def = blockRegistry[block.type];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Renderer = def.Renderer as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Editor = def.Editor as any;
+    const editorRef = useRef<HTMLDivElement>(null);
+    const [showAddAfter, setShowAddAfter] = useState(false);
+    const t = useT();
 
-  /** Focus the first focusable element inside the editor */
-  const focusEditor = useCallback(() => {
-    if (!editorRef.current) return;
-    const el = editorRef.current.querySelector<HTMLElement>(
-      'input:not([type="hidden"]), textarea, [contenteditable]',
-    );
-    el?.focus();
-  }, []);
+    // Store callbacks in refs so SortableBlockRow can be memoized by data only
+    // without worrying about inline function reference changes.
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+    const onSelectRef = useRef(onSelect);
+    onSelectRef.current = onSelect;
+    const onDuplicateRef = useRef(onDuplicate);
+    onDuplicateRef.current = onDuplicate;
+    const onRemoveRef = useRef(onRemove);
+    onRemoveRef.current = onRemove;
+    const onAddAfterRef = useRef(onAddAfter);
+    onAddAfterRef.current = onAddAfter;
 
-  /** Handle click on the editor: select the block and focus the editor element */
-  const handleEditorClick = useCallback(() => {
-    onSelect();
-    // Use RAF to ensure the DOM is ready after state update
-    requestAnimationFrame(focusEditor);
-  }, [onSelect, focusEditor]);
+    const showEditor = isEditMode;
 
-  // Auto-focus editor when block is selected (for programmatic selection like addParagraph)
-  useEffect(() => {
-    if (isSelected) {
-      requestAnimationFrame(focusEditor);
-    }
-  }, [isSelected, focusEditor]);
-
-  const showEditor = isEditMode;
-
-  return (
-    <div
-      id={`block-${block.id}`}
-      ref={setNodeRef}
-      style={{
-        transform: CSS.Transform.toString(transform),
-        transition,
-        opacity: isDragging ? 0.6 : 1,
-        position: "relative",
-        padding: "0.125rem 0",
-        borderLeft: isSelected ? "2px solid var(--color-accent)" : "2px solid transparent",
-        borderBottom: showAddAfter ? "2px solid var(--color-accent)" : "2px solid transparent",
-        borderRadius: 0,
-      }}
-      onMouseEnter={() => setShowAddAfter(true)}
-      onMouseLeave={() => setShowAddAfter(false)}
-    >
-      {/* Block toolbar — visible on hover OR when selected */}
+    return (
       <div
-        className="block-toolbar"
+        id={`block-${block.id}`}
+        ref={setNodeRef}
         style={{
-          position: "absolute",
-          top: "-12px",
-          right: "4px",
-          display: isSelected || showAddAfter ? "flex" : "none",
-          gap: "2px",
-          zIndex: 5,
+          transform: CSS.Transform.toString(transform),
+          transition,
+          opacity: isDragging ? 0.6 : 1,
+          position: "relative",
+          padding: "0.125rem 0",
+          borderLeft: isSelected ? "2px solid var(--color-accent)" : "2px solid transparent",
+          borderBottom: showAddAfter ? "2px solid var(--color-accent)" : "2px solid transparent",
+          borderRadius: 0,
         }}
+        onMouseEnter={() => setShowAddAfter(true)}
+        onMouseLeave={() => setShowAddAfter(false)}
       >
-        <button
-          type="button"
-          {...attributes}
-          {...listeners}
-          style={iconBtn}
-          title={t("block.drag")}
-        >
-          <GripVertical size={12} />
-        </button>
-        <button type="button" onClick={onDuplicate} style={iconBtn} title={t("block.duplicate")}>
-          <Copy size={12} />
-        </button>
-        <button type="button" onClick={onRemove} style={iconBtn} title={t("block.delete")}>
-          <Trash2 size={12} />
-        </button>
-      </div>
-
-      {/* Editor (edit mode) or Renderer (read mode) */}
-      {/* Clicking the editor area selects the block for toolbar visibility
-          AND focuses the editor element for immediate typing */}
-      {showEditor ? (
-        <div ref={editorRef} onClick={handleEditorClick}>
-          <Editor block={block} onChange={onChange} />
-        </div>
-      ) : (
-        <div onClick={onSelect} style={{ cursor: isEditMode ? "pointer" : "default" }}>
-          <Renderer block={block} mode={isEditMode ? "edit" : "read"} />
-        </div>
-      )}
-
-      {/* Inline add-below button — appears on hover between blocks */}
-      {showAddAfter && !isDragging && (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onAddAfter();
-          }}
+        {/* Block toolbar — visible on hover OR when selected */}
+        <div
+          className="block-toolbar"
           style={{
             position: "absolute",
-            bottom: "-11px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 28,
-            height: 28,
-            borderRadius: "50%",
-            background: "var(--color-accent)",
-            color: "#fff",
-            border: "2px solid var(--color-paper)",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 6,
-            opacity: 0.9,
-            boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
-            transition: "opacity 0.15s, transform 0.15s",
+            top: "-12px",
+            right: "4px",
+            display: isSelected || showAddAfter ? "flex" : "none",
+            gap: "2px",
+            zIndex: 5,
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.opacity = "1";
-            e.currentTarget.style.transform = "translateX(-50%) scale(1.1)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.opacity = "0.9";
-            e.currentTarget.style.transform = "translateX(-50%) scale(1)";
-          }}
-          title={t("block.addBelow")}
         >
-          <Plus size={16} strokeWidth={3} />
-        </button>
-      )}
-    </div>
-  );
-}
+          <button
+            type="button"
+            {...attributes}
+            {...listeners}
+            style={iconBtn}
+            title={t("block.drag")}
+          >
+            <GripVertical size={12} />
+          </button>
+          <button
+            type="button"
+            onClick={() => onDuplicateRef.current()}
+            style={iconBtn}
+            title={t("block.duplicate")}
+          >
+            <Copy size={12} />
+          </button>
+          <button
+            type="button"
+            onClick={() => onRemoveRef.current()}
+            style={iconBtn}
+            title={t("block.delete")}
+          >
+            <Trash2 size={12} />
+          </button>
+        </div>
 
-const iconBtn: React.CSSProperties = {
+        {showEditor ? (
+          <div ref={editorRef} onClick={() => onSelectRef.current()}>
+            <Editor block={block} onChange={(next: Block) => onChangeRef.current(next)} />
+          </div>
+        ) : (
+          <div
+            onClick={() => onSelectRef.current()}
+            style={{ cursor: isEditMode ? "pointer" : "default" }}
+          >
+            <Renderer block={block} mode={isEditMode ? "edit" : "read"} />
+          </div>
+        )}
+
+        {/* Inline add-below button — appears on hover between blocks */}
+        {showAddAfter && !isDragging && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onAddAfterRef.current();
+            }}
+            style={{
+              position: "absolute",
+              bottom: "-11px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              background: "var(--color-accent)",
+              color: "#fff",
+              border: "2px solid var(--color-paper)",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 6,
+              opacity: 0.9,
+              boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
+              transition: "opacity 0.15s, transform 0.15s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.opacity = "1";
+              e.currentTarget.style.transform = "translateX(-50%) scale(1.1)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.opacity = "0.9";
+              e.currentTarget.style.transform = "translateX(-50%) scale(1)";
+            }}
+            title={t("block.addBelow")}
+          >
+            <Plus size={16} strokeWidth={3} />
+          </button>
+        )}
+      </div>
+    );
+  },
+  (prev, next) => {
+    if (prev.block !== next.block) return false;
+    if (prev.isSelected !== next.isSelected) return false;
+    if (prev.isEditMode !== next.isEditMode) return false;
+    return true;
+  },
+);
+
+const iconBtn: CSSProperties = {
   background: "var(--color-paper)",
   border: "1px solid var(--color-rule)",
   color: "var(--color-ink-deep)",

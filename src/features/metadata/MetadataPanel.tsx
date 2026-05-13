@@ -1,5 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
 import { useT } from "@/lib/i18n";
+import type { CSSProperties, ReactNode } from "react";
 import { useDocumentsStore } from "@/features/editor/store";
 import type { OhmyDocument } from "@/types/schemas";
 
@@ -128,7 +129,7 @@ function CustomFields({
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
       <span
@@ -147,7 +148,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-const inp: React.CSSProperties = {
+const inp: CSSProperties = {
   border: "var(--rule)",
   padding: "0.35rem 0.5rem",
   borderRadius: "4px",
@@ -157,7 +158,7 @@ const inp: React.CSSProperties = {
   background: "var(--color-paper)",
   outline: "none",
 };
-const addBtn: React.CSSProperties = {
+const addBtn: CSSProperties = {
   alignSelf: "flex-start",
   display: "inline-flex",
   gap: "0.3rem",
@@ -172,7 +173,7 @@ const addBtn: React.CSSProperties = {
   cursor: "pointer",
   padding: "0.25rem 0",
 };
-const delBtn: React.CSSProperties = {
+const delBtn: CSSProperties = {
   border: "var(--rule)",
   background: "transparent",
   color: "var(--color-mute)",

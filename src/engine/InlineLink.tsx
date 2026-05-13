@@ -27,7 +27,7 @@ function Tooltip({ url, visible }: TooltipProps) {
         pointerEvents: "none",
         opacity: visible ? 1 : 0,
         transition: "opacity 0.12s ease",
-        zIndex: 100,
+        zIndex: 10,
         maxWidth: "320px",
         overflow: "hidden",
         textOverflow: "ellipsis",

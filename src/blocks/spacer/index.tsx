@@ -3,6 +3,7 @@ import type { RootContent } from "mdast";
 import type { LeafDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { SpacerBlock, SpacerSize } from "../types";
+import type { CSSProperties } from "react";
 import { baseFields } from "../factory";
 
 const SIZES: Record<SpacerSize, string> = {
@@ -29,14 +30,14 @@ export const SpacerSchema: z.ZodType<SpacerBlock> = z.object({
   size: z.enum(["xs", "sm", "md", "lg", "xl"]),
 });
 
-const editorStyle: React.CSSProperties = {
+const editorStyle: CSSProperties = {
   display: "flex",
   alignItems: "center",
   gap: "0.5rem",
   padding: "0.25rem 0",
 };
 
-const labelStyle: React.CSSProperties = {
+const labelStyle: CSSProperties = {
   fontFamily: "var(--font-ui-mono)",
   fontSize: "0.625rem",
   textTransform: "uppercase",
@@ -45,7 +46,7 @@ const labelStyle: React.CSSProperties = {
   userSelect: "none",
 };
 
-const lineStyle: React.CSSProperties = {
+const lineStyle: CSSProperties = {
   flex: 1,
   borderTop: "1px dashed var(--color-rule)",
   opacity: 0.5,

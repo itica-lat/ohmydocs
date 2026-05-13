@@ -47,7 +47,7 @@ export const HeaderConfigSchema = z.object({
   showPageNumber: z.boolean(),
 });
 
-export const FooterConfigSchema = HeaderConfigSchema;
+const FooterConfigSchema = HeaderConfigSchema;
 
 export const DocumentMetadataSchema = z.object({
   author: z.string(),

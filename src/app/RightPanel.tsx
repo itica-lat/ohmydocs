@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Palette, Settings, Layout, FileText, Download, SlidersHorizontal } from "lucide-react";
 import { BrandingPanel } from "@/features/branding/BrandingPanel";
 import { MetadataPanel } from "@/features/metadata/MetadataPanel";
@@ -78,8 +78,8 @@ function TabBtn({
   id: TabId;
   current: TabId;
   onClick: (id: TabId) => void;
-  icon: React.ReactNode;
-  children: React.ReactNode;
+  icon: ReactNode;
+  children: ReactNode;
 }) {
   const isActive = id === current;
   return (
@@ -110,7 +110,7 @@ function TabBtn({
   );
 }
 
-function NoDocHint({ icon }: { icon: React.ReactNode }) {
+function NoDocHint({ icon }: { icon: ReactNode }) {
   const t = useT();
   return (
     <div

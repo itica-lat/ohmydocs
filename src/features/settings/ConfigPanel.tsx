@@ -1,4 +1,5 @@
 import { Moon, Sun, Languages } from "lucide-react";
+import type { ReactNode } from "react";
 import { useSettingsStore } from "./store";
 import { useT } from "@/lib/i18n";
 
@@ -32,7 +33,7 @@ export function ConfigPanel() {
   );
 }
 
-function Section({ label, children }: { label: string; children: React.ReactNode }) {
+function Section({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="flex flex-col gap-2">
       <span
@@ -59,7 +60,7 @@ function ToggleRow({
 }: {
   active: boolean;
   onToggle: () => void;
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
 }) {
   return (

@@ -3,6 +3,7 @@ import type { RootContent } from "mdast";
 import type { LeafDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { PageBreakBlock } from "../types";
+import type { CSSProperties } from "react";
 import { baseFields } from "../factory";
 
 export const PageBreakSchema: z.ZodType<PageBreakBlock> = z.object({
@@ -12,12 +13,12 @@ export const PageBreakSchema: z.ZodType<PageBreakBlock> = z.object({
   updatedAt: z.string(),
 });
 
-const barStyle: React.CSSProperties = {
+const barStyle: CSSProperties = {
   flex: 1,
   borderTop: "2px dashed var(--color-rule)",
 };
 
-const labelStyle: React.CSSProperties = {
+const labelStyle: CSSProperties = {
   fontFamily: "var(--font-ui-mono)",
   fontSize: "0.625rem",
   textTransform: "uppercase",
@@ -26,7 +27,7 @@ const labelStyle: React.CSSProperties = {
   userSelect: "none",
 };
 
-const wrapperStyle: React.CSSProperties = {
+const wrapperStyle: CSSProperties = {
   display: "flex",
   alignItems: "center",
   gap: "0.75rem",

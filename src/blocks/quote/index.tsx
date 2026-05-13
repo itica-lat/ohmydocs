@@ -3,6 +3,7 @@ import type { RootContent } from "mdast";
 import type { ContainerDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { QuoteBlock } from "../types";
+import type { CSSProperties } from "react";
 import { baseFields } from "../factory";
 import { AlignButtons } from "../_shared";
 import { useT } from "@/lib/i18n";
@@ -128,7 +129,7 @@ export const quote: BlockDefinition<"quote"> = {
   },
 };
 
-const inp: React.CSSProperties = {
+const inp: CSSProperties = {
   border: "var(--rule)",
   padding: "0.4rem 0.5rem",
   borderRadius: "4px",

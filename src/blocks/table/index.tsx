@@ -2,6 +2,7 @@ import { z } from "zod";
 import type { RootContent, Table as MdastTable } from "mdast";
 import type { BlockDefinition } from "../registry";
 import type { TableBlock } from "../types";
+import type { CSSProperties } from "react";
 import { baseFields } from "../factory";
 import { nodeToText } from "../_shared";
 import { useT } from "@/lib/i18n";
@@ -200,7 +201,7 @@ export const table: BlockDefinition<"table"> = {
   },
 };
 
-const cellInput: React.CSSProperties = {
+const cellInput: CSSProperties = {
   flex: 1,
   border: "var(--rule)",
   padding: "0.4rem 0.5rem",
@@ -211,7 +212,7 @@ const cellInput: React.CSSProperties = {
   background: "var(--color-paper)",
   outline: "none",
 };
-const smallBtn: React.CSSProperties = {
+const smallBtn: CSSProperties = {
   fontFamily: "var(--font-ui-mono)",
   fontSize: "0.6875rem",
   textTransform: "uppercase",

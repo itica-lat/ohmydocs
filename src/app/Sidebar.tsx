@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
 import { FileText, Plus, Trash2, Pencil, ChevronLeft, ChevronRight } from "lucide-react";
 import { useDocumentsStore } from "@/features/editor/store";
 import { useSettingsStore } from "@/features/settings/store";
@@ -252,7 +252,7 @@ function IconBtn({
 }: {
   onClick: () => void;
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <button

@@ -3,6 +3,7 @@ import type { RootContent } from "mdast";
 import type { LeafDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { IndexBlock, SectionBlock, SubsectionBlock } from "../types";
+import type { CSSProperties } from "react";
 import { baseFields } from "../factory";
 import { useDocumentsStore } from "@/features/editor/store";
 import type { Block } from "../types";
@@ -56,7 +57,7 @@ function IndexRenderer({
     }
   }
 
-  const pageIsolation: React.CSSProperties = {
+  const pageIsolation: CSSProperties = {
     pageBreakBefore: "always",
     breakBefore: "page",
     pageBreakAfter: "always",

@@ -1,5 +1,11 @@
 {
   "permissions": {
-    "allow": ["Bash(bun run *)"]
+    "allow": [
+      "Bash(bun run *)",
+      "Bash(curl -sI \"https://cdn.jsdelivr.net/npm/@expo-google-fonts/ibm-plex-mono@0.2.3/IBMPlexMono_400Regular.ttf\")",
+      "Bash(curl -sI \"https://cdn.jsdelivr.net/npm/@expo-google-fonts/ibm-plex-mono@0.2.3/IBMPlexMono_400Regular_Italic.ttf\")",
+      "Bash(curl -sI \"https://cdn.jsdelivr.net/npm/@expo-google-fonts/ibm-plex-mono@0.2.3/IBMPlexMono_500Medium.ttf\")",
+      "Bash(curl -sI \"https://cdn.jsdelivr.net/npm/@expo-google-fonts/ibm-plex-mono@0.2.3/IBMPlexMono_500Medium_Italic.ttf\")"
+    ]
   }
 }

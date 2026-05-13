@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, type ReactNode } from "react";
 import { Minus, Plus, ZoomIn, ZoomOut, FileText, Code2, Maximize2, Minimize2 } from "lucide-react";
 import { useDocumentsStore } from "./store";
 import { useSettingsStore } from "@/features/settings/store";
@@ -113,7 +113,7 @@ function Button({
   title,
 }: {
   onClick: () => void;
-  icon: React.ReactNode;
+  icon: ReactNode;
   label?: string;
   title?: string;
 }) {

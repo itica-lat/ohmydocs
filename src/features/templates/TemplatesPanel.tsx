@@ -1,5 +1,6 @@
 import { Download, FileUp, Plus, Trash2 } from "lucide-react";
 import { useT } from "@/lib/i18n";
+import type { CSSProperties } from "react";
 import { useTemplatesStore } from "./store";
 import { useDocumentsStore } from "@/features/editor/store";
 import { saveTextFile, openTextFile } from "@/lib/storage/fs-access";
@@ -18,7 +19,7 @@ export function TemplatesPanel() {
 
   const list = Object.values(templates).sort((a, b) => a.name.localeCompare(b.name));
 
-  const useTemplate = (id: string) => {
+  const applyTemplate = (id: string) => {
     const doc = instantiate(id);
     if (!doc) return;
     upsertDoc(doc);
@@ -188,7 +189,7 @@ export function TemplatesPanel() {
               {tmpl.description}
             </p>
             <div style={{ display: "flex", gap: "0.4rem" }}>
-              <button type="button" onClick={() => useTemplate(tmpl.id)} style={primary}>
+              <button type="button" onClick={() => applyTemplate(tmpl.id)} style={primary}>
                 <Plus size={12} /> {t("templates.use")}
               </button>
               <button type="button" onClick={() => exportTpl(tmpl)} style={btn}>
@@ -220,7 +221,7 @@ function slug(s: string): string {
   );
 }
 
-const btn: React.CSSProperties = {
+const btn: CSSProperties = {
   display: "inline-flex",
   alignItems: "center",
   gap: "0.25rem",
@@ -234,7 +235,7 @@ const btn: React.CSSProperties = {
   cursor: "pointer",
 };
 
-const primary: React.CSSProperties = {
+const primary: CSSProperties = {
   ...btn,
   background: "var(--color-ink-deepest)",
   color: "var(--color-ink-on-dark)",

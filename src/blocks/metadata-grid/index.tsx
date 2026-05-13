@@ -3,6 +3,7 @@ import type { RootContent } from "mdast";
 import type { ContainerDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { MetadataGridBlock, MetaPair } from "../types";
+import type { CSSProperties } from "react";
 import { baseFields } from "../factory";
 import { useT } from "@/lib/i18n";
 
@@ -148,7 +149,7 @@ export const metadataGrid: BlockDefinition<"metadata-grid"> = {
   },
 };
 
-const inp: React.CSSProperties = {
+const inp: CSSProperties = {
   border: "var(--rule)",
   padding: "0.35rem 0.5rem",
   borderRadius: "4px",
@@ -158,7 +159,7 @@ const inp: React.CSSProperties = {
   background: "var(--color-paper)",
   outline: "none",
 };
-const addBtn: React.CSSProperties = {
+const addBtn: CSSProperties = {
   alignSelf: "flex-start",
   fontFamily: "var(--font-ui-mono)",
   fontSize: "0.6875rem",
@@ -170,7 +171,7 @@ const addBtn: React.CSSProperties = {
   padding: "0.25rem 0",
   cursor: "pointer",
 };
-const delBtn: React.CSSProperties = {
+const delBtn: CSSProperties = {
   border: "var(--rule)",
   background: "transparent",
   color: "var(--color-mute)",

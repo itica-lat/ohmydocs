@@ -83,6 +83,7 @@ export function InsertMenu({ onInsert }: Props) {
           }}
         >
           <div
+            role="presentation"
             onClick={(e) => e.stopPropagation()}
             style={{
               width: 480,

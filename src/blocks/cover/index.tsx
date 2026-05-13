@@ -3,6 +3,7 @@ import type { RootContent, Heading, Paragraph as MdastParagraph } from "mdast";
 import type { ContainerDirective } from "mdast-util-directive";
 import type { BlockDefinition } from "../registry";
 import type { CoverBlock, MetaPair } from "../types";
+import type { CSSProperties } from "react";
 import { baseFields } from "../factory";
 import { nodeToText, withAccent } from "../_shared";
 
@@ -257,14 +258,14 @@ export const cover: BlockDefinition<"cover"> = {
   },
 };
 
-const inputBase: React.CSSProperties = {
+const inputBase: CSSProperties = {
   border: "var(--rule)",
   outline: "none",
   padding: "0.375rem 0.5rem",
   borderRadius: "4px",
   background: "var(--color-paper)",
 };
-const inputMono: React.CSSProperties = {
+const inputMono: CSSProperties = {
   ...inputBase,
   fontFamily: "var(--font-doc-mono)",
   fontSize: "0.75rem",
@@ -272,20 +273,20 @@ const inputMono: React.CSSProperties = {
   textTransform: "uppercase",
   color: "var(--color-ink-deep)",
 };
-const inputSans: React.CSSProperties = {
+const inputSans: CSSProperties = {
   ...inputBase,
   fontFamily: "var(--font-doc-sans)",
   fontSize: "0.875rem",
   color: "var(--color-ink-deepest)",
 };
-const inputDisplay: React.CSSProperties = {
+const inputDisplay: CSSProperties = {
   ...inputBase,
   fontFamily: "var(--font-doc-serif)",
   fontStyle: "italic",
   fontSize: "1.5rem",
   color: "var(--color-ink-deepest)",
 };
-const removeBtn: React.CSSProperties = {
+const removeBtn: CSSProperties = {
   border: "var(--rule)",
   background: "transparent",
   color: "var(--color-mute)",
@@ -293,7 +294,7 @@ const removeBtn: React.CSSProperties = {
   padding: "0.125rem 0.4rem",
   fontSize: "0.6875rem",
 };
-const addBtn: React.CSSProperties = {
+const addBtn: CSSProperties = {
   alignSelf: "flex-start",
   fontFamily: "var(--font-ui-mono)",
   fontSize: "0.6875rem",

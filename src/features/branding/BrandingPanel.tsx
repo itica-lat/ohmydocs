@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import { AlertTriangle, Plus, Trash2 } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { useBrandingStore } from "./store";
@@ -290,7 +290,7 @@ function FontEditor({
   );
 }
 
-const selectStyle: React.CSSProperties = {
+const selectStyle: CSSProperties = {
   width: "100%",
   border: "var(--rule)",
   padding: "0.4rem 0.5rem",
@@ -301,7 +301,7 @@ const selectStyle: React.CSSProperties = {
   color: "var(--color-ink-deepest)",
 };
 
-const primaryBtn: React.CSSProperties = {
+const primaryBtn: CSSProperties = {
   display: "inline-flex",
   alignItems: "center",
   gap: "0.3rem",
@@ -315,7 +315,7 @@ const primaryBtn: React.CSSProperties = {
   cursor: "pointer",
 };
 
-const secondaryBtn: React.CSSProperties = {
+const secondaryBtn: CSSProperties = {
   ...primaryBtn,
   background: "transparent",
   color: "var(--color-ink-deepest)",
