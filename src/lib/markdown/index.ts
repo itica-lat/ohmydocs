@@ -3,10 +3,11 @@ import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkDirective from "remark-directive";
 import remarkStringify from "remark-stringify";
-import type { Root, RootContent } from "mdast";
+import type { Root, RootContent, Heading } from "mdast";
 import type { Block, BlockType } from "@/blocks/types";
 import { blockRegistry, ensureRoot } from "@/blocks/registry";
 import { baseFields } from "@/blocks/factory";
+import { nodeToText } from "@/blocks/_shared";
 
 const parser = unified().use(remarkParse).use(remarkGfm).use(remarkDirective);
 const serializer = unified()
@@ -50,6 +51,20 @@ export function markdownToBlocks(markdown: string): BlocksResult {
       }
     }
     if (!matched) {
+      // Try built-in heading → block mapping before degrading
+      if (node.type === "heading") {
+        const h = node as Heading;
+        let mapped: Block | null = null;
+        if (h.depth === 1 || h.depth === 2) {
+          mapped = { ...baseFields("section"), number: "", heading: nodeToText(h), lead: "", align: "left" } as Block;
+        } else if (h.depth >= 4) {
+          mapped = { ...baseFields("subsection"), heading: nodeToText(h), align: "left" } as Block;
+        }
+        if (mapped) {
+          blocks.push(mapped);
+          continue;
+        }
+      }
       // Degrade unknown to paragraph with a warning badge so nothing is silently lost.
       const fallback = blockRegistry.paragraph.factory({
         text: stringifyNode(node),

@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import { useTemplatesStore } from "./store";
 import { useDocumentsStore } from "@/features/editor/store";
 import { saveTextFile, openTextFile } from "@/lib/storage/fs-access";
-import { TemplateSchema, type Template } from "@/types/schemas";
+import { DocumentSchema, TemplateSchema, type Template } from "@/types/schemas";
 import { importHtml } from "@/features/import/html";
 import { importMarkdown } from "@/features/import/markdown";
 
@@ -88,8 +88,14 @@ export function TemplatesPanel() {
         const parsed = JSON.parse(file.text);
         // We allow document JSON here too
         if (parsed && typeof parsed === "object" && "blocks" in parsed) {
-          upsertDoc(parsed as never);
-          setActive((parsed as { id: string }).id);
+          const r = DocumentSchema.safeParse(parsed);
+          if (r.success) {
+            upsertDoc(r.data);
+            setActive(r.data.id);
+          } else {
+            // eslint-disable-next-line no-alert
+            alert("Invalid document JSON: " + r.error.issues.map((i) => i.path.join(".") + " " + i.message).join("; "));
+          }
         }
       } catch {
         // eslint-disable-next-line no-alert

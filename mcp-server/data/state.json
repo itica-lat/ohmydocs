@@ -1,0 +1,1346 @@
+{
+  "documents": {
+    "doc_mpbqfjoz5CJ67V0ZSSJ5FNT8SF": {
+      "id": "doc_mpbqfjoz5CJ67V0ZSSJ5FNT8SF",
+      "title": "Test document from MCP",
+      "metadata": {
+        "author": "",
+        "team": "",
+        "institution": "",
+        "date": "2026-05-18",
+        "customFields": {},
+        "header": {
+          "left": "",
+          "right": "",
+          "showOnFirstPage": false,
+          "showPageNumber": true
+        },
+        "footer": {
+          "left": "",
+          "right": "",
+          "showOnFirstPage": true,
+          "showPageNumber": true
+        }
+      },
+      "brandingId": "branding:eternum-default",
+      "templateId": null,
+      "blocks": [],
+      "createdAt": "2026-05-18T21:44:51.827Z",
+      "updatedAt": "2026-05-18T23:40:02.297Z"
+    },
+    "doc_mpbvhjbrQ1TKFQ0J0JQ6HR8B2Y": {
+      "id": "doc_mpbvhjbrQ1TKFQ0J0JQ6HR8B2Y",
+      "title": "Normativa Interna — Eternum Team v1.3",
+      "metadata": {
+        "author": "",
+        "team": "",
+        "institution": "",
+        "date": "2026-05-19",
+        "customFields": {},
+        "header": {
+          "left": "",
+          "right": "",
+          "showOnFirstPage": false,
+          "showPageNumber": true
+        },
+        "footer": {
+          "left": "",
+          "right": "",
+          "showOnFirstPage": true,
+          "showPageNumber": true
+        }
+      },
+      "brandingId": "branding:eternum-default",
+      "templateId": null,
+      "blocks": [
+        {
+          "id": "blk_meta",
+          "type": "metadata-grid",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "entries": [
+            {
+              "label": "Documento",
+              "value": "Normativa Interna · Eternum Team"
+            },
+            {
+              "label": "Versión",
+              "value": "1.3 · Mayo 2026"
+            },
+            {
+              "label": "Reemplaza a",
+              "value": "v1.0 (Abril 2026)"
+            },
+            {
+              "label": "Sistema",
+              "value": "SGRSI · Sistema de Gestión de Recursos y Soporte de Informática"
+            },
+            {
+              "label": "Alcance",
+              "value": "Equipo Eternum · ITI CETP 2026"
+            },
+            {
+              "label": "Estado",
+              "value": "Vigente · documento interno"
+            },
+            {
+              "label": "Anexos",
+              "value": "A · B · C"
+            }
+          ]
+        },
+        {
+          "id": "blk_s00",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "00",
+          "heading": "Preámbulo",
+          "lead": "El presente reglamento establece las normas de funcionamiento interno del equipo Eternum, conformado para el desarrollo del proyecto de egreso SGRSI (Sistema de Gestión de Recursos y Soporte de Informática) correspondiente al Bachillerato Tecnológico en Informática 2026 del Instituto Tecnológico de Informática (ITI), CETP. Esta normativa es de carácter vinculante para todos los integrantes del equipo desde el momento de su firma. Ninguna regla aquí contenida puede ser modificada sin votación grupal documentada en acta. En caso de contradicción entre este reglamento y el marco normativo institucional del ITI, prevalece el marco institucional."
+        },
+        {
+          "id": "blk_div_00",
+          "type": "divider",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z"
+        },
+        {
+          "id": "blk_s01",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "01",
+          "heading": "Estructura del equipo",
+          "lead": ""
+        },
+        {
+          "id": "blk_s01_ml1",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "INTEGRANTES Y ROLES INSTITUCIONALES"
+        },
+        {
+          "id": "blk_s01_p1",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El equipo está conformado por los siguientes integrantes con sus roles institucionales:"
+        },
+        {
+          "id": "blk_s01_t1",
+          "type": "table",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "headers": [
+            "Integrante",
+            "Rol institucional"
+          ],
+          "rows": [
+            [
+              "Facundo",
+              "Coordinador"
+            ],
+            [
+              "Agustín",
+              "Sub-coordinador"
+            ],
+            [
+              "Matías",
+              "Integrante"
+            ],
+            [
+              "Angelo",
+              "Integrante"
+            ]
+          ]
+        },
+        {
+          "id": "blk_s01_ml2",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "SECTORES INTERNOS"
+        },
+        {
+          "id": "blk_s01_p2",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El equipo opera internamente mediante sectores de trabajo especializados. Un integrante puede pertenecer a más de un sector. En sectores con un único integrante, ese integrante asume automáticamente el rol de Encargado."
+        },
+        {
+          "id": "blk_s01_t2",
+          "type": "table",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "headers": [
+            "Sector",
+            "Encargado",
+            "Miembros"
+          ],
+          "rows": [
+            [
+              "Frontend",
+              "Facundo",
+              "Agustín, Angelo"
+            ],
+            [
+              "Backend",
+              "Matías",
+              "Agustín, Angelo"
+            ],
+            [
+              "UI/UX",
+              "Facundo",
+              "sector unipersonal"
+            ],
+            [
+              "DevOps",
+              "Facundo",
+              "Matías"
+            ],
+            [
+              "Docs",
+              "Facundo",
+              "sector unipersonal"
+            ],
+            [
+              "Actas",
+              "Angelo",
+              "sector unipersonal"
+            ],
+            [
+              "Soporte",
+              "Agustín",
+              "Matías"
+            ]
+          ]
+        },
+        {
+          "id": "blk_s01_ml3",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "AUTORIDAD DE DECISIÓN"
+        },
+        {
+          "id": "blk_art_1_3_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 1.3.1"
+        },
+        {
+          "id": "blk_art_1_3_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El Encargado de un sector tiene autoridad de decisión final sobre decisiones intrasectoriales, siempre que justifique técnicamente su resolución de forma explícita. Esta autoridad no requiere votación grupal."
+        },
+        {
+          "id": "blk_art_1_3_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 1.3.2"
+        },
+        {
+          "id": "blk_art_1_3_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Las decisiones intersectoriales, aquellas que afectan el trabajo de dos o más sectores, se resuelven por votación entre los sectores involucrados, con el Coordinador actuando como mediador. El resultado debe quedar registrado en acta."
+        },
+        {
+          "id": "blk_s01_ml4",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "AMBIGÜEDAD Y SUPLENCIA"
+        },
+        {
+          "id": "blk_art_1_4_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 1.4.1"
+        },
+        {
+          "id": "blk_art_1_4_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Ante cualquier ambigüedad sobre si una decisión es intra o intersectorial, el Coordinador y el Sub-coordinador resuelven de forma conjunta. Si no llegan a acuerdo, la decisión se eleva al grupo completo por votación simple."
+        },
+        {
+          "id": "blk_art_1_4_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 1.4.2"
+        },
+        {
+          "id": "blk_art_1_4_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El Sub-coordinador suple al Coordinador en toda circunstancia que inhabilite su participación, asumiendo sus funciones de forma completa hasta que el Coordinador retome su rol."
+        },
+        {
+          "id": "blk_div_01",
+          "type": "divider",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z"
+        },
+        {
+          "id": "blk_s02",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "02",
+          "heading": "Sistema de votaciones",
+          "lead": ""
+        },
+        {
+          "id": "blk_s02_ml1",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "TIPOS DE VOTACIÓN"
+        },
+        {
+          "id": "blk_s02_gloss",
+          "type": "glossary-entry",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "entries": [
+            {
+              "term": "Voto simple",
+              "expansion": "Mayoría del equipo completo. Cada integrante tiene un voto de igual peso. Se aplica a decisiones generales.",
+              "context": ""
+            },
+            {
+              "term": "Voto intersectorial",
+              "expansion": "Participan los sectores afectados. El Coordinador actúa como mediador. En empate aplica el voto ponderado.",
+              "context": ""
+            },
+            {
+              "term": "Aplicación objetiva",
+              "expansion": "Sin votación. Ante violación directa al estatuto. Aplicación automática por Coordinador y Sub-coordinador.",
+              "context": ""
+            }
+          ]
+        },
+        {
+          "id": "blk_s02_ml2",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "PESO Y DESEMPATE"
+        },
+        {
+          "id": "blk_art_2_1_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 2.1.1"
+        },
+        {
+          "id": "blk_art_2_1_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "En situaciones de desempate y en decisiones de incorporación de nuevas tecnologías al stack del proyecto, el voto del Coordinador tiene peso 2x respecto al voto de los demás integrantes."
+        },
+        {
+          "id": "blk_s02_ml3",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "RESPALDO Y OBJETIVIDAD"
+        },
+        {
+          "id": "blk_art_2_2_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 2.2.1"
+        },
+        {
+          "id": "blk_art_2_2_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Toda decisión tomada por votación debe estar respaldada por un acta o evidencia registrada. Decisiones sin respaldo quedan automáticamente anuladas."
+        },
+        {
+          "id": "blk_art_2_2_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 2.2.2"
+        },
+        {
+          "id": "blk_art_2_2_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Las votaciones deben ser objetivas. Un integrante que vote de forma subjetiva, especialmente para proteger a otro miembro sin justificación técnica o razonada, incurre en sanción moderada directa. Si la parcialidad es evidente y no puede justificarse, la sanción es grave directa."
+        },
+        {
+          "id": "blk_div_02",
+          "type": "divider",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z"
+        },
+        {
+          "id": "blk_s03",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "03",
+          "heading": "Sistema de sanciones",
+          "lead": ""
+        },
+        {
+          "id": "blk_s03_ml1",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "ESCALA ACUMULATIVA"
+        },
+        {
+          "id": "blk_s03_scale",
+          "type": "callout",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "variant": "info",
+          "label": "ACUMULACIÓN",
+          "body": "3 Leves = 1 Moderada · 2 Moderadas = 1 Grave · 3 Graves = Expulsión. Las sanciones directas (por violación al estatuto) y las resultantes de votación se acumulan en el mismo contador. No existe distinción de origen a efectos del conteo."
+        },
+        {
+          "id": "blk_s03_ml2",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "CAUSALES DE SANCIÓN"
+        },
+        {
+          "id": "blk_s03_causales",
+          "type": "glossary-entry",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "entries": [
+            {
+              "term": "Grave · Directa",
+              "expansion": "No entregar tareas asignadas en el plazo acordado sin aviso previo al equipo. Con aviso previo y justificación, la sanción queda sujeta a votación grupal.",
+              "context": "G"
+            },
+            {
+              "term": "Grave · Directa",
+              "expansion": "Filtración de información interna del equipo a terceros sin autorización del grupo. No requiere votación. Se aplica de forma objetiva ante evidencia.",
+              "context": "G"
+            },
+            {
+              "term": "2× Grave · Directa",
+              "expansion": "Uso de inteligencia artificial sin documento explícito firmado con acuse de recibo que especifique dónde se aplicó. El uso de IA siempre requiere documento previo. Ver Anexo A, Normativa de Uso de IA.",
+              "context": "2×G"
+            },
+            {
+              "term": "2× Grave · Directa",
+              "expansion": "Mal uso intencional de herramientas del equipo, o cualquier acción deliberada orientada a dañar al equipo o al proyecto.",
+              "context": "2×G"
+            },
+            {
+              "term": "Moderada · Directa",
+              "expansion": "No registrar un acta siendo el Encargado de Actas, sin aviso ni justificación. Con justificación previa, la sanción puede evitarse a criterio del equipo por votación.",
+              "context": "M"
+            },
+            {
+              "term": "Moderada · Directa",
+              "expansion": "Votar de forma subjetiva o parcial sin justificación objetiva. Si la parcialidad es evidente, escala a sanción grave directa.",
+              "context": "M"
+            },
+            {
+              "term": "Moderada · Votación",
+              "expansion": "Insultos, mensajes agresivos o comunicación hostil hacia cualquier integrante del equipo. Siempre requiere votación grupal. No puede aplicarse de forma unilateral.",
+              "context": "M"
+            },
+            {
+              "term": "Moderada · Votación",
+              "expansion": "No prestar atención en clase y justificar incumplimientos con esa razón. Sujeto a votación. El equipo evalúa contexto y reincidencia.",
+              "context": "M"
+            },
+            {
+              "term": "Moderada · Votación",
+              "expansion": "No cumplir con el mínimo semanal de tareas definido en el §9 sin aviso ni justificación. Con justificación previa, la sanción queda sujeta a votación grupal.",
+              "context": "M"
+            }
+          ]
+        },
+        {
+          "id": "blk_s03_ml3",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "REGISTRO Y CUSTODIA"
+        },
+        {
+          "id": "blk_art_3_3_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 3.3.1"
+        },
+        {
+          "id": "blk_art_3_3_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El historial de sanciones es custodiado simultáneamente por el Coordinador, el Sub-coordinador y el Encargado de Actas. Los tres deben mantener el mismo documento en todo momento."
+        },
+        {
+          "id": "blk_art_3_3_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 3.3.2"
+        },
+        {
+          "id": "blk_art_3_3_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "La integridad se verifica por paridad: el documento que difiere de los otros dos queda descartado. El custodio del documento discrepante debe justificar la diferencia; de no poder hacerlo, incurre en sanción moderada."
+        },
+        {
+          "id": "blk_div_03",
+          "type": "divider",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z"
+        },
+        {
+          "id": "blk_s04",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "04",
+          "heading": "Reuniones",
+          "lead": ""
+        },
+        {
+          "id": "blk_s04_ml1",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "DAILY SCRUM · HORARIOS"
+        },
+        {
+          "id": "blk_s04_p1",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Se realizarán reuniones diarias de tipo Daily Scrum en los siguientes horarios según el día:"
+        },
+        {
+          "id": "blk_s04_t1",
+          "type": "table",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "headers": [
+            "Día",
+            "Horario",
+            "Notas"
+          ],
+          "rows": [
+            [
+              "Lunes a viernes",
+              "10:00 hs",
+              "Días hábiles regulares"
+            ],
+            [
+              "Sábados",
+              "12:00 hs",
+              "Fin de semana"
+            ],
+            [
+              "Domingos",
+              "—",
+              "No hay reunión"
+            ],
+            [
+              "Feriados",
+              "12:00 hs",
+              "Cuentan como fin de semana"
+            ]
+          ]
+        },
+        {
+          "id": "blk_art_4_1_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 4.1.1"
+        },
+        {
+          "id": "blk_art_4_1_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "La reunión diaria tiene una duración obligatoria de 15 minutos. Pasado ese tiempo, la asistencia deja de ser obligatoria. El equipo puede extender la reunión por consenso."
+        },
+        {
+          "id": "blk_art_4_1_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 4.1.2"
+        },
+        {
+          "id": "blk_art_4_1_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Las reuniones tienen como propósito la actualización de estatus de tareas y la organización del día. El registro de tareas y su seguimiento se realiza mediante GitHub. Las dailies no son el mecanismo de verificación de cumplimiento."
+        },
+        {
+          "id": "blk_s04_ml2",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "TOLERANCIA DE ASISTENCIA"
+        },
+        {
+          "id": "blk_art_4_1_3",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 4.1.3"
+        },
+        {
+          "id": "blk_art_4_1_3_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "La tolerancia máxima para no contar como ausencia varía según la modalidad de la reunión: 5 minutos para reuniones virtuales (Discord) y 15 minutos para reuniones presenciales."
+        },
+        {
+          "id": "blk_s04_ml3",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "LUGARES DE REUNIÓN"
+        },
+        {
+          "id": "blk_art_4_2_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 4.2.1"
+        },
+        {
+          "id": "blk_art_4_2_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Lugar principal: las reuniones presenciales se realizan en el domicilio de Angelo, acordado como lugar permanente del equipo."
+        },
+        {
+          "id": "blk_art_4_2_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 4.2.2"
+        },
+        {
+          "id": "blk_art_4_2_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Lugar alternativo: cuando el lugar principal no esté disponible, las reuniones se trasladan a Starbucks, Av. 18 de Julio 1006, 11200 Montevideo."
+        },
+        {
+          "id": "blk_art_4_2_3",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 4.2.3"
+        },
+        {
+          "id": "blk_art_4_2_3_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Lugar auxiliar alternativo: como segunda alternativa permanente, Biblioteca IAVA, Eduardo Acevedo 1427, 11200 Montevideo. Se utiliza cuando los dos lugares anteriores no estén disponibles."
+        },
+        {
+          "id": "blk_art_4_2_4",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 4.2.4"
+        },
+        {
+          "id": "blk_art_4_2_4_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Reuniones virtuales: se realizan en Discord, en el canal de voz designado por el equipo. Aplican las mismas reglas de asistencia y grabación que las reuniones presenciales."
+        },
+        {
+          "id": "blk_s04_ml4",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "GRABACIÓN DE REUNIONES"
+        },
+        {
+          "id": "blk_art_4_3_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 4.3.1"
+        },
+        {
+          "id": "blk_art_4_3_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Todas las reuniones serán grabadas. Las grabaciones se almacenan en Google Drive del equipo y se conservan durante toda la duración del proyecto. Su propósito es la elaboración de actas, recopilación de información y generación de evidencia."
+        },
+        {
+          "id": "blk_art_4_3_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 4.3.2"
+        },
+        {
+          "id": "blk_art_4_3_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "La participación en las reuniones implica el consentimiento a ser grabado. Un integrante que no acepte ser grabado no podrá participar de esa reunión ni de reuniones futuras mientras mantenga esa postura. Las ausencias resultantes cuentan como falta y se rigen por el sistema de sanciones vigente."
+        },
+        {
+          "id": "blk_s04_ml5",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "USO DE IMAGEN"
+        },
+        {
+          "id": "blk_art_4_4_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 4.4.1"
+        },
+        {
+          "id": "blk_art_4_4_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El uso de imagen de los integrantes está permitido para propósitos directamente relacionados con el proyecto. Cualquier uso externo al proyecto requiere aprobación explícita del integrante involucrado."
+        },
+        {
+          "id": "blk_div_04",
+          "type": "divider",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z"
+        },
+        {
+          "id": "blk_s05",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "05",
+          "heading": "Canales de comunicación",
+          "lead": "El equipo opera con cinco canales de comunicación. No existe jerarquía entre ellos dado que sus funciones son complementarias y no superpuestas."
+        },
+        {
+          "id": "blk_s05_ml1",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "CANALES OPERATIVOS"
+        },
+        {
+          "id": "blk_s05_gloss",
+          "type": "glossary-entry",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "entries": [
+            {
+              "term": "Discord",
+              "expansion": "Canal principal de reuniones y comunicación sincrónica. Las decisiones con valor jurídico interno deben quedar respaldadas por acta derivada de lo tratado aquí.",
+              "context": ""
+            },
+            {
+              "term": "WhatsApp",
+              "expansion": "Actualizaciones en tiempo real, coordinación rápida y comunicación asincrónica informal entre integrantes.",
+              "context": ""
+            },
+            {
+              "term": "Miro",
+              "expansion": "Panel asincrónico de progreso. Visualización del estado del proyecto, tableros y artefactos colaborativos.",
+              "context": ""
+            },
+            {
+              "term": "GitHub",
+              "expansion": "Sistema oficial de registro y seguimiento de tareas. Las tareas se presentan y verifican mediante GitHub. Es la fuente de verdad para el cumplimiento de tareas semanales (§9).",
+              "context": ""
+            },
+            {
+              "term": "Obsidian",
+              "expansion": "Base de conocimiento del equipo. Vault compartido mediante repositorio Git. Fuente de verdad para documentación técnica.",
+              "context": ""
+            }
+          ]
+        },
+        {
+          "id": "blk_s05_ml2",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "CORREO ELECTRÓNICO"
+        },
+        {
+          "id": "blk_art_5_1_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 5.1.1"
+        },
+        {
+          "id": "blk_art_5_1_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Las direcciones de correo electrónico asociadas al equipo o al proyecto se utilizan exclusivamente para propósitos de trabajo. El uso para consultas particulares debe ser aprobado explícitamente por el equipo."
+        },
+        {
+          "id": "blk_div_05",
+          "type": "divider",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z"
+        },
+        {
+          "id": "blk_s06",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "06",
+          "heading": "Propiedad intelectual y recursos",
+          "lead": ""
+        },
+        {
+          "id": "blk_s06_ml1",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "MATERIAL DEL EQUIPO"
+        },
+        {
+          "id": "blk_art_6_1_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 6.1.1"
+        },
+        {
+          "id": "blk_art_6_1_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Todo el material producido en el marco del proyecto, incluyendo código fuente, documentación, diseños, actas, investigaciones y cualquier idea incorporada al sistema, es propiedad intelectual colectiva del equipo Eternum."
+        },
+        {
+          "id": "blk_art_6_1_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 6.1.2"
+        },
+        {
+          "id": "blk_art_6_1_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Si un integrante se retira del equipo, cede la totalidad de sus derechos sobre el material producido al grupo restante, en concordancia con lo establecido en el marco reglamentario del ITI."
+        },
+        {
+          "id": "blk_art_6_1_3",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 6.1.3"
+        },
+        {
+          "id": "blk_art_6_1_3_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "La distribución o compartición de archivos del equipo con terceros requiere aprobación explícita del grupo, documentada mediante acta firmada por todos los integrantes."
+        },
+        {
+          "id": "blk_s06_ml2",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "RECURSOS ECONÓMICOS Y DOMINIOS"
+        },
+        {
+          "id": "blk_art_6_2_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 6.2.1"
+        },
+        {
+          "id": "blk_art_6_2_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Los dominios y recursos económicos directamente relacionados al proyecto pertenecen al integrante que haya realizado el mayor aporte monetario acumulado. Los aportes se registran numéricamente desde el inicio del proyecto; el registro es la única fuente válida para determinar este criterio."
+        },
+        {
+          "id": "blk_art_6_2_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 6.2.2"
+        },
+        {
+          "id": "blk_art_6_2_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Esta disposición aplica tanto durante el proyecto como en el período post-egreso. El sistema en producción, una vez finalizado el proyecto académico, queda bajo responsabilidad de quien desee mantenerlo y no se haya retirado, bajo la firma de un contrato específico y separado a este reglamento."
+        },
+        {
+          "id": "blk_s06_ml3",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "INFORMACIÓN SENSIBLE"
+        },
+        {
+          "id": "blk_art_6_3_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 6.3.1"
+        },
+        {
+          "id": "blk_art_6_3_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "La información sensible del proyecto debe almacenarse en soporte encriptado, sin sincronización con la nube, con acceso restringido mediante RBAC y capas de seguridad definidas por el equipo. El acceso debe ser autorizado explícitamente para cada integrante que lo requiera."
+        },
+        {
+          "id": "blk_div_06",
+          "type": "divider",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z"
+        },
+        {
+          "id": "blk_s07",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "07",
+          "heading": "Uso de inteligencia artificial",
+          "lead": ""
+        },
+        {
+          "id": "blk_art_7_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 7.1"
+        },
+        {
+          "id": "blk_art_7_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El uso de herramientas de inteligencia artificial en cualquier entregable o artefacto del proyecto requiere un documento explícito, firmado con acuse de recibo, que especifique qué herramienta se utilizó, en qué parte del trabajo se aplicó y con qué propósito. La ausencia de este documento constituye uso no autorizado."
+        },
+        {
+          "id": "blk_art_7_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 7.2"
+        },
+        {
+          "id": "blk_art_7_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El uso de IA sin el procedimiento establecido en el Art. 7.1 constituye una violación directa al estatuto, sancionada con dos (2) sanciones graves de forma automática, dado el riesgo que representa para la integridad académica de todos los integrantes del equipo."
+        },
+        {
+          "id": "blk_art_7_3",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 7.3"
+        },
+        {
+          "id": "blk_art_7_3_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Los detalles específicos (herramientas autorizadas, estándar de prompt válido, usos permitidos y prohibidos) se definen en el Anexo A, Normativa de Uso de IA, que forma parte integrante de esta normativa."
+        },
+        {
+          "id": "blk_div_07",
+          "type": "divider",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z"
+        },
+        {
+          "id": "blk_s08",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "08",
+          "heading": "Compromiso de identidad de marca",
+          "lead": "El equipo Eternum produce sus entregables desde una identidad de marca, producto y filosofía propia. Esta sección regula la relación entre esa identidad y los requisitos institucionales."
+        },
+        {
+          "id": "blk_art_8_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 8.1"
+        },
+        {
+          "id": "blk_art_8_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El equipo se compromete a entregar el proyecto en base a la visión de marca, producto y filosofía de Eternum, sin que esto suponga el incumplimiento de los requisitos académicos formales del ITI."
+        },
+        {
+          "id": "blk_art_8_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 8.2"
+        },
+        {
+          "id": "blk_art_8_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Por cada requerimiento institucional, el equipo genera dos versiones del entregable: (a) la versión solicitada por la institución, en el formato y estilo requerido, que puede generarse con asistencia de IA siguiendo los procedimientos del §7 y el Anexo A; (b) la versión generada por la empresa Eternum, en el estilo, identidad y diseño propios del equipo, reflejando la visión de marca y producto."
+        },
+        {
+          "id": "blk_s08_warn",
+          "type": "callout",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "variant": "warning",
+          "label": "PRECEDENCIA INSTITUCIONAL",
+          "body": "En caso de contradicción entre la visión de marca de Eternum y el marco normativo institucional del ITI, prevalece el marco institucional a efectos académicos. La versión Eternum es complementaria y no reemplaza los requisitos formales de aprobación."
+        },
+        {
+          "id": "blk_div_08",
+          "type": "divider",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z"
+        },
+        {
+          "id": "blk_s09",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "09",
+          "heading": "Planificación y tareas",
+          "lead": "El equipo utiliza un sistema de estimación por tamaños para planificar su carga semanal. Las tareas se registran y verifican mediante GitHub."
+        },
+        {
+          "id": "blk_s09_ml1",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "SISTEMA DE TAMAÑOS"
+        },
+        {
+          "id": "blk_s09_p1",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Cada tarea se clasifica según su tamaño estimado, con la siguiente equivalencia:"
+        },
+        {
+          "id": "blk_s09_t1",
+          "type": "table",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "headers": [
+            "Tamaño",
+            "Etiqueta",
+            "Equivalencia"
+          ],
+          "rows": [
+            [
+              "Small",
+              "S",
+              "1 unidad, tarea rápida"
+            ],
+            [
+              "Medium",
+              "M",
+              "3 unidades (3S = 1M)"
+            ],
+            [
+              "Large",
+              "L",
+              "2 unidades medianas (2M = 1L, o 6S = 1L)"
+            ],
+            [
+              "Extra Large",
+              "XL",
+              "6 unidades (6S = 1XL)"
+            ]
+          ]
+        },
+        {
+          "id": "blk_s09_eq",
+          "type": "callout",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "variant": "info",
+          "label": "EQUIVALENCIAS ACUMULATIVAS",
+          "body": "3 S = 1 M  ·  2 M = 1 L (equivalente a 6 S)  ·  6 S = 1 XL"
+        },
+        {
+          "id": "blk_s09_ml2",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "MÍNIMO SEMANAL"
+        },
+        {
+          "id": "blk_art_9_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 9.1"
+        },
+        {
+          "id": "blk_art_9_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El mínimo de unidades de tarea semanales se estipula en 3 unidades (equivalente a 3S o 1M). La semana computa de lunes a domingo inclusive. Los miembros que no cumplan con este mínimo sin justificación previa reciben una sanción moderada, sujeta a votación grupal conforme al §3. Con justificación previa, no aplica sanción."
+        },
+        {
+          "id": "blk_art_9_2",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 9.2"
+        },
+        {
+          "id": "blk_art_9_2_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Las tareas semanales son distintas de las tareas asignadas. Las tareas asignadas pueden tardar más tiempo o ser más de 3. El mínimo semanal debe cumplirse independientemente de las tareas asignadas."
+        },
+        {
+          "id": "blk_art_9_3",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 9.3"
+        },
+        {
+          "id": "blk_art_9_3_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "El registro y verificación del cumplimiento de tareas se realiza mediante GitHub, que es la fuente de verdad del equipo para este fin. Las reuniones diarias son para estatus y organización; la verificación del mínimo semanal se hace sobre los datos de GitHub."
+        },
+        {
+          "id": "blk_div_09",
+          "type": "divider",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z"
+        },
+        {
+          "id": "blk_s10",
+          "type": "section",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "number": "10",
+          "heading": "Disposiciones finales",
+          "lead": ""
+        },
+        {
+          "id": "blk_s10_ml1",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "MODIFICACIONES AL REGLAMENTO"
+        },
+        {
+          "id": "blk_art_10_1_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 10.1.1"
+        },
+        {
+          "id": "blk_art_10_1_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Cualquier modificación a esta normativa requiere votación grupal con mayoría simple, respaldada por acta firmada por todos los integrantes presentes. Las modificaciones entran en vigencia inmediatamente después de la firma del acta."
+        },
+        {
+          "id": "blk_s10_ml2",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "VIGENCIA"
+        },
+        {
+          "id": "blk_art_10_2_1",
+          "type": "subsection",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "heading": "Art. 10.2.1"
+        },
+        {
+          "id": "blk_art_10_2_1_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Este reglamento entra en vigencia a partir de la fecha de firma por todos los integrantes y se mantiene activo durante toda la duración del proyecto académico 2026. Las disposiciones relativas a propiedad intelectual y recursos económicos (§6) mantienen vigencia post-egreso conforme a lo establecido."
+        },
+        {
+          "id": "blk_s10_ml3",
+          "type": "mono-label",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "ANEXOS"
+        },
+        {
+          "id": "blk_s10_anexos_p",
+          "type": "paragraph",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "text": "Los siguientes documentos forman parte integrante de esta normativa:"
+        },
+        {
+          "id": "blk_s10_anexos_list",
+          "type": "list",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "ordered": false,
+          "items": [
+            "Anexo A · Normativa de Uso de IA",
+            "Anexo B · Manifiesto de Herramientas",
+            "Anexo C · Declaración de Uso de IA (template)"
+          ]
+        },
+        {
+          "id": "blk_spacer_end",
+          "type": "spacer",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "size": "md"
+        },
+        {
+          "id": "blk_sig",
+          "type": "signature-block",
+          "createdAt": "2026-05-19T00:08:17.109Z",
+          "updatedAt": "2026-05-19T00:08:17.109Z",
+          "slots": [
+            {
+              "name": "Facundo",
+              "role": "COORDINADOR",
+              "description": "Equipo Eternum"
+            },
+            {
+              "name": "Agustín",
+              "role": "SUB-COORDINADOR",
+              "description": "Equipo Eternum"
+            },
+            {
+              "name": "Matías",
+              "role": "INTEGRANTE",
+              "description": "Equipo Eternum"
+            },
+            {
+              "name": "Angelo",
+              "role": "INTEGRANTE · ENCARGADO DE ACTAS",
+              "description": "Equipo Eternum"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-05-19T00:06:22.743Z",
+      "updatedAt": "2026-05-19T00:08:17.109Z"
+    }
+  },
+  "branding": {
+    "branding:eternum-default": {
+      "id": "branding:eternum-default",
+      "name": "Eternum (default)",
+      "palette": {
+        "color-ink-deepest": "#0b0e14",
+        "color-ink-deep": "#1a1f2e",
+        "color-accent": "#7c3aed",
+        "color-accent-soft": "#a78bfa",
+        "color-paper": "#ffffff",
+        "color-paper-soft": "#f9fafb",
+        "color-rule": "#e5e7eb",
+        "color-mute": "#9ca3af",
+        "color-ink-on-dark": "#ffffff"
+      },
+      "fonts": {
+        "serif": {
+          "family": "DM Serif Display",
+          "weights": [
+            400
+          ],
+          "italics": false,
+          "category": "serif"
+        },
+        "sans": {
+          "family": "DM Sans",
+          "weights": [
+            400,
+            500,
+            700
+          ],
+          "italics": true,
+          "category": "sans"
+        },
+        "mono": {
+          "family": "DM Mono",
+          "weights": [
+            400,
+            500
+          ],
+          "italics": false,
+          "category": "mono"
+        }
+      },
+      "logo": null,
+      "banner": null,
+      "readOnly": true
+    }
+  },
+  "activeBrandingId": "branding:eternum-default",
+  "templates": {}
+}
