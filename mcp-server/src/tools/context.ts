@@ -10,21 +10,31 @@ export function registerContextTools(server: McpServer): void {
         .enum(["all", "blocks", "branding", "document-shape"])
         .optional()
         .default("all")
-        .describe("What context to return. 'all' returns everything, 'blocks' returns only block schemas, 'branding' returns branding info, 'document-shape' returns document structure."),
+        .describe(
+          "What context to return. 'all' returns everything, 'blocks' returns only block schemas, 'branding' returns branding info, 'document-shape' returns document structure.",
+        ),
       blockType: z
         .string()
         .optional()
-        .describe("Filter to a specific block type (e.g. 'cover', 'paragraph', 'section'). Returns detailed schema for that block only."),
+        .describe(
+          "Filter to a specific block type (e.g. 'cover', 'paragraph', 'section'). Returns detailed schema for that block only.",
+        ),
     },
     async ({ scope, blockType }) => {
-      const { BLOCK_SCHEMAS, BRANDING_CONTEXT, DOCUMENT_SHAPE } = await import("../resources/domain");
+      const { BLOCK_SCHEMAS, BRANDING_CONTEXT, DOCUMENT_SHAPE } =
+        await import("../resources/domain");
       let result: Record<string, unknown> = {};
 
       if (blockType) {
         const schema = (BLOCK_SCHEMAS as Record<string, unknown>)[blockType];
         if (!schema) {
           return {
-            content: [{ type: "text", text: `Error: unknown block type "${blockType}". Available types: ${Object.keys(BLOCK_SCHEMAS).join(", ")}` }],
+            content: [
+              {
+                type: "text",
+                text: `Error: unknown block type "${blockType}". Available types: ${Object.keys(BLOCK_SCHEMAS).join(", ")}`,
+              },
+            ],
             isError: true,
           };
         }
@@ -55,11 +65,27 @@ export function registerContextTools(server: McpServer): void {
     {
       type: z
         .enum([
-          "cover", "section", "subsection", "mono-label", "paragraph",
-          "callout", "code-block", "divider", "list", "table",
-          "metadata-grid", "image", "quote", "glossary-entry",
-          "signature-block", "header-bar", "footer-bar", "page-break",
-          "index", "spacer", "reference-list",
+          "cover",
+          "section",
+          "subsection",
+          "mono-label",
+          "paragraph",
+          "callout",
+          "code-block",
+          "divider",
+          "list",
+          "table",
+          "metadata-grid",
+          "image",
+          "quote",
+          "glossary-entry",
+          "signature-block",
+          "header-bar",
+          "footer-bar",
+          "page-break",
+          "index",
+          "spacer",
+          "reference-list",
         ])
         .describe("The block type to get the schema for"),
     },
@@ -80,7 +106,10 @@ export function registerContextTools(server: McpServer): void {
       const { stateManager } = await import("../state");
       const doc = stateManager.getDocument(id);
       if (!doc) {
-        return { content: [{ type: "text", text: `Error: document "${id}" not found` }], isError: true };
+        return {
+          content: [{ type: "text", text: `Error: document "${id}" not found` }],
+          isError: true,
+        };
       }
 
       const { BLOCK_SCHEMAS } = await import("../resources/domain");
@@ -109,7 +138,12 @@ export function registerContextTools(server: McpServer): void {
         // Render based on type
         switch (block.type) {
           case "cover": {
-            const b = block as unknown as { title?: string; label?: string; metadata?: Array<{ label: string; value: string }>; callout?: string | null };
+            const b = block as unknown as {
+              title?: string;
+              label?: string;
+              metadata?: Array<{ label: string; value: string }>;
+              callout?: string | null;
+            };
             lines.push(`**${b.title || ""}**`);
             if (b.label) lines.push(`*${b.label}*`);
             if (b.metadata) {
@@ -187,7 +221,9 @@ export function registerContextTools(server: McpServer): void {
             break;
           }
           case "signature-block": {
-            const b = block as unknown as { slots?: Array<{ name: string; role: string; description: string }> };
+            const b = block as unknown as {
+              slots?: Array<{ name: string; role: string; description: string }>;
+            };
             if (b.slots) {
               for (const s of b.slots) {
                 lines.push(`- **${s.role}**: ${s.name || "____"} — ${s.description}`);
@@ -196,7 +232,9 @@ export function registerContextTools(server: McpServer): void {
             break;
           }
           case "glossary-entry": {
-            const b = block as unknown as { entries?: Array<{ term: string; expansion: string; context: string }> };
+            const b = block as unknown as {
+              entries?: Array<{ term: string; expansion: string; context: string }>;
+            };
             if (b.entries) {
               for (const e of b.entries) {
                 lines.push(`- **${e.term}**: ${e.expansion} — ${e.context}`);
@@ -229,7 +267,9 @@ export function registerContextTools(server: McpServer): void {
             break;
           }
           default:
-            lines.push(`*[${block.type} block with ${Object.keys(block).filter((k) => !["id", "type", "createdAt", "updatedAt"].includes(k)).length} fields]*`);
+            lines.push(
+              `*[${block.type} block with ${Object.keys(block).filter((k) => !["id", "type", "createdAt", "updatedAt"].includes(k)).length} fields]*`,
+            );
         }
         lines.push("");
       }

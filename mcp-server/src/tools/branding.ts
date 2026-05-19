@@ -14,10 +14,7 @@ export function registerBrandingTools(server: McpServer): void {
         return { content: [{ type: "text", text: "No branding profiles." }] };
       }
       const summary = profiles
-        .map(
-          (p) =>
-            `[${p.id}] "${p.name}"${p.readOnly ? " (read-only)" : ""}`,
-        )
+        .map((p) => `[${p.id}] "${p.name}"${p.readOnly ? " (read-only)" : ""}`)
         .join("\n");
       return {
         content: [{ type: "text", text: `Branding profiles (${profiles.length}):\n${summary}` }],
@@ -52,7 +49,9 @@ export function registerBrandingTools(server: McpServer): void {
       palette: z
         .record(z.string(), z.string())
         .optional()
-        .describe("Custom palette tokens (hex colors). Keys like: color-ink-deepest, color-accent, color-paper"),
+        .describe(
+          "Custom palette tokens (hex colors). Keys like: color-ink-deepest, color-accent, color-paper",
+        ),
       fontFamily: z.string().optional().describe("Primary sans font family name (e.g. 'Inter')"),
       serifFont: z.string().optional().describe("Serif font family name"),
       monoFont: z.string().optional().describe("Mono font family name"),

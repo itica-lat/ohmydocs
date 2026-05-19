@@ -44,6 +44,7 @@ export const cover: BlockDefinition<"cover"> = {
     const cleanTitle = block.title.replace(/[*]/g, "");
     return (
       <section
+        data-print-cover="true"
         style={{
           background: "var(--color-ink-deepest)",
           color: "var(--color-ink-on-dark)",

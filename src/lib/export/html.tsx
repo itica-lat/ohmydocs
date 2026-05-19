@@ -115,7 +115,10 @@ body { font-family: var(--font-doc-sans); color: var(--color-ink-deepest); line-
     transition: none !important;
   }
   html, body { background: #fff !important; }
-  .page { width: 100%; margin: 0; box-shadow: none; }
+  .page { width: 100%; margin: 0; box-shadow: none; font-family: var(--font-doc-sans); position: relative; }
+  .display-xl, .display-lg, .display-md { font-family: var(--font-doc-serif) !important; }
+  .lead { font-family: var(--font-doc-serif) !important; }
+  .mono-label, .mono-meta { font-family: var(--font-doc-mono) !important; }
   p {
     break-inside: avoid;
     opacity: 1 !important;
@@ -130,6 +133,32 @@ body { font-family: var(--font-doc-sans); color: var(--color-ink-deepest); line-
   pre { break-inside: avoid; }
   figure { break-inside: avoid; }
   .page-break-block { break-after: page; height: 0; display: block; }
+  /* Cover block: force full-bleed in print without relying on @page :first */
+  section[data-print-cover] {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    z-index: 1;
+    min-height: 100vh !important;
+  }
+  /* Section number: reset absolute positioning for print — use flex instead */
+  section[style*="position: relative"] > span[aria-hidden="true"] {
+    position: static !important;
+    font-size: 1.5rem !important;
+    line-height: 1.1 !important;
+    margin-right: 0.5rem;
+  }
+  section[style*="position: relative"] {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: baseline !important;
+  }
+  section[style*="position: relative"] > h2 {
+    display: inline !important;
+  }
 }
 `;
 }

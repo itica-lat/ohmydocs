@@ -132,27 +132,12 @@
           "type": "table",
           "createdAt": "2026-05-19T00:08:17.109Z",
           "updatedAt": "2026-05-19T00:08:17.109Z",
-          "headers": [
-            "Integrante",
-            "Rol institucional"
-          ],
+          "headers": ["Integrante", "Rol institucional"],
           "rows": [
-            [
-              "Facundo",
-              "Coordinador"
-            ],
-            [
-              "Agustín",
-              "Sub-coordinador"
-            ],
-            [
-              "Matías",
-              "Integrante"
-            ],
-            [
-              "Angelo",
-              "Integrante"
-            ]
+            ["Facundo", "Coordinador"],
+            ["Agustín", "Sub-coordinador"],
+            ["Matías", "Integrante"],
+            ["Angelo", "Integrante"]
           ]
         },
         {
@@ -174,47 +159,15 @@
           "type": "table",
           "createdAt": "2026-05-19T00:08:17.109Z",
           "updatedAt": "2026-05-19T00:08:17.109Z",
-          "headers": [
-            "Sector",
-            "Encargado",
-            "Miembros"
-          ],
+          "headers": ["Sector", "Encargado", "Miembros"],
           "rows": [
-            [
-              "Frontend",
-              "Facundo",
-              "Agustín, Angelo"
-            ],
-            [
-              "Backend",
-              "Matías",
-              "Agustín, Angelo"
-            ],
-            [
-              "UI/UX",
-              "Facundo",
-              "sector unipersonal"
-            ],
-            [
-              "DevOps",
-              "Facundo",
-              "Matías"
-            ],
-            [
-              "Docs",
-              "Facundo",
-              "sector unipersonal"
-            ],
-            [
-              "Actas",
-              "Angelo",
-              "sector unipersonal"
-            ],
-            [
-              "Soporte",
-              "Agustín",
-              "Matías"
-            ]
+            ["Frontend", "Facundo", "Agustín, Angelo"],
+            ["Backend", "Matías", "Agustín, Angelo"],
+            ["UI/UX", "Facundo", "sector unipersonal"],
+            ["DevOps", "Facundo", "Matías"],
+            ["Docs", "Facundo", "sector unipersonal"],
+            ["Actas", "Angelo", "sector unipersonal"],
+            ["Soporte", "Agustín", "Matías"]
           ]
         },
         {
@@ -548,32 +501,12 @@
           "type": "table",
           "createdAt": "2026-05-19T00:08:17.109Z",
           "updatedAt": "2026-05-19T00:08:17.109Z",
-          "headers": [
-            "Día",
-            "Horario",
-            "Notas"
-          ],
+          "headers": ["Día", "Horario", "Notas"],
           "rows": [
-            [
-              "Lunes a viernes",
-              "10:00 hs",
-              "Días hábiles regulares"
-            ],
-            [
-              "Sábados",
-              "12:00 hs",
-              "Fin de semana"
-            ],
-            [
-              "Domingos",
-              "—",
-              "No hay reunión"
-            ],
-            [
-              "Feriados",
-              "12:00 hs",
-              "Cuentan como fin de semana"
-            ]
+            ["Lunes a viernes", "10:00 hs", "Días hábiles regulares"],
+            ["Sábados", "12:00 hs", "Fin de semana"],
+            ["Domingos", "—", "No hay reunión"],
+            ["Feriados", "12:00 hs", "Cuentan como fin de semana"]
           ]
         },
         {
@@ -1083,32 +1016,12 @@
           "type": "table",
           "createdAt": "2026-05-19T00:08:17.109Z",
           "updatedAt": "2026-05-19T00:08:17.109Z",
-          "headers": [
-            "Tamaño",
-            "Etiqueta",
-            "Equivalencia"
-          ],
+          "headers": ["Tamaño", "Etiqueta", "Equivalencia"],
           "rows": [
-            [
-              "Small",
-              "S",
-              "1 unidad, tarea rápida"
-            ],
-            [
-              "Medium",
-              "M",
-              "3 unidades (3S = 1M)"
-            ],
-            [
-              "Large",
-              "L",
-              "2 unidades medianas (2M = 1L, o 6S = 1L)"
-            ],
-            [
-              "Extra Large",
-              "XL",
-              "6 unidades (6S = 1XL)"
-            ]
+            ["Small", "S", "1 unidad, tarea rápida"],
+            ["Medium", "M", "3 unidades (3S = 1M)"],
+            ["Large", "L", "2 unidades medianas (2M = 1L, o 6S = 1L)"],
+            ["Extra Large", "XL", "6 unidades (6S = 1XL)"]
           ]
         },
         {
@@ -1310,28 +1223,19 @@
       "fonts": {
         "serif": {
           "family": "DM Serif Display",
-          "weights": [
-            400
-          ],
+          "weights": [400],
           "italics": false,
           "category": "serif"
         },
         "sans": {
           "family": "DM Sans",
-          "weights": [
-            400,
-            500,
-            700
-          ],
+          "weights": [400, 500, 700],
           "italics": true,
           "category": "sans"
         },
         "mono": {
           "family": "DM Mono",
-          "weights": [
-            400,
-            500
-          ],
+          "weights": [400, 500],
           "italics": false,
           "category": "mono"
         }

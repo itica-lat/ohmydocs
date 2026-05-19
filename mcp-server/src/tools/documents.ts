@@ -45,7 +45,10 @@ export function registerDocumentTools(server: McpServer): void {
       const { stateManager: sm } = await import("../state");
       const doc = sm.getDocument(id);
       if (!doc) {
-        return { content: [{ type: "text", text: `Error: document "${id}" not found` }], isError: true };
+        return {
+          content: [{ type: "text", text: `Error: document "${id}" not found` }],
+          isError: true,
+        };
       }
       return { content: [{ type: "text", text: JSON.stringify(doc, null, 2) }] };
     },
@@ -87,7 +90,10 @@ export function registerDocumentTools(server: McpServer): void {
       const { stateManager: sm } = await import("../state");
       const doc = sm.getDocument(id);
       if (!doc) {
-        return { content: [{ type: "text", text: `Error: document "${id}" not found` }], isError: true };
+        return {
+          content: [{ type: "text", text: `Error: document "${id}" not found` }],
+          isError: true,
+        };
       }
       const updates: Record<string, unknown> = {};
       if (meta.title !== undefined) updates.title = meta.title;
@@ -113,7 +119,9 @@ export function registerDocumentTools(server: McpServer): void {
         content: [
           {
             type: "text",
-            text: `Document "${updated.title}" [${id}] updated.\nChanged: ${Object.keys({ ...meta }).filter((k) => meta[k as keyof typeof meta] !== undefined).join(", ")}`,
+            text: `Document "${updated.title}" [${id}] updated.\nChanged: ${Object.keys({ ...meta })
+              .filter((k) => meta[k as keyof typeof meta] !== undefined)
+              .join(", ")}`,
           },
         ],
       };
@@ -133,7 +141,10 @@ export function registerDocumentTools(server: McpServer): void {
       const { stateManager: sm, ulid, nowISO } = await import("../state");
       const doc = sm.getDocument(id);
       if (!doc) {
-        return { content: [{ type: "text", text: `Error: document "${id}" not found` }], isError: true };
+        return {
+          content: [{ type: "text", text: `Error: document "${id}" not found` }],
+          isError: true,
+        };
       }
       const now = nowISO();
       const typedBlocks = blocks.map((b) => ({
@@ -160,7 +171,10 @@ export function registerDocumentTools(server: McpServer): void {
       const { stateManager: sm } = await import("../state");
       const deleted = sm.deleteDocument(id);
       if (!deleted) {
-        return { content: [{ type: "text", text: `Error: document "${id}" not found` }], isError: true };
+        return {
+          content: [{ type: "text", text: `Error: document "${id}" not found` }],
+          isError: true,
+        };
       }
       return { content: [{ type: "text", text: `Document ${id} deleted.` }] };
     },

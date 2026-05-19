@@ -34,7 +34,10 @@ export function registerTemplateTools(server: McpServer): void {
       const { stateManager } = await import("../state");
       const tpl = stateManager.getTemplate(id);
       if (!tpl) {
-        return { content: [{ type: "text", text: `Error: template "${id}" not found` }], isError: true };
+        return {
+          content: [{ type: "text", text: `Error: template "${id}" not found` }],
+          isError: true,
+        };
       }
       return { content: [{ type: "text", text: JSON.stringify(tpl, null, 2) }] };
     },
@@ -99,7 +102,9 @@ export function registerTemplateTools(server: McpServer): void {
         const doc = stateManager.getDocument(sourceDocumentId);
         if (!doc) {
           return {
-            content: [{ type: "text", text: `Error: source document "${sourceDocumentId}" not found` }],
+            content: [
+              { type: "text", text: `Error: source document "${sourceDocumentId}" not found` },
+            ],
             isError: true,
           };
         }
@@ -137,7 +142,10 @@ export function registerTemplateTools(server: McpServer): void {
         description,
         blocks: tplBlocks,
         branding,
-        defaultMetadata: defaultMetadata as Record<string, unknown> as import("../state").Template["defaultMetadata"],
+        defaultMetadata: defaultMetadata as Record<
+          string,
+          unknown
+        > as import("../state").Template["defaultMetadata"],
         readOnly: false,
         createdAt: now,
         updatedAt: now,
@@ -165,7 +173,12 @@ export function registerTemplateTools(server: McpServer): void {
       const deleted = stateManager.deleteTemplate(id);
       if (!deleted) {
         return {
-          content: [{ type: "text", text: `Error: cannot delete "${id}". It may be read-only or not found.` }],
+          content: [
+            {
+              type: "text",
+              text: `Error: cannot delete "${id}". It may be read-only or not found.`,
+            },
+          ],
           isError: true,
         };
       }

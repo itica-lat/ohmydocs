@@ -88,26 +88,47 @@ export function BlockList() {
           {blocks.length === 0 ? (
             <EmptyDocumentHint onStart={addParagraph} />
           ) : (
-            blocks.map((block, i) => (
+            blocks.map((block) => (
               <SortableBlockRow
                 key={block.id}
                 block={block}
                 isSelected={selected === block.id}
                 isEditMode={viewMode === "edit"}
                 onSelect={() => select(block.id)}
-                onChange={(next) => upsert(withBlocks(doc, replaceBlock(blocks, next)))}
-                onDuplicate={() => upsert(withBlocks(doc, duplicateBlock(blocks, block.id)))}
+                onChange={(next) => {
+                  const st = useDocumentsStore.getState();
+                  const d = st.activeId ? st.documents[st.activeId] : null;
+                  if (!d) return;
+                  const bs = d.blocks as Block[];
+                  st.upsertDocument(withBlocks(d, replaceBlock(bs, next)));
+                }}
+                onDuplicate={() => {
+                  const st = useDocumentsStore.getState();
+                  const d = st.activeId ? st.documents[st.activeId] : null;
+                  if (!d) return;
+                  const bs = d.blocks as Block[];
+                  st.upsertDocument(withBlocks(d, duplicateBlock(bs, block.id)));
+                }}
                 onRemove={() => {
-                  upsert(withBlocks(doc, removeBlock(blocks, block.id)));
-                  if (selected === block.id) select(null);
+                  const st = useDocumentsStore.getState();
+                  const d = st.activeId ? st.documents[st.activeId] : null;
+                  if (!d) return;
+                  const bs = d.blocks as Block[];
+                  st.upsertDocument(withBlocks(d, removeBlock(bs, block.id)));
+                  if (st.selectedBlockId === block.id) st.selectBlock(null);
                 }}
                 onAddAfter={() => {
+                  const st = useDocumentsStore.getState();
+                  const d = st.activeId ? st.documents[st.activeId] : null;
+                  if (!d) return;
+                  const bs = d.blocks as Block[];
+                  const idx = bs.findIndex((b) => b.id === block.id);
                   const def = blockRegistry["paragraph"];
                   const newBlock = def.factory() as Block;
-                  const next = [...blocks];
-                  next.splice(i + 1, 0, newBlock);
-                  upsert(withBlocks(doc, next));
-                  select(newBlock.id);
+                  const next = [...bs];
+                  next.splice(idx + 1, 0, newBlock);
+                  st.upsertDocument(withBlocks(d, next));
+                  st.selectBlock(newBlock.id);
                 }}
               />
             ))

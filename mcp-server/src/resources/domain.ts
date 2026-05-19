@@ -9,13 +9,32 @@ const BLOCK_SCHEMAS = {
     label: "Cover",
     category: "structural",
     icon: "BookOpen",
-    description: "Document cover page with label, title with accent highlight, metadata pairs, and optional callout.",
+    description:
+      "Document cover page with label, title with accent highlight, metadata pairs, and optional callout.",
     properties: {
-      label: { type: "string", description: "Document type label (e.g. 'ADMINISTRATION OF OPERATING SYSTEMS · FIRST DELIVERY')" },
-      title: { type: "string", description: "Main title. Use *word* syntax to highlight a word in accent color (e.g. 'Management and administration *of operating system packages*')" },
-      highlightWord: { type: "string", description: "The word inside *asterisks* in title that gets accent-colored" },
-      metadata: { type: "MetaPair[]", description: "Array of { label, value } pairs shown as metadata rows (e.g. SYSTEM, TEAM, OS, DELIVERY)" },
-      callout: { type: "string | null", description: "Optional callout text displayed below metadata" },
+      label: {
+        type: "string",
+        description:
+          "Document type label (e.g. 'ADMINISTRATION OF OPERATING SYSTEMS · FIRST DELIVERY')",
+      },
+      title: {
+        type: "string",
+        description:
+          "Main title. Use *word* syntax to highlight a word in accent color (e.g. 'Management and administration *of operating system packages*')",
+      },
+      highlightWord: {
+        type: "string",
+        description: "The word inside *asterisks* in title that gets accent-colored",
+      },
+      metadata: {
+        type: "MetaPair[]",
+        description:
+          "Array of { label, value } pairs shown as metadata rows (e.g. SYSTEM, TEAM, OS, DELIVERY)",
+      },
+      callout: {
+        type: "string | null",
+        description: "Optional callout text displayed below metadata",
+      },
     },
     usage: "Should be the FIRST block in any formal document. Sets the document's visual identity.",
     markdownDirective: "::cover{label='...' title='...' highlightWord='...'}",
@@ -25,14 +44,20 @@ const BLOCK_SCHEMAS = {
     label: "Section",
     category: "structural",
     icon: "Heading1",
-    description: "Major section with decorative number, heading with accent highlight, and lead paragraph.",
+    description:
+      "Major section with decorative number, heading with accent highlight, and lead paragraph.",
     properties: {
-      number: { type: "string", description: "Section number (e.g. '01', 'I', 'A'). Displayed as a large decorative numeral." },
+      number: {
+        type: "string",
+        description:
+          "Section number (e.g. '01', 'I', 'A'). Displayed as a large decorative numeral.",
+      },
       heading: { type: "string", description: "Section heading. Supports *word* accent syntax." },
       lead: { type: "string", description: "Lead paragraph text below heading. Can be empty." },
       align: { type: "'left' | 'center' | 'right' | 'justify'", optional: true },
     },
-    usage: "Use for top-level document divisions. Each section starts a new logical part of the document.",
+    usage:
+      "Use for top-level document divisions. Each section starts a new logical part of the document.",
     markdownDirective: ":::section{number='01' heading='...' lead='...'}\n:::\n",
   },
   subsection: {
@@ -53,7 +78,8 @@ const BLOCK_SCHEMAS = {
     label: "Mono label",
     category: "structural",
     icon: "Hash",
-    description: "A monospace label/tag line, typically used at the top of documents as a classification tag.",
+    description:
+      "A monospace label/tag line, typically used at the top of documents as a classification tag.",
     properties: {
       text: { type: "string", description: "Monospace label text (e.g. 'ETERNUM · BRIEF')" },
       align: { type: "'left' | 'center' | 'right' | 'justify'", optional: true },
@@ -79,14 +105,19 @@ const BLOCK_SCHEMAS = {
     label: "Callout",
     category: "content",
     icon: "AlertCircle",
-    description: "Highlighted callout box with variant styling. Can be info, warning, danger, or success.",
+    description:
+      "Highlighted callout box with variant styling. Can be info, warning, danger, or success.",
     properties: {
-      variant: { type: "'info' | 'warning' | 'danger' | 'success'", description: "Visual variant determining color scheme" },
+      variant: {
+        type: "'info' | 'warning' | 'danger' | 'success'",
+        description: "Visual variant determining color scheme",
+      },
       label: { type: "string", description: "Callout header label (e.g. 'NOTE', 'WARNING')" },
       body: { type: "string", description: "Callout body text." },
       align: { type: "'left' | 'center' | 'right' | 'justify'", optional: true },
     },
-    usage: "Use for important notes, warnings, tips, or side information that stands out from body text.",
+    usage:
+      "Use for important notes, warnings, tips, or side information that stands out from body text.",
     markdownDirective: ":::callout{variant='info' label='NOTE' body='...'}\n:::\n",
   },
   "code-block": {
@@ -96,7 +127,10 @@ const BLOCK_SCHEMAS = {
     icon: "Code",
     description: "Syntax-highlighted code block with language label.",
     properties: {
-      language: { type: "string", description: "Programming language (e.g. 'bash', 'typescript', 'python', 'yaml')" },
+      language: {
+        type: "string",
+        description: "Programming language (e.g. 'bash', 'typescript', 'python', 'yaml')",
+      },
       code: { type: "string", description: "The source code content." },
     },
     usage: "Use for code snippets, configuration files, terminal commands.",
@@ -134,7 +168,10 @@ const BLOCK_SCHEMAS = {
     description: "Data table with header row and body rows.",
     properties: {
       headers: { type: "string[]", description: "Column header labels." },
-      rows: { type: "string[][]", description: "Array of rows, each row is an array of cell values." },
+      rows: {
+        type: "string[][]",
+        description: "Array of rows, each row is an array of cell values.",
+      },
     },
     usage: "Use for structured data, comparisons, specifications.",
     markdownDirective: ":::table{headers=['Col1','Col2'] rows=[['A','B']]}\n:::\n",
@@ -188,22 +225,31 @@ const BLOCK_SCHEMAS = {
     icon: "BookMarked",
     description: "Glossary/terminology list with term, expansion, and context.",
     properties: {
-      entries: { type: "GlossaryEntry[]", description: "Array of { term, expansion, context } entries." },
+      entries: {
+        type: "GlossaryEntry[]",
+        description: "Array of { term, expansion, context } entries.",
+      },
     },
     usage: "Use at the end of documents to define terms and abbreviations.",
-    markdownDirective: ":::glossary-entry{entries=[{term='API',expansion='Application Programming Interface',context='context description'}]}\n:::\n",
+    markdownDirective:
+      ":::glossary-entry{entries=[{term='API',expansion='Application Programming Interface',context='context description'}]}\n:::\n",
   },
   "signature-block": {
     type: "signature-block",
     label: "Signatures",
     category: "data",
     icon: "PenTool",
-    description: "Signature block with multiple signatory slots. Each slot has name, role, and description.",
+    description:
+      "Signature block with multiple signatory slots. Each slot has name, role, and description.",
     properties: {
-      slots: { type: "SignatureSlot[]", description: "Array of { name, role, description } signature slots." },
+      slots: {
+        type: "SignatureSlot[]",
+        description: "Array of { name, role, description } signature slots.",
+      },
     },
     usage: "Use at the end of formal documents for approvals and sign-offs.",
-    markdownDirective: ":::signature-block{slots=[{name='',role='TEAM LEAD',description='Operations'}]}\n:::\n",
+    markdownDirective:
+      ":::signature-block{slots=[{name='',role='TEAM LEAD',description='Operations'}]}\n:::\n",
   },
   "header-bar": {
     type: "header-bar",
@@ -258,7 +304,10 @@ const BLOCK_SCHEMAS = {
     icon: "MoveVertical",
     description: "Vertical spacing block with configurable size.",
     properties: {
-      size: { type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", description: "Spacer size. xs=1rem, sm=2rem, md=4rem, lg=6rem, xl=10rem" },
+      size: {
+        type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
+        description: "Spacer size. xs=1rem, sm=2rem, md=4rem, lg=6rem, xl=10rem",
+      },
     },
     usage: "Use to add breathing room between sections.",
     markdownDirective: "::spacer{size='md'}",
@@ -278,7 +327,8 @@ const BLOCK_SCHEMAS = {
 // ─── Branding schema ────────────────────────────────────────────────────
 
 const BRANDING_CONTEXT = {
-  description: "Branding profiles define the visual identity of a document: colors, fonts, logo, and banner.",
+  description:
+    "Branding profiles define the visual identity of a document: colors, fonts, logo, and banner.",
   paletteTokens: [
     { token: "--color-ink-deepest", description: "Darkest text/ink color (near-black)" },
     { token: "--color-ink-deep", description: "Deep ink color for headings" },
@@ -291,7 +341,10 @@ const BRANDING_CONTEXT = {
     { token: "--color-ink-on-dark", description: "Text color for dark backgrounds" },
   ],
   fontCategories: {
-    serif: { description: "Serif font for document body (e.g. DM Serif Display)", default: "DM Serif Display" },
+    serif: {
+      description: "Serif font for document body (e.g. DM Serif Display)",
+      default: "DM Serif Display",
+    },
     sans: { description: "Sans-serif font for UI and headings (e.g. DM Sans)", default: "DM Sans" },
     mono: { description: "Monospace font for code (e.g. DM Mono)", default: "DM Mono" },
   },
@@ -318,25 +371,61 @@ const DOCUMENT_SHAPE = {
         customFields: { type: "Record<string, string>" },
         header: {
           type: "HeaderConfig",
-          fields: { left: "string", right: "string", showOnFirstPage: "boolean", showPageNumber: "boolean" },
+          fields: {
+            left: "string",
+            right: "string",
+            showOnFirstPage: "boolean",
+            showPageNumber: "boolean",
+          },
         },
         footer: {
           type: "FooterConfig",
-          fields: { left: "string", right: "string", showOnFirstPage: "boolean", showPageNumber: "boolean" },
+          fields: {
+            left: "string",
+            right: "string",
+            showOnFirstPage: "boolean",
+            showPageNumber: "boolean",
+          },
         },
       },
     },
     brandingId: { type: "string", description: "Branding profile ID for visual styling" },
     templateId: { type: "string | null", description: "Template ID if created from a template" },
-    blocks: { type: "Block[]", description: "Ordered array of content blocks. The document content." },
+    blocks: {
+      type: "Block[]",
+      description: "Ordered array of content blocks. The document content.",
+    },
     htmlContent: { type: "string (optional)", description: "Pre-rendered HTML" },
     createdAt: { type: "string", format: "ISO 8601" },
     updatedAt: { type: "string", format: "ISO 8601" },
   },
   blockCategories: [
-    { category: "structural", description: "Document structure (cover, sections, headers, footers)", blocks: ["cover", "section", "subsection", "mono-label", "header-bar", "footer-bar", "divider", "page-break", "index", "spacer"] },
-    { category: "content", description: "Prose content (paragraphs, lists, quotes, code, callouts)", blocks: ["paragraph", "callout", "code-block", "list", "quote"] },
-    { category: "data", description: "Data displays (tables, metadata, glossary, signatures, references)", blocks: ["table", "metadata-grid", "glossary-entry", "signature-block", "reference-list"] },
+    {
+      category: "structural",
+      description: "Document structure (cover, sections, headers, footers)",
+      blocks: [
+        "cover",
+        "section",
+        "subsection",
+        "mono-label",
+        "header-bar",
+        "footer-bar",
+        "divider",
+        "page-break",
+        "index",
+        "spacer",
+      ],
+    },
+    {
+      category: "content",
+      description: "Prose content (paragraphs, lists, quotes, code, callouts)",
+      blocks: ["paragraph", "callout", "code-block", "list", "quote"],
+    },
+    {
+      category: "data",
+      description: "Data displays (tables, metadata, glossary, signatures, references)",
+      blocks: ["table", "metadata-grid", "glossary-entry", "signature-block", "reference-list"],
+    },
     { category: "media", description: "Media (images)", blocks: ["image"] },
   ],
   typicalDocumentFlow: [
@@ -349,69 +438,68 @@ const DOCUMENT_SHAPE = {
     "7. signature-block — sign-off slots (optional)",
     "8. footer-bar — final page footer",
   ],
-  accentSyntax: "Use *word* syntax (asterisks) in heading fields (cover.title, section.heading, subsection.heading) to highlight a word in the accent color. The matching field 'highlightWord' on cover or the *word* in section/subsection get accented rendering.",
-  idGeneration: "Block IDs use prefix 'blk_' with ULID. Document IDs use prefix 'doc_' with ULID. Never construct IDs manually.",
-  validation: "Documents are validated through Zod schemas at import boundaries. Internal code trusts TypeScript types.",
+  accentSyntax:
+    "Use *word* syntax (asterisks) in heading fields (cover.title, section.heading, subsection.heading) to highlight a word in the accent color. The matching field 'highlightWord' on cover or the *word* in section/subsection get accented rendering.",
+  idGeneration:
+    "Block IDs use prefix 'blk_' with ULID. Document IDs use prefix 'doc_' with ULID. Never construct IDs manually.",
+  validation:
+    "Documents are validated through Zod schemas at import boundaries. Internal code trusts TypeScript types.",
 } as const;
 
 // ─── Resource registration ──────────────────────────────────────────────
 
 export function registerDomainResources(server: McpServer): void {
   // Block schemas: detailed spec for each block type
-  server.resource(
-    "block-schemas",
-    "ohmydocs://blocks",
-    async (uri) => ({
-      contents: [{
+  server.resource("block-schemas", "ohmydocs://blocks", async (uri) => ({
+    contents: [
+      {
         uri: uri.href,
         text: JSON.stringify(BLOCK_SCHEMAS, null, 2),
         mimeType: "application/json",
-      }],
-    }),
-  );
+      },
+    ],
+  }));
 
   // Branding context
-  server.resource(
-    "branding-context",
-    "ohmydocs://branding",
-    async (uri) => ({
-      contents: [{
+  server.resource("branding-context", "ohmydocs://branding", async (uri) => ({
+    contents: [
+      {
         uri: uri.href,
         text: JSON.stringify(BRANDING_CONTEXT, null, 2),
         mimeType: "application/json",
-      }],
-    }),
-  );
+      },
+    ],
+  }));
 
   // Document shape
-  server.resource(
-    "document-shape",
-    "ohmydocs://document-shape",
-    async (uri) => ({
-      contents: [{
+  server.resource("document-shape", "ohmydocs://document-shape", async (uri) => ({
+    contents: [
+      {
         uri: uri.href,
         text: JSON.stringify(DOCUMENT_SHAPE, null, 2),
         mimeType: "application/json",
-      }],
-    }),
-  );
+      },
+    ],
+  }));
 
   // Quick reference (all in one)
-  server.resource(
-    "full-context",
-    "ohmydocs://context",
-    async (uri) => ({
-      contents: [{
+  server.resource("full-context", "ohmydocs://context", async (uri) => ({
+    contents: [
+      {
         uri: uri.href,
-        text: JSON.stringify({
-          blockSchemas: BLOCK_SCHEMAS,
-          branding: BRANDING_CONTEXT,
-          documentShape: DOCUMENT_SHAPE,
-        }, null, 2),
+        text: JSON.stringify(
+          {
+            blockSchemas: BLOCK_SCHEMAS,
+            branding: BRANDING_CONTEXT,
+            documentShape: DOCUMENT_SHAPE,
+          },
+          null,
+          2,
+        ),
         mimeType: "application/json",
-      }],
-    }),
-  );
+      },
+    ],
+  }));
 }
 
 // Export plain data so tools can use it too

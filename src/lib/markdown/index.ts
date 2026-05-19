@@ -56,7 +56,13 @@ export function markdownToBlocks(markdown: string): BlocksResult {
         const h = node as Heading;
         let mapped: Block | null = null;
         if (h.depth === 1 || h.depth === 2) {
-          mapped = { ...baseFields("section"), number: "", heading: nodeToText(h), lead: "", align: "left" } as Block;
+          mapped = {
+            ...baseFields("section"),
+            number: "",
+            heading: nodeToText(h),
+            lead: "",
+            align: "left",
+          } as Block;
         } else if (h.depth >= 4) {
           mapped = { ...baseFields("subsection"), heading: nodeToText(h), align: "left" } as Block;
         }

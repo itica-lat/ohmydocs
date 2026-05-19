@@ -265,7 +265,13 @@ class StateManager {
   updateDocument(id: string, updates: Partial<OhmyDocument>): OhmyDocument | undefined {
     const doc = this.state.documents[id];
     if (!doc) return undefined;
-    const updated = { ...doc, ...updates, id: doc.id, createdAt: doc.createdAt, updatedAt: nowISO() };
+    const updated = {
+      ...doc,
+      ...updates,
+      id: doc.id,
+      createdAt: doc.createdAt,
+      updatedAt: nowISO(),
+    };
     this.state.documents[id] = updated;
     this.persist();
     return updated;
@@ -279,9 +285,7 @@ class StateManager {
   }
 
   listDocuments(): OhmyDocument[] {
-    return Object.values(this.state.documents).sort(
-      (a, b) => (a.updatedAt < b.updatedAt ? 1 : -1),
-    );
+    return Object.values(this.state.documents).sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
   }
 
   // ── Branding ──

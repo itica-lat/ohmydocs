@@ -94,7 +94,10 @@ export function TemplatesPanel() {
             setActive(r.data.id);
           } else {
             // eslint-disable-next-line no-alert
-            alert("Invalid document JSON: " + r.error.issues.map((i) => i.path.join(".") + " " + i.message).join("; "));
+            alert(
+              "Invalid document JSON: " +
+                r.error.issues.map((i) => i.path.join(".") + " " + i.message).join("; "),
+            );
           }
         }
       } catch {
