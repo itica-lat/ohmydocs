@@ -1,5 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+import type { Block, OhmyDocument } from "../state";
 
 export function registerDocumentTools(server: McpServer): void {
   server.tool(
@@ -153,8 +154,8 @@ export function registerDocumentTools(server: McpServer): void {
         createdAt: (b.createdAt as string) || now,
         updatedAt: now,
         ...b,
-      })) as unknown as import("../state").Block[];
-      sm.updateDocument(id, { blocks: typedBlocks } as Partial<import("../state").OhmyDocument>);
+      })) as unknown as Block[];
+      sm.updateDocument(id, { blocks: typedBlocks } as Partial<OhmyDocument>);
       return {
         content: [{ type: "text", text: `Document ${id}: ${typedBlocks.length} blocks updated.` }],
       };

@@ -29,9 +29,6 @@ async function main(): Promise<void> {
 }
 
 async function startHttpServer(port: number): Promise<void> {
-  const { WebStandardStreamableHTTPServerTransport } =
-    await import("@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js");
-
   const sessions = new Map<string, Session>();
 
   Bun.serve({

@@ -1,5 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+import type { Block, Template } from "../state";
 
 export function registerTemplateTools(server: McpServer): void {
   server.tool(
@@ -94,7 +95,7 @@ export function registerTemplateTools(server: McpServer): void {
       const id = `tpl:custom-${ulid().toLowerCase()}`;
       const now = nowISO();
 
-      let tplBlocks: import("../state").Block[];
+      let tplBlocks: Block[];
       let branding = ETERNUM_BRANDING;
       let defaultMetadata: Record<string, unknown> = {};
 
@@ -123,7 +124,7 @@ export function registerTemplateTools(server: McpServer): void {
           createdAt: now,
           updatedAt: now,
           ...b,
-        })) as unknown as import("../state").Block[];
+        })) as unknown as Block[];
       } else {
         return {
           content: [
@@ -142,15 +143,12 @@ export function registerTemplateTools(server: McpServer): void {
         description,
         blocks: tplBlocks,
         branding,
-        defaultMetadata: defaultMetadata as Record<
-          string,
-          unknown
-        > as import("../state").Template["defaultMetadata"],
+        defaultMetadata: defaultMetadata as Record<string, unknown> as Template["defaultMetadata"],
         readOnly: false,
         createdAt: now,
         updatedAt: now,
       };
-      stateManager.upsertTemplate(tpl as unknown as import("../state").Template);
+      stateManager.upsertTemplate(tpl as unknown as Template);
       return {
         content: [
           {
