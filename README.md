@@ -1,37 +1,45 @@
-# OhMyDocs! — Eternum Edition
+# OhMyDocs
 
 > Documents that look like they were designed, not typed.
 
-A local-first, offline-capable document editor that produces editorial-grade
-technical documents in the visual style of the Eternum Team.
+OhMyDocs is a local-first, offline-capable document editor that produces editorial-grade technical documents. Content is composed from a block system, round-trips through Markdown, and renders with a fully customizable branding profile (palette and fonts). Everything persists in `localStorage` via Zustand, and files are read and written through the File System Access API, with fallbacks for browsers that do not support it. No backend, no account.
 
-## Stack
+The workspace is a three-pane layout: a sidebar with the document list, a preview/editor pane, and a right panel with Metadata, Branding and Templates.
 
-- **Runtime**: Bun
-- **Build**: Vite + `@vitejs/plugin-react-swc`
-- **Language**: TypeScript (strict)
-- **UI**: React 19
-- **Styling**: TailwindCSS v4 + PostCSS + Autoprefixer
-- **State**: Zustand (with `persist` → `localStorage`)
-- **Validation**: Zod
-- **Markdown**: unified + remark-parse + remark-gfm + remark-directive + remark-stringify
-- **Drag-drop**: @dnd-kit
-- **Icons**: lucide-react
-- **Lint / format**: OxLint + OxFMT
-- **Hooks**: husky pre-commit (lint, format, typecheck)
+## Features
 
-UI chrome uses the **DM** font family (`DM Sans`, `DM Serif Display`, `DM Mono`).
-Document body uses the Eternum default fonts (`Playfair Display`, `Inter`,
-`IBM Plex Mono`), swappable per branding profile.
+- **Block-based editing** — 21 block types across structural, content, data and media categories, registered in a type-safe registry
+- **Markdown round-trip** — documents serialize to and from Markdown (with YAML frontmatter), including custom block directives
+- **Branding profiles** — nine palette tokens and three Google Font families per profile, with WCAG AA contrast warnings; profiles can be cloned and edited
+- **Three read-only templates** — instantiate a new document from a seeded template with one click
+- **Export** — self-contained HTML (inlined CSS, print-ready `@page` rules, embedded JSON sidecar), Markdown, or raw JSON
+- **Import** — re-import HTML snapshots (via the embedded JSON sidecar) or Markdown files
+- **Editor conveniences** — `/` opens the add-block menu, block duplication and deletion shortcuts, sortable blocks
+- **Local-first persistence** — documents, branding and templates stored in `localStorage` (`ohmydocs:documents`, `ohmydocs:branding`, `ohmydocs:templates`), validated through Zod on hydration
 
-## Setup
+## Tech stack
+
+- React 19 + TypeScript (strict, no unchecked indexing, exact optional property types)
+- Vite + `@vitejs/plugin-react-swc`
+- TailwindCSS v4 + PostCSS + Autoprefixer
+- Zustand v5 with `persist` (localStorage)
+- Zod (validation at system boundaries)
+- unified + remark-parse + remark-gfm + remark-directive + remark-stringify (Markdown pipeline)
+- `@dnd-kit` (sortable blocks)
+- `@react-pdf/renderer` (PDF rendering support)
+- `lucide-react` (icons)
+- OxLint + OxFMT, Husky pre-commit (lint, format, typecheck)
+
+## Getting started
+
+Requires [Bun](https://bun.sh).
 
 ```bash
 bun install
 bun run dev
 ```
 
-Open http://localhost:5173.
+Open [http://localhost:5173](http://localhost:5173).
 
 ## Scripts
 
@@ -68,7 +76,7 @@ src/
     fonts/             # Google Fonts catalog + dynamic <link> loader
     palette/           # defaults + applyBranding + WCAG contrast helpers
     storage/           # localStorage adapter, FS Access API wrapper
-    markdown/          # unified pipeline (blocks ↔ markdown)
+    markdown/          # unified pipeline (blocks <-> markdown)
     export/            # HTML and Markdown exporters
     id.ts              # ULID prefixer
   styles/              # tokens.css, typography.css, page.css, print.css, app.css
@@ -79,8 +87,7 @@ samples/
 
 ## Block model
 
-The block model is a discriminated union exported from `src/blocks/types.ts`. All
-17 block types are registered in `src/blocks/registry.ts`:
+The block model is a discriminated union exported from `src/blocks/types.ts`. All 21 block types are registered in `src/blocks/registry.ts`:
 
 | Type              | Category   | Folder                    |
 | ----------------- | ---------- | ------------------------- |
@@ -91,43 +98,42 @@ The block model is a discriminated union exported from `src/blocks/types.ts`. Al
 | `header-bar`      | structural | `blocks/header-bar/`      |
 | `footer-bar`      | structural | `blocks/footer-bar/`      |
 | `divider`         | structural | `blocks/divider/`         |
+| `page-break`      | structural | `blocks/page-break/`      |
+| `spacer`          | structural | `blocks/spacer/`          |
+| `index`           | structural | `blocks/index-block/`     |
 | `paragraph`       | content    | `blocks/paragraph/`       |
 | `callout`         | content    | `blocks/callout/`         |
 | `code-block`      | content    | `blocks/code-block/`      |
 | `list`            | content    | `blocks/list/`            |
 | `quote`           | content    | `blocks/quote/`           |
+| `reference-list`  | content    | `blocks/reference-list/`  |
 | `table`           | data       | `blocks/table/`           |
 | `metadata-grid`   | data       | `blocks/metadata-grid/`   |
 | `glossary-entry`  | data       | `blocks/glossary-entry/`  |
 | `signature-block` | data       | `blocks/signature-block/` |
 | `image`           | media      | `blocks/image/`           |
 
-Each block module exports a `BlockDefinition<T>` containing schema, factory,
-Renderer, Editor, serialize, deserialize. The spec calls for one file per
-concern (5 files per block); we consolidated into a single `index.tsx` per
-block type for readability — the contract is identical.
+Each block module exports a `BlockDefinition<T>` containing schema, factory, Renderer, Editor, serialize and deserialize, consolidated into a single `index.tsx` per block type.
 
 ## Markdown directive spec
 
 Block-level container directives (`:::name{attr=val}`):
 
-- `:::cover{label="…" highlight="…"}` containing `# Title`, metadata paragraphs (`KEY: value`), optional `> callout`
+- `:::cover{label="..." highlight="..."}` containing `# Title`, metadata paragraphs (`KEY: value`), optional `> callout`
 - `:::section{number="01"}` containing `## Heading`, optional `> lead paragraph`
 - `:::callout{variant="info" label="LABEL"}` containing free body
-- `:::quote{by="…"}` containing free body
+- `:::quote{by="..."}` containing free body
 - `:::metadata` containing `KEY: value` paragraphs
 - `:::glossary` containing `TERM | EXPANSION | CONTEXT` paragraphs
 - `:::signatures` containing `NAME | ROLE | DESCRIPTION` paragraphs
 
 Leaf directives (`::name{attr=val}`):
 
-- `::header{left="…" right="…"}`
-- `::footer{left="…" right="…"}`
-- `::monolabel{text="…"}`
+- `::header{left="..." right="..."}`
+- `::footer{left="..." right="..."}`
+- `::monolabel{text="..."}`
 
-Standard markdown maps directly: `## Heading` → subsection, `### Heading` and
-deeper degrade to subsection. Paragraphs, ordered/unordered lists, GFM tables,
-fenced code blocks, thematic breaks, and images all round-trip.
+Standard Markdown maps directly: `## Heading` becomes a subsection, and paragraphs, lists, GFM tables, fenced code blocks, thematic breaks and images all round-trip.
 
 ## Export format
 
@@ -136,18 +142,15 @@ fenced code blocks, thematic breaks, and images all round-trip.
 - inlined CSS resolved against the active branding palette and font stack
 - Google Fonts `<link>` for the three document families
 - `@page { size: letter; margin: 0 }` and `@media print` rules
-- a `<script type="application/json" id="ohmydocs-source">` containing the full
-  document JSON, so re-import is lossless
+- a `<script type="application/json" id="ohmydocs-source">` containing the full document JSON, so re-import is lossless
 
-`exportToMarkdown` writes YAML frontmatter (`title`, `author`, `team`, `institution`, `date`)
-followed by the directive-rich body.
+`exportToMarkdown` writes YAML frontmatter (`title`, `author`, `team`, `institution`, `date`) followed by the directive-rich body. Documents can also be exported as raw JSON.
 
 ## Default templates
 
-Three read-only templates seeded in `src/features/templates/defaults.ts`:
+Three read-only templates are seeded in `src/features/templates/defaults.ts`:
 
-1. **Eternum Technical Document** — cover, sections with decorative numerals,
-   code, table, glossary, signatures, header/footer bars
+1. **Eternum Technical Document** — cover, sections with decorative numerals, code, table, glossary, signatures, header/footer bars
 2. **Eternum Brief** — prose-forward, no decorative numerals
 3. **Eternum Internal Reglament** — formal Roman-numeral sections, signatures
 
@@ -155,9 +158,7 @@ Click `Use` in the Templates panel to instantiate a new document from a template
 
 ## Branding
 
-Open the **Branding** tab in the right panel. The Eternum default profile is
-read-only; click `Clone` to make a writable copy. Nine palette tokens, three
-Google Font families. WCAG AA contrast warnings appear inline.
+Open the **Branding** tab in the right panel. The default profile is read-only; click `Clone` to make a writable copy. Each profile defines nine palette tokens and three Google Font families, with WCAG AA contrast warnings shown inline.
 
 ## Keyboard shortcuts
 
@@ -169,27 +170,26 @@ Google Font families. WCAG AA contrast warnings appear inline.
 | `cmd/ctrl+⌫` | Delete the selected block       |
 | `Esc`        | Close the add-block menu        |
 
-## Phase status
+## Status
 
-- ✅ Phase 1 — Foundation (toolchain, palette, persistence, shell)
-- ✅ Phase 2 — Core blocks (9), markdown round-trip, HTML export, sortable editor
-- ✅ Phase 3 — Remaining blocks (8), three templates, branding panel, import pipeline, sample
+- Phase 1 (Foundation): toolchain, palette, persistence, shell — complete
+- Phase 2 (Core blocks): markdown round-trip, HTML export, sortable editor — complete
+- Phase 3 (Remaining blocks): three templates, branding panel, import pipeline, sample — complete
 
 ## Limitations / deferred
 
-- **Pagination engine**: documents render as one continuous `.page`; print uses
-  CSS `page-break` only. A measurement-based engine that splits content into
-  multiple `.page` containers in the live preview is not implemented.
-- **Inline directives**: `:icon[name]` and inline `tag-pill` aren't yet exposed
-  as editor affordances; emit them by writing the directive directly in
-  paragraph content.
+- **Pagination engine**: documents render as one continuous `.page`; print uses CSS `page-break` only. A measurement-based engine that splits content into multiple `.page` containers in the live preview is not implemented.
+- **Inline directives**: `:icon[name]` and inline `tag-pill` are not yet exposed as editor affordances; emit them by writing the directive directly in paragraph content.
 - **Shiki syntax highlighting**: code blocks render plain at this time.
 - **Logo / banner upload** in branding: stubbed (palette + font swap fully working).
-- **Sample HTML**: export from the app to obtain an HTML snapshot that exactly
-  matches the runtime CSS.
+- **Sample HTML**: export from the app to obtain an HTML snapshot that exactly matches the runtime CSS.
 
 ## House rules
 
 - No em dashes in user-facing copy or generated documents (commas, colons, parentheses instead).
 - Every block consumes palette tokens; no hardcoded hex outside `lib/palette/defaults.ts` and variant accents in `callout`.
 - All external input (file imports, hydrated localStorage) is parsed through Zod.
+
+---
+
+Part of the OhMy suite: OhMyForms, OhMyDocs, OhMyMail, OhMyGrid, OhMyCharts, OhMyGantt. A family of small, focused web tools with a browser-only philosophy.
